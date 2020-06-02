@@ -1,5 +1,7 @@
 # **D**eno **M**odule **M**anager
 
+[![Build Status](https://travis-ci.com/ebebbington/dmm.svg?branch=master)](https://travis-ci.com/ebebbington/dmm)
+
 `dmm` (pronounced "Dim") is a Deno module manager. Updating your dependencies within `deps.ts` and checking if new versions are available hasn't been easier.
 
 `ddm` will read your imported/exported modules that sit inside your `deps.ts` and check them against their latest version if you ask it to, and update them if you want it to.

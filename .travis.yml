@@ -1,0 +1,14 @@
+language: minimal
+
+os:
+  - osx
+  - linux
+
+before_install:
+  - export PATH=$HOME/.deno/bin:$PATH
+
+install:
+  - curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.0.3
+
+script:
+  - deno test --allow-run
