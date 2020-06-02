@@ -147,3 +147,27 @@ export async function addLatestReleaseForModules (modules: Module[]): Promise<Mo
     }
     return modules
 }
+
+/**
+ * Main logic for purposes of this module.
+ */
+export const purposes: { [key: string]: Function } = {
+    'check': function (modules: Module[]) {
+        console.info('Comparing versions...')
+        let depsCanBeUpdated: boolean = false
+        let listOfModuleNamesToBeUpdated: string[] = []
+        modules.forEach(module => {
+            if (module.version !== module.latestRelease) {
+                depsCanBeUpdated = true
+                listOfModuleNamesToBeUpdated.push(module.name)
+                console.log(colours.yellow(module.name + ' can be updated from ' + module.version + ' to ' + module.latestRelease))
+            }
+        })
+        // Logging purposes
+        if (depsCanBeUpdated) {
+            console.info('To update, run: \n    deno run --allow-net --allow-read --allow-write https://github.com/ebebbington/dmm/mod.ts update ' + listOfModuleNamesToBeUpdated.join(" "))
+        } else {
+            console.info(colours.green('Your dependencies are up to date'))
+        }
+    },
+}
