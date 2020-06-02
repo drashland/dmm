@@ -123,3 +123,27 @@ export async function addGitHubUrlForModules (modules: Module[]): Promise<Module
     })
     return modules
 }
+
+/**
+ * @description
+ * Appends the latest releast for each module using their repo url
+ *
+ * @param {Module[]} modules
+ *
+ * @returns {Promise<Module[]>}
+ */
+export async function addLatestReleaseForModules (modules: Module[]): Promise<Module[]> {
+    for (const module of modules) {
+        // if 3rd party, go to the github repo
+        if (module.std === false) {
+            const res = await fetch(module.repo + "/releases/latest");
+            const splitUrl: string[] = res.url.split('/');
+            const latestVersion: string = splitUrl[splitUrl.length - 1];
+            module.latestRelease = latestVersion;
+        } else {
+            // when std, get it from somewhere else
+            module.latestRelease = denoStdLatestVersion
+        }
+    }
+    return modules
+}
