@@ -48,11 +48,11 @@ export * as colors from "https://deno.land/std@0.54.0/fmt/colors.ts";
 ```
 $ cd /path/to/your/project
 $ deno run https://github.com/ebebbington/dmm/mod.ts --help
-$ deno run --allow-net --allow-read https://github.com/ebebbington/dmm/mod.ts check
-$ deno run --allow-net --allow-read https://github.com/ebebbington/dmm/mod.ts check fs
-$ deno run --allow-net --allow-read https://github.com/ebebbington/dmm/mod.ts check fs http
-$ deno run --allow-net --allow-read --allow-write https://github.com/ebebbington/dmm/mod.ts update
-$ deno run --allow-net --allow-read --allow-write https://github.com/ebebbington/dmm/mod.ts update fs
-$ deno run --allow-net --allow-read --allow-write https://github.com/ebebbington/dmm/mod.ts update fs http
-$ deno run --allow-net --allow-read --allow-write https://github.com/ebebbington/dmm/mod.ts update
+$ deno run --allow-net --allow-read https://github.com/ebebbington/dmm@v1.0.0/mod.ts check
+$ deno run --allow-net --allow-read https://github.com/ebebbington/dmm@v1.0.0/mod.ts check fs
+$ deno run --allow-net --allow-read https://github.com/ebebbington/dmm@v1.0.0/mod.ts check fs http
+$ deno run --allow-net --allow-read --allow-write https://github.com/ebebbington/dmm@v1.0.0/mod.ts update
+$ deno run --allow-net --allow-read --allow-write https://github.com/ebebbington/dmm@v1.0.0/mod.ts update fs
+$ deno run --allow-net --allow-read --allow-write https://github.com/ebebbington/dmm@v1.0.0/mod.ts update fs http
+$ deno run --allow-net --allow-read --allow-write https://github.com/ebebbington/dmm@v1.0.0/mod.ts update
 ```
