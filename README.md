@@ -1,4 +1,4 @@
-# ***D***eno ***M***odule ***M***anager
+# **D**eno **M**odule **M**anager
 
 `dmm` (pronounced "Dim") is a Deno module manager. Updating your dependencies within `deps.ts` and checking if new versions are available hasn't been easier.
 
