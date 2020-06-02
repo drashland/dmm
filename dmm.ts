@@ -100,3 +100,26 @@ export function getModulesFromDepsFile (modulesForPurpose: string[], purpose: st
     })
     return modules
 }
+
+/**
+ * @description
+ * Grabs deno's database.json file and checks all the module names against their git repository
+ *
+ * @param {Module[]} modules
+ *
+ * @return {Module[]} The same passed in parameter but with a new `repo` property
+ */
+export async function addGitHubUrlForModules (modules: Module[]): Promise<Module[]> {
+    const res = await fetch("https://raw.githubusercontent.com/denoland/deno_website2/master/database.json")
+    const denoDatabase = await res.json()
+    modules.forEach(module => {
+        if (module.std === false) {
+            // 3rd party
+            module.repo = "https://github.com/" + denoDatabase[module.name].owner + "/" + denoDatabase[module.name].repo
+        } else {
+            // std
+            module.repo = "https://github.com/denoland/deno/std/" + module.name
+        }
+    })
+    return modules
+}
