@@ -4,4 +4,6 @@ import * as fs from "https://deno.land/std@0.53.0/fs/mod.ts"; // out of date
 
 import * as colors from "https://deno.land/std@0.54.0/fmt/colors.ts"; // up to date
 
+import { Drash as drash } from "https://deno.land/x/drash@v1.0.3/mod.ts" // up to date
+
 export { Drash, fs, colors }
