@@ -170,4 +170,42 @@ export const purposes: { [key: string]: Function } = {
             console.info(colours.green('Your dependencies are up to date'))
         }
     },
+    'update': function (modules: Module[]) {
+        console.info('Updating...')
+        // Read deps.ts and update the string
+        const usersWorkingDir: string = Deno.cwd()
+        let depsContent: string = decoder.decode(Deno.readFileSync(usersWorkingDir + "/deps.ts")); // no need for a try/catch. The user needs a deps.ts file
+        modules.forEach(module => {
+            if (module.std === true) {
+                // only re-write modules that need to be updated
+                if (module.version === denoStdLatestVersion) {
+                    return
+                }
+                depsContent = depsContent.replace("std@" + module.version + '/' + module.name, 'std@' + denoStdLatestVersion + "/" + module.name)
+                module.updated = true
+            } else {
+                // only re-write modules that need to be updated
+                if (module.version === module.latestRelease) {
+                    return
+                }
+                depsContent = depsContent.replace(module.name + "@" + module.version, module.name + "@" + module.latestRelease)
+                module.updated = true
+            }
+        })
+        // Re-write the file
+        Deno.writeFileSync(usersWorkingDir + "/deps.ts", new TextEncoder().encode(depsContent))
+        // Below is just for logging
+        modules.forEach(module => {
+            if (module.std === true && module.updated === true) {
+                console.info(colours.green(module.name + ' was updated from ' + module.version + ' to ' + denoStdLatestVersion))
+            } else if (module.std === false && module.updated === true) {
+                console.info(colours.green(module.name + ' was updated from ' + module.version + ' to ' + module.latestRelease))
+            }
+        })
+        // And if none were updated, add some more logging
+        const depsWereUpdated: boolean = (modules.filter(module => module.updated === true)).length >= 1
+        if (!depsWereUpdated) {
+            console.info(colours.green('Everything is already up to date'))
+        }
+    }
 }
