@@ -22,6 +22,7 @@
 * No installations required
 * Will be kept up to date and maintained consistently
 * No variants of `node_modules` and `package.json`
+* No extra configuration around import maps
 
 # How to Use
 
