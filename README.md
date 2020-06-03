@@ -15,6 +15,7 @@
 * Easy and simple to use
 * Checks dependencies for newer versions
 * Will update your dependencies for you
+* Gives information on modules
 * Accounts for 3rd party and `std` modules
 * No installations required
 * Will be kept up to date and maintained consistently
@@ -25,36 +26,53 @@
 
 Your `deps.ts` file must follow Deno's best practices and coding standards. This includes import statements using double-quotes, and 3rd party modules using a `mod.ts` as the entry point to their module.
 
-Here is an example of the structure your `deps.ts` file would follow:
-
-```
-import something from "https://deno.land/x/[module]@[version]/mod.ts";
-
-import something from "https://deno.land/std@[version]/[module]/[file].ts";
-
-export * as colors from "https://deno.land/std@[version]/fmt/colors.ts";
-```
-
 Here's an example of how your `deps.ts` file would look like:
 
 ```
-import something from "https://deno.land/x/dmm@v0.1.0/mod.ts"; // or "@0.1.0"
+import something from "https://deno.land/x/dmm@v0.1.0/mod.ts";
 
 import something from "https://deno.land/std@0.54.0/http/mod.ts";
 
 export * as colors from "https://deno.land/std@0.54.0/fmt/colors.ts";
 ```
 
-## Run
+## Help
 
 ```
 $ cd /path/to/your/project
-$ deno run https://github.com/ebebbington/dmm/mod.ts --help
-$ deno run --allow-net --allow-read https://github.com/ebebbington/dmm@v1.0.0/mod.ts check
-$ deno run --allow-net --allow-read https://github.com/ebebbington/dmm@v1.0.0/mod.ts check fs
-$ deno run --allow-net --allow-read https://github.com/ebebbington/dmm@v1.0.0/mod.ts check fs http
-$ deno run --allow-net --allow-read --allow-write https://github.com/ebebbington/dmm@v1.0.0/mod.ts update
-$ deno run --allow-net --allow-read --allow-write https://github.com/ebebbington/dmm@v1.0.0/mod.ts update fs
-$ deno run --allow-net --allow-read --allow-write https://github.com/ebebbington/dmm@v1.0.0/mod.ts update fs http
-$ deno run --allow-net --allow-read --allow-write https://github.com/ebebbington/dmm@v1.0.0/mod.ts update
+$ deno run https://deno.land/x/dmm@v1.0.0/mod.ts --help
+```
+
+## Check
+
+Checks the given module(s), or all modules in your `deps.ts`
+
+```
+// All
+$ deno run --allow-net --allow-read https://deno.land/x/dmm@v1.0.0/mod.ts check
+// One
+$ deno run --allow-net --allow-read https://deno.land/x/dmm@v1.0.0/mod.ts check fs
+// Many
+$ deno run --allow-net --allow-read https://deno.land/x/dmm@v1.0.0/mod.ts check fs http
+```
+
+## Update
+
+Updates the given module(s), or all modules in your `deps.ts`
+
+```
+// All
+$ deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.0/mod.ts update
+// One
+$ deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.0/mod.ts update fs
+// Many
+$ deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.0/mod.ts update fs http
+```
+
+## Info
+
+Provides information about a given module
+
+```
+$ deno run --allow-net https://deno.land/x/dmm@v1.0.0/mod.ts info http
 ```

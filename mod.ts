@@ -35,17 +35,6 @@ if (typeof purposes[purpose] !== 'function') {
     Deno.exit(1)
 }
 
-// Create objects for each dep, with its name and version
-let modules: Module[] = getModulesFromDepsFile(modulesForPurpose, purpose)
-
-// Get database.json so we can get the github url for the module name
-console.info('Fetching GitHub urls...')
-modules = await addGitHubUrlForModules(modules)
-
-// Get the latest version for each module
-console.info('Fetching the latest versions...')
-modules = await addLatestReleaseForModules(modules)
-
 // Run the desired purpose
-purposes[purpose](modules)
+await purposes[purpose](modulesForPurpose, purpose)
 Deno.exit()

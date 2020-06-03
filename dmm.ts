@@ -36,13 +36,20 @@ export const helpMessage: string = "\n" +
     "        Updates the specified modules to the newest version. Will update all if modules are omitted." +
     "\n" +
     "\n" +
+    "     info" +
+    "\n" +
+    "        Shows information about the given module." +
+    "\n" +
+    "\n" +
     "EXAMPLE USAGE:" +
     "\n" +
     "    Assume you are importing an out of date version of `fs` from `std`." +
     "\n" +
-    "    deno run --allow-net --allow-read https://github.com/ebebbington/dmm/mod.ts check fs" +
+    "    deno run --allow-net --allow-read https://deno.land/x/dmm@v1.0.0/mod.ts check fs" +
     "\n" +
-    "    deno run --allow-net --allow-read --allow-write https://github.com/ebebbington/dmm/mod.ts update fs" +
+    "    deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.0/mod.ts update fs" +
+    "\n" +
+    "    deno run --allow-net https://deno.land/x/dmm@v1.0.0/mod.ts info http"
     "\n"
 
 /**
@@ -54,9 +61,9 @@ export const helpMessage: string = "\n" +
  * @param {string[]} modulesForPurpose. A list the user only wants to check or update. Empty if they want every dep checked or updated
  * @param {string} purpose The users purpose, whether that be "check" or "update". Used for logging
  *
- * @returns {Module[]} The modules we need to check or update
+ * @returns {Module[]|boolean} The modules we need to check or update
  */
-export function getModulesFromDepsFile (modulesForPurpose: string[], purpose: string): Module[] {
+export function getModulesFromDepsFile (modulesForPurpose: string[], purpose: string): Module[]|false {
     // Get file content and covert each line into an item in an array
     console.info('Reading deps.ts...')
     const usersWorkingDir: string = Deno.cwd()
@@ -98,7 +105,16 @@ export function getModulesFromDepsFile (modulesForPurpose: string[], purpose: st
             console.info('Added ' + name + " into the list to " + purpose)
         }
     })
+    if (!modules.length) {
+        return false
+    }
     return modules
+}
+
+async function getDenoLandDatabase (): Promise<any> {
+    const res = await fetch("https://raw.githubusercontent.com/denoland/deno_website2/master/database.json")
+    const denoDatabase = await res.json()
+    return denoDatabase
 }
 
 /**
@@ -110,8 +126,8 @@ export function getModulesFromDepsFile (modulesForPurpose: string[], purpose: st
  * @return {Module[]} The same passed in parameter but with a new `repo` property
  */
 export async function addGitHubUrlForModules (modules: Module[]): Promise<Module[]> {
-    const res = await fetch("https://raw.githubusercontent.com/denoland/deno_website2/master/database.json")
-    const denoDatabase = await res.json()
+    console.info('Fetching GitHub urls...')
+    const denoDatabase = await getDenoLandDatabase()
     modules.forEach(module => {
         if (module.std === false) {
             // 3rd party
@@ -133,6 +149,7 @@ export async function addGitHubUrlForModules (modules: Module[]): Promise<Module
  * @returns {Promise<Module[]>}
  */
 export async function addLatestReleaseForModules (modules: Module[]): Promise<Module[]> {
+    console.info('Fetching the latest versions...')
     for (const module of modules) {
         // if 3rd party, go to the github repo
         if (module.std === false) {
@@ -152,7 +169,18 @@ export async function addLatestReleaseForModules (modules: Module[]): Promise<Mo
  * Main logic for purposes of this module.
  */
 export const purposes: { [key: string]: Function } = {
-    'check': function (modules: Module[]) {
+    'check': async function (modulesForPurpose: string[], purpose: string) {
+        // Create objects for each dep, with its name and version
+        let modules = getModulesFromDepsFile(modulesForPurpose, purpose)
+        if (modules === false) {
+            console.error(colours.red('Modules specified do not exist in your dependencies.'))
+            Deno.exit(1)
+            return
+        }
+        // Get database.json so we can get the github url for the module name
+        modules = await addGitHubUrlForModules(modules)
+        // Get the latest version for each module
+        modules = await addLatestReleaseForModules(modules)
         console.info('Comparing versions...')
         let depsCanBeUpdated: boolean = false
         let listOfModuleNamesToBeUpdated: string[] = []
@@ -170,7 +198,18 @@ export const purposes: { [key: string]: Function } = {
             console.info(colours.green('Your dependencies are up to date'))
         }
     },
-    'update': function (modules: Module[]) {
+    'update': async function (modulesForPurpose: string[], purpose: string) {
+        // Create objects for each dep, with its name and version
+        let modules = getModulesFromDepsFile(modulesForPurpose, purpose)
+        if (modules === false) {
+            console.error(colours.red('Modules specified do not exist in your dependencies.'))
+            Deno.exit(1)
+            return
+        }
+        // Get database.json so we can get the github url for the module name
+        modules = await addGitHubUrlForModules(modules)
+        // Get the latest version for each module
+        modules = await addLatestReleaseForModules(modules)
         console.info('Updating...')
         // Read deps.ts and update the string
         const usersWorkingDir: string = Deno.cwd()
@@ -207,5 +246,43 @@ export const purposes: { [key: string]: Function } = {
         if (!depsWereUpdated) {
             console.info(colours.green('Everything is already up to date'))
         }
+    },
+    'info': async function (modulesForPurpose: string[], purpose: string) {
+        const moduleToGetInfoOn = modulesForPurpose.length ? modulesForPurpose[0] : ''
+        if (moduleToGetInfoOn === '' || modulesForPurpose.length > 1) {
+            console.error(colours.red('Invalid arguments. Specify one module to get information on.'))
+            Deno.exit(1)
+        }
+        const database = await getDenoLandDatabase()
+        const stdResponse = await fetch("https://github.com/denoland/deno/tree/master/std/" + moduleToGetInfoOn)
+        const isStd = stdResponse.status === 200
+        const isThirdParty = typeof database[moduleToGetInfoOn] === 'object'
+        if (!isStd && !isThirdParty) {
+            console.error(colours.red('No module was found with ' + moduleToGetInfoOn))
+            Deno.exit(1)
+        }
+        const name = moduleToGetInfoOn;
+        let description;
+        let denoLandUrl;
+        let gitHubUrl;
+        let latestVersion;
+        if (isStd) {
+            latestVersion = denoStdLatestVersion
+            description = "Cannot retrieve descriptions for std modules"
+            denoLandUrl = "https://deno.land/std@" + denoStdLatestVersion + "/" + name
+            gitHubUrl = "https://github.com/denoland/deno/tree/master/std/" + name
+        }
+        if (isThirdParty) {
+            const databaseModule = database[moduleToGetInfoOn]
+            description = databaseModule.desc
+            gitHubUrl = "https://github.com/" + databaseModule.owner + "/" + databaseModule.repo
+            const res = await fetch(gitHubUrl + "/releases/latest");
+            const splitUrl: string[] = res.url.split('/');
+            latestVersion = splitUrl[splitUrl.length - 1];
+            denoLandUrl = "https://deno.land/x/" + name + "@" + latestVersion
+        }
+        const importLine = "import * as " + name + " from \"" + denoLandUrl + "\";"
+        console.info(colours.yellow(`\nInformation on ${name}\n\n  - Name: ${name}\n  - Description: ${description}\n  - deno.land Link: ${denoLandUrl}\n  - GitHub Repository: ${gitHubUrl}\n  - Import Statement: ${importLine}\n  - Latest Version: ${latestVersion}\n`))
+        Deno.exit()
     }
 }
