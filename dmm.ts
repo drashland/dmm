@@ -61,9 +61,9 @@ export const helpMessage: string = "\n" +
  * @param {string[]} modulesForPurpose. A list the user only wants to check or update. Empty if they want every dep checked or updated
  * @param {string} purpose The users purpose, whether that be "check" or "update". Used for logging
  *
- * @returns {Module[]} The modules we need to check or update
+ * @returns {Module[]|boolean} The modules we need to check or update
  */
-export function getModulesFromDepsFile (modulesForPurpose: string[], purpose: string): Module[] {
+export function getModulesFromDepsFile (modulesForPurpose: string[], purpose: string): Module[]|false {
     // Get file content and covert each line into an item in an array
     console.info('Reading deps.ts...')
     const usersWorkingDir: string = Deno.cwd()
@@ -105,6 +105,9 @@ export function getModulesFromDepsFile (modulesForPurpose: string[], purpose: st
             console.info('Added ' + name + " into the list to " + purpose)
         }
     })
+    if (!modules.length) {
+        return false
+    }
     return modules
 }
 
@@ -168,7 +171,12 @@ export async function addLatestReleaseForModules (modules: Module[]): Promise<Mo
 export const purposes: { [key: string]: Function } = {
     'check': async function (modulesForPurpose: string[], purpose: string) {
         // Create objects for each dep, with its name and version
-        let modules: Module[] = getModulesFromDepsFile(modulesForPurpose, purpose)
+        let modules = getModulesFromDepsFile(modulesForPurpose, purpose)
+        if (modules === false) {
+            console.error(colours.red('Modules specified do not exist in your dependencies.'))
+            Deno.exit(1)
+            return
+        }
         // Get database.json so we can get the github url for the module name
         modules = await addGitHubUrlForModules(modules)
         // Get the latest version for each module
@@ -192,7 +200,12 @@ export const purposes: { [key: string]: Function } = {
     },
     'update': async function (modulesForPurpose: string[], purpose: string) {
         // Create objects for each dep, with its name and version
-        let modules: Module[] = getModulesFromDepsFile(modulesForPurpose, purpose)
+        let modules = getModulesFromDepsFile(modulesForPurpose, purpose)
+        if (modules === false) {
+            console.error(colours.red('Modules specified do not exist in your dependencies.'))
+            Deno.exit(1)
+            return
+        }
         // Get database.json so we can get the github url for the module name
         modules = await addGitHubUrlForModules(modules)
         // Get the latest version for each module
