@@ -11,4 +11,4 @@ install:
   - curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.0.3
 
 script:
-  - deno test --allow-run
+  - deno test --allow-run --allow-read
