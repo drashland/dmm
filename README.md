@@ -76,8 +76,8 @@ There are two ways you can use this module: installing it though `deno`, or runn
 
 *Install*
 ```
-$ deno install dmm
-$ dmm <permissions> ...
+$ deno install --allow-net --allow-read --allow-write dmm
+$ dmm ...
 ```
 
 *Through the URL*
