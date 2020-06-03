@@ -115,6 +115,7 @@ export function getModulesFromDepsFile (modulesForPurpose: string[], purpose: st
  * @return {Module[]} The same passed in parameter but with a new `repo` property
  */
 export async function addGitHubUrlForModules (modules: Module[]): Promise<Module[]> {
+    console.info('Fetching GitHub urls...')
     const res = await fetch("https://raw.githubusercontent.com/denoland/deno_website2/master/database.json")
     const denoDatabase = await res.json()
     modules.forEach(module => {
@@ -138,6 +139,7 @@ export async function addGitHubUrlForModules (modules: Module[]): Promise<Module
  * @returns {Promise<Module[]>}
  */
 export async function addLatestReleaseForModules (modules: Module[]): Promise<Module[]> {
+    console.info('Fetching the latest versions...')
     for (const module of modules) {
         // if 3rd party, go to the github repo
         if (module.std === false) {
@@ -157,7 +159,13 @@ export async function addLatestReleaseForModules (modules: Module[]): Promise<Mo
  * Main logic for purposes of this module.
  */
 export const purposes: { [key: string]: Function } = {
-    'check': function (modules: Module[]) {
+    'check': async function (modulesForPurpose: string[], purpose: string) {
+        // Create objects for each dep, with its name and version
+        let modules: Module[] = getModulesFromDepsFile(modulesForPurpose, purpose)
+        // Get database.json so we can get the github url for the module name
+        modules = await addGitHubUrlForModules(modules)
+        // Get the latest version for each module
+        modules = await addLatestReleaseForModules(modules)
         console.info('Comparing versions...')
         let depsCanBeUpdated: boolean = false
         let listOfModuleNamesToBeUpdated: string[] = []
@@ -175,7 +183,13 @@ export const purposes: { [key: string]: Function } = {
             console.info(colours.green('Your dependencies are up to date'))
         }
     },
-    'update': function (modules: Module[]) {
+    'update': async function (modulesForPurpose: string[], purpose: string) {
+        // Create objects for each dep, with its name and version
+        let modules: Module[] = getModulesFromDepsFile(modulesForPurpose, purpose)
+        // Get database.json so we can get the github url for the module name
+        modules = await addGitHubUrlForModules(modules)
+        // Get the latest version for each module
+        modules = await addLatestReleaseForModules(modules)
         console.info('Updating...')
         // Read deps.ts and update the string
         const usersWorkingDir: string = Deno.cwd()
