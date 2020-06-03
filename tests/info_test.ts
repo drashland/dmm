@@ -64,3 +64,18 @@ Deno.test({
         assertEquals(status.success, false)
     }
 })
+
+Deno.test({
+    name: 'Info | Invalid Module | Should fail',
+    async fn(): Promise<void> {
+        const p = await Deno.run({
+            cmd: ["deno", "run", "--allow-net", "../../mod.ts", "info", "somethinggg"],
+            cwd: "./tests/up-to-date-deps",
+            stdout: "null"
+        })
+        const status = await p.status()
+        p.close()
+        assertEquals(status.code, 1)
+        assertEquals(status.success, false)
+    }
+})
