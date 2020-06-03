@@ -36,6 +36,11 @@ export const helpMessage: string = "\n" +
     "        Updates the specified modules to the newest version. Will update all if modules are omitted." +
     "\n" +
     "\n" +
+    "     info" +
+    "\n" +
+    "        Shows information about the given module." +
+    "\n" +
+    "\n" +
     "EXAMPLE USAGE:" +
     "\n" +
     "    Assume you are importing an out of date version of `fs` from `std`." +
