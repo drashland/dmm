@@ -74,15 +74,21 @@ export function getModulesFromDepsFile (modulesForPurpose: string[], purpose: st
     // Collate data for each module imported
     listOfDeps.forEach(dep => {
         // ignore lines that aren't importing from somewhere
-        if (dep.indexOf('from \"https://deno.land/') === -1) {
+        if (dep.indexOf('from \"https://deno.land/') === -1 || dep.indexOf('from \'https://deno.land/') === -1) {
             return
         }
         // Grab data
         const std: boolean = dep.indexOf("https://deno.land/std") >= 0
-        const url: string = dep.substring(
-            dep.lastIndexOf("from \"") + 6,
-            dep.lastIndexOf("\"")
-        )
+        const importUsesDoubleQuotes: boolean = dep.indexOf("from \"https://deno.land") !== -1
+        const url: string = importUsesDoubleQuotes === true
+            ? dep.substring(
+                dep.lastIndexOf("from \"") + 6,
+                dep.lastIndexOf("\"")
+            )
+            : dep.substring(
+                dep.lastIndexOf("from \'") + 6,
+                dep.lastIndexOf("\'")
+            )
         const version: string = std === true
             ? (dep.split('/std@')[1]).split('/')[0]
             : dep.substring(
