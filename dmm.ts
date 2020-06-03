@@ -235,6 +235,41 @@ export const purposes: { [key: string]: Function } = {
         }
     },
     'info': async function (modulesForPurpose: string[], purpose: string) {
-
+        const moduleToGetInfoOn = modulesForPurpose.length ? modulesForPurpose[0] : ''
+        if (moduleToGetInfoOn === '') {
+            console.error(colours.red('Invalid arguments. Specify a module to get information on.'))
+            Deno.exit(1)
+        }
+        const database = await getDenoLandDatabase()
+        const stdResponse = await fetch("https://github.com/denoland/deno/tree/master/std/" + moduleToGetInfoOn)
+        const isStd = stdResponse.status === 200
+        const isThirdParty = typeof database[moduleToGetInfoOn] === 'object'
+        if (!isStd && !isThirdParty) {
+            console.error(colours.red('No module was found with ' + moduleToGetInfoOn))
+            Deno.exit(1)
+        }
+        const name = moduleToGetInfoOn;
+        let description;
+        let denoLandUrl;
+        let gitHubUrl;
+        let latestVersion;
+        if (isStd) {
+            latestVersion = denoStdLatestVersion
+            description = "Cannot retrieve descriptions for std modules"
+            denoLandUrl = "https://deno.land/std@" + denoStdLatestVersion + "/" + name
+            gitHubUrl = "https://github.com/denoland/deno/tree/master/std/" + name
+        }
+        if (isThirdParty) {
+            const databaseModule = database[moduleToGetInfoOn]
+            description = databaseModule.desc
+            gitHubUrl = "https://github.com/" + databaseModule.owner + "/" + databaseModule.repo
+            const res = await fetch(gitHubUrl + "/releases/latest");
+            const splitUrl: string[] = res.url.split('/');
+            latestVersion = splitUrl[splitUrl.length - 1];
+            denoLandUrl = "https://deno.land/x/" + name + "@" + latestVersion
+        }
+        const importLine = "import * as " + name + " from \"" + denoLandUrl + "\";"
+        console.info(colours.yellow(`\nInformation on ${name}\n\n  - Name: ${name}\n  - Description: ${description}\n  - deno.land Link: ${denoLandUrl}\n  - GitHub Repository: ${gitHubUrl}\n  - Import Statement: ${importLine}\n  - Latest Version: ${latestVersion}\n`))
+        Deno.exit()
     }
 }
