@@ -18,7 +18,7 @@ export const helpMessage: string = "\n" +
     "\n" +
     "USAGE:" +
     "\n" +
-    "    deno run --allow-read --allow-net [--allow-write] https://github.com/ebebbington/dmm/mod.ts [ARGS] [MODULES]" +
+    "    deno run --allow-read --allow-net [--allow-write] https://deno.land/x/dmm@v1.0.1/mod.ts [ARGS] [MODULES]" +
     "\n" +
     "\n" +
     "ARGUMENTS:" +
