@@ -236,8 +236,8 @@ export const purposes: { [key: string]: Function } = {
     },
     'info': async function (modulesForPurpose: string[], purpose: string) {
         const moduleToGetInfoOn = modulesForPurpose.length ? modulesForPurpose[0] : ''
-        if (moduleToGetInfoOn === '') {
-            console.error(colours.red('Invalid arguments. Specify a module to get information on.'))
+        if (moduleToGetInfoOn === '' || modulesForPurpose.length > 1) {
+            console.error(colours.red('Invalid arguments. Specify one module to get information on.'))
             Deno.exit(1)
         }
         const database = await getDenoLandDatabase()
