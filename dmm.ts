@@ -74,12 +74,13 @@ export function getModulesFromDepsFile (modulesForPurpose: string[], purpose: st
     // Collate data for each module imported
     listOfDeps.forEach(dep => {
         // ignore lines that aren't importing from somewhere
-        if (dep.indexOf('from \"https://deno.land/') === -1 || dep.indexOf('from \'https://deno.land/') === -1) {
+        const importUsesDoubleQuotes: boolean = dep.indexOf("from \"https://deno.land") >= 0
+        const importUsesSingleQuotes: boolean = dep.indexOf("from \'https://deno.land") >= 0
+        if (importUsesDoubleQuotes === false && importUsesSingleQuotes === false) {
             return
         }
         // Grab data
         const std: boolean = dep.indexOf("https://deno.land/std") >= 0
-        const importUsesDoubleQuotes: boolean = dep.indexOf("from \"https://deno.land") !== -1
         const url: string = importUsesDoubleQuotes === true
             ? dep.substring(
                 dep.lastIndexOf("from \"") + 6,
@@ -89,6 +90,7 @@ export function getModulesFromDepsFile (modulesForPurpose: string[], purpose: st
                 dep.lastIndexOf("from \'") + 6,
                 dep.lastIndexOf("\'")
             )
+        console.log(url)
         const version: string = std === true
             ? (dep.split('/std@')[1]).split('/')[0]
             : dep.substring(
