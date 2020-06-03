@@ -6,8 +6,8 @@
 
 `ddm` will read your imported/exported modules that sit inside your `deps.ts` and check them against their latest version if you ask it to, and update them if you want it to.
 
-* Deno version: 1.0.3
-* Deno std version: 0.54.0
+* Deno version: 1.0.4
+* Deno std version: 0.55.0
 
 # Features
 
@@ -40,7 +40,7 @@ export * as colors from "https://deno.land/std@0.54.0/fmt/colors.ts";
 
 ```
 $ cd /path/to/your/project
-$ deno run https://deno.land/x/dmm@v1.0.0/mod.ts --help
+$ deno run https://deno.land/x/dmm@v1.0.1/mod.ts --help
 ```
 
 ## Check
@@ -49,11 +49,11 @@ Checks the given module(s), or all modules in your `deps.ts`
 
 ```
 // All
-$ deno run --allow-net --allow-read https://deno.land/x/dmm@v1.0.0/mod.ts check
+$ deno run --allow-net --allow-read https://deno.land/x/dmm@v1.0.1/mod.ts check
 // One
-$ deno run --allow-net --allow-read https://deno.land/x/dmm@v1.0.0/mod.ts check fs
+$ deno run --allow-net --allow-read https://deno.land/x/dmm@v1.0.1/mod.ts check fs
 // Many
-$ deno run --allow-net --allow-read https://deno.land/x/dmm@v1.0.0/mod.ts check fs http
+$ deno run --allow-net --allow-read https://deno.land/x/dmm@v1.0.1/mod.ts check fs http
 ```
 
 ## Update
@@ -62,11 +62,11 @@ Updates the given module(s), or all modules in your `deps.ts`
 
 ```
 // All
-$ deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.0/mod.ts update
+$ deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.1/mod.ts update
 // One
-$ deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.0/mod.ts update fs
+$ deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.1/mod.ts update fs
 // Many
-$ deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.0/mod.ts update fs http
+$ deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.1/mod.ts update fs http
 ```
 
 ## Info
@@ -74,5 +74,5 @@ $ deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.0
 Provides information about a given module
 
 ```
-$ deno run --allow-net https://deno.land/x/dmm@v1.0.0/mod.ts info http
+$ deno run --allow-net https://deno.land/x/dmm@v1.0.1/mod.ts info http
 ```

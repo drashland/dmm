@@ -4,8 +4,6 @@
 
 * Update README
 
-* Update example `deps.ts` for colours to be up to date
-
 * Update deno version in `travis.yml`
 
 * Run tests
