@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/ebebbington/dmm.svg?branch=master)](https://travis-ci.com/ebebbington/dmm)
 
-**This module was developed with avoiding certain NPM features in mind, such as: installating `npm` or packages and extra files required (no `package.json` and `node_modules`)**
+**This module was developed with avoiding certain NPM features in mind, such as: installating the manager or packages and extra files required (no `package.json` and `node_modules`)**
 
 `dmm` (pronounced "Dim") is a Deno module manager. Updating your dependencies within `deps.ts` and checking if new versions are available hasn't been easier.
 
