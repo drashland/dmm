@@ -45,9 +45,11 @@ export const helpMessage: string = "\n" +
     "\n" +
     "    Assume you are importing an out of date version of `fs` from `std`." +
     "\n" +
-    "    deno run --allow-net --allow-read https://github.com/ebebbington/dmm/mod.ts check fs" +
+    "    deno run --allow-net --allow-read https://deno.land/x/dmm@v1.0.0/mod.ts check fs" +
     "\n" +
-    "    deno run --allow-net --allow-read --allow-write https://github.com/ebebbington/dmm/mod.ts update fs" +
+    "    deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.0/mod.ts update fs" +
+    "\n" +
+    "    deno run --allow-net https://deno.land/x/dmm@v1.0.0/mod.ts info http"
     "\n"
 
 /**
@@ -106,6 +108,12 @@ export function getModulesFromDepsFile (modulesForPurpose: string[], purpose: st
     return modules
 }
 
+async function getDenoLandDatabase (): Promise<any> {
+    const res = await fetch("https://raw.githubusercontent.com/denoland/deno_website2/master/database.json")
+    const denoDatabase = await res.json()
+    return denoDatabase
+}
+
 /**
  * @description
  * Grabs deno's database.json file and checks all the module names against their git repository
@@ -116,8 +124,7 @@ export function getModulesFromDepsFile (modulesForPurpose: string[], purpose: st
  */
 export async function addGitHubUrlForModules (modules: Module[]): Promise<Module[]> {
     console.info('Fetching GitHub urls...')
-    const res = await fetch("https://raw.githubusercontent.com/denoland/deno_website2/master/database.json")
-    const denoDatabase = await res.json()
+    const denoDatabase = await getDenoLandDatabase()
     modules.forEach(module => {
         if (module.std === false) {
             // 3rd party
@@ -226,5 +233,8 @@ export const purposes: { [key: string]: Function } = {
         if (!depsWereUpdated) {
             console.info(colours.green('Everything is already up to date'))
         }
+    },
+    'info': async function (modulesForPurpose: string[], purpose: string) {
+
     }
 }
