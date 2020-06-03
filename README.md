@@ -2,11 +2,9 @@
 
 [![Build Status](https://travis-ci.com/ebebbington/dmm.svg?branch=master)](https://travis-ci.com/ebebbington/dmm)
 
-**This module was developed with avoiding certain NPM features in mind, such as: installating the manager or packages and extra files required (no `package.json` and `node_modules`)**
-
 `dmm` (pronounced "Dim") is a Deno module manager. Updating your dependencies within `deps.ts` and checking if new versions are available hasn't been easier.
 
-`ddm` will read your imported/exported modules that sit inside your `deps.ts` and check them against their latest version if you ask it to, and update them if you want it to.
+`dmm` will read your imported/exported modules that sit inside your `deps.ts` and check them against their latest version if you ask it to, and update them if you want it to.
 
 * Deno version: 1.0.4
 * Deno std version: 0.55.0
@@ -14,11 +12,14 @@
 # Contents
 
 * [Features](#features)
-* [How To Use](#how-to-use)
+* [How it Worka](#how-it-works)
+* [How to Run](#how-to-run)
+* [Commands](#commands)
     * [Help](#help)
     * [Check](#check)
     * [Update](#update)
     * [Info](#info)
+* [Example](#example)
 
 # Features
 
@@ -35,25 +36,41 @@
 
 # How it Works
 
-This module reads your `deps.ts` to determine the dependencies you use and will collate them all with extra information into a list of objects. If you pass in certain modules for your purpose, such as `dmm check fs http`, dmm will only pull tose modules.
+dmm will only read modules that reside on [deno.land](https://deno.land), whether they are 3rd party or `std` modules. As long as you are either importing then exporting a module, or only exporting a module, dmm will check that dependency.
 
-* It doesn't matter if you are exporting or importing a module from deno.land
-    ```typescript
-    // dmm will check this
+* Your dependencies must be versioned. Not versioning your dependencies is bad practice and can lead to many problems in your project, which is why dmm will not support it. For example:
+    ```
     import { red } from "https://deno.land/std@0.55.0/fmt/colors.ts";
-    // dmm will check this
-    export { red } from "https://deno.land/std@0.55.0/fmt/colors.ts";
-  
+                                              ^^^^^^^
     ```
 
-dmm will only read modules that reside on [deno.land](https://deno.land), whether they are 3rd party or `std` modules. Take the below as an example:
-```typescript
-export { red } from ""
-```
+* dmm only supports importing/exporting modules from Deno's registry: [deno.land](https://deno.land), 3rd party or `std`. For example:
+    ```
+    import { red } from "https://deno.land/std@0.55.0/fmt/colors.ts"; // supported
+    import { something } from "https://deno.land/x/something@0v1.0.0/mod.ts"; // supported
+    ```
 
-Whether it's checking, updating, or getting info on a module, dmm will grab the 
+* dmm will read your `deps.ts` and convert the dependencies into objects.
 
-# Commands
+* dmm will then retrieve the rest of the required information for later use for each module:
+    * Latest version - for 3rd party modules, it's taken from the GitHub API. For `std` modules, it's taken from `https://deno.land/std/@<latest version>/version.ts`
+    * GitHub URL - Retrieved through the GitHub API
+    
+* After this, dmm run different actions based on the purpose:
+
+    * **check**
+    
+        Will compare the version you are using of a module with the latest one
+        
+    * **update**
+        
+        If the latest version is more recent than the one you use for a given module, dmm will update the version in your `deps.ts` file
+        
+    * **info**
+    
+        Displays information about the given module using information collated at the start of the script
+
+# How to Run
 
 There are two ways you can use this module: installing it though `deno`, or running it though a URL.
 
@@ -72,21 +89,7 @@ $ deno run <permissions> https://deno.land/x/dmm@v1.0.1/mod.ts ...
 
 In the examples below, dmm is installed and we will be using it that way to make the commands easier to read.
 
-## Your `deps.ts` File
-
-dmm will read the import/export lines of a module 
-
-Your `deps.ts` file must follow Deno's best practices and coding standards. This includes import URL statements using double-quotes, and 3rd party modules using a `mod.ts` as the entry point to their module.
-
-Here's an example of how your `deps.ts` file would look like:
-
-```
-import something from "https://deno.land/x/dmm@v0.1.0/mod.ts";
-
-import something from "https://deno.land/std@0.54.0/http/mod.ts";
-
-export * as colors from "https://deno.land/std@0.54.0/fmt/colors.ts";
-```
+# Commands
 
 ## Help
 
@@ -133,3 +136,9 @@ The module given does not need to be inside your `deps.ts` file
 ```
 $ dmm info http
 ```
+
+# Example
+
+In this example, we are going to run through every step of dmm. We will be checking dependencies, updating them, and getting information about certain ones.
+
+
