@@ -4,6 +4,8 @@
 
 * Update README
 
+* Update `dmm.ts` references of dmm's version
+
 * Update deno version in `travis.yml`
 
 * Run tests
