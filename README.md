@@ -11,6 +11,15 @@
 * Deno version: 1.0.4
 * Deno std version: 0.55.0
 
+# Contents
+
+* [Features](#features)
+* [How To Use](#how-to-use)
+    * [Help](#help)
+    * [Check](#check)
+    * [Update](#update)
+    * [Info](#info)
+
 # Features
 
 * Zero dependencies
@@ -25,8 +34,6 @@
 * No extra configuration around import maps
 
 # How to Use
-
-## `deps.ts` Structure
 
 Your `deps.ts` file must follow Deno's best practices and coding standards. This includes import statements using double-quotes, and 3rd party modules using a `mod.ts` as the entry point to their module.
 
