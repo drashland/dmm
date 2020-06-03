@@ -45,7 +45,7 @@ $ deno run https://deno.land/x/dmm@v1.0.1/mod.ts --help
 
 ## Check
 
-Checks the given module(s), or all modules in your `deps.ts`
+Checks the given module(s), or all modules in your `deps.ts` for the newest versions
 
 ```
 // All
@@ -58,7 +58,7 @@ $ deno run --allow-net --allow-read https://deno.land/x/dmm@v1.0.1/mod.ts check 
 
 ## Update
 
-Updates the given module(s), or all modules in your `deps.ts`
+Updates the given module(s), or all modules in your `deps.ts` to their newest versions. Other will do nothing if all your dependencies are already up to date
 
 ```
 // All
