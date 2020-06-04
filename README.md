@@ -75,9 +75,11 @@ dmm will only read modules that reside on [deno.land](https://deno.land), whethe
 
 There are two ways you can use this module: installing it though `deno`, or running it though a URL.
 
+As dmm only needs to read and write to your `deps.ts`, as well as requiring network access for reading Deno's `database.json`, you can restrict the access this module has.
+
 *Install*
 ```
-$ deno install --allow-net --allow-read --allow-write dmm
+$ deno install --allow-net --allow-read=deps.ts --allow-write=deps.ts dmm
 $ dmm ...
 ```
 

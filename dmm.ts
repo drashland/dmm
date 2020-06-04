@@ -66,7 +66,7 @@ export const helpMessage: string = "\n" +
 export function getModulesFromDepsFile (modulesForPurpose: string[], purpose: string): Module[]|false {
     // Get file content and covert each line into an item in an array
     console.info('Reading deps.ts...')
-    const usersWorkingDir: string = Deno.cwd()
+    const usersWorkingDir: string = "."
     const depsContent: string = decoder.decode(Deno.readFileSync(usersWorkingDir + "/deps.ts")); // no need for a try/catch. The user needs a deps.ts file
     let modules: Array<Module> = []
     let listOfDeps: string[] = depsContent.split('\n')
@@ -219,7 +219,7 @@ export const purposes: { [key: string]: Function } = {
         modules = await addLatestReleaseForModules(modules)
         console.info('Updating...')
         // Read deps.ts and update the string
-        const usersWorkingDir: string = Deno.cwd()
+        const usersWorkingDir: string = "."
         let depsContent: string = decoder.decode(Deno.readFileSync(usersWorkingDir + "/deps.ts")); // no need for a try/catch. The user needs a deps.ts file
         modules.forEach(module => {
             if (module.std === true) {
