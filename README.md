@@ -49,8 +49,9 @@ dmm will only read modules that reside on [deno.land](https://deno.land), whethe
     import { red } from "https://deno.land/std@0.55.0/fmt/colors.ts"; // supported
     import { something } from "https://deno.land/x/something@0v1.0.0/mod.ts"; // supported
     ```
+* dmm will only pull 3rd party dependencies where the entrypoint file is `mod.ts`, as this follows best practice
 
-* dmm will read your `deps.ts` and convert the dependencies into objects.
+* dmm will read every `from "https://deno.land/..."` line in your `deps.ts` and using the name and version, will convert the dependencies into objects.
 
 * dmm will then retrieve the rest of the required information for later use for each module:
     * Latest version - for 3rd party modules, it's taken from using the GitHub API for Deno's `database.json` file. For `std` modules, it's taken from `https://deno.land/std/@<latest version>/version.ts`
