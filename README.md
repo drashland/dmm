@@ -12,7 +12,7 @@
 # Contents
 
 * [Features](#features)
-* [How it Worka](#how-it-works)
+* [How it Works](#how-it-works)
 * [How to Run](#how-to-run)
 * [Commands](#commands)
     * [Help](#help)
@@ -33,6 +33,7 @@
 * Will be kept up to date and maintained consistently
 * No variants of `node_modules` and `package.json`
 * No extra configuration around import maps
+* Checks `dmm` is up to date, and will provide a warning message if it isn't
 
 # How it Works
 
