@@ -90,7 +90,6 @@ export function getModulesFromDepsFile (modulesForPurpose: string[], purpose: st
                 dep.lastIndexOf("from \'") + 6,
                 dep.lastIndexOf("\'")
             )
-        console.log(url)
         const version: string = std === true
             ? (dep.split('/std@')[1]).split('/')[0]
             : dep.substring(
@@ -196,7 +195,7 @@ export const purposes: { [key: string]: Function } = {
             if (module.version !== module.latestRelease) {
                 depsCanBeUpdated = true
                 listOfModuleNamesToBeUpdated.push(module.name)
-                console.log(colours.yellow(module.name + ' can be updated from ' + module.version + ' to ' + module.latestRelease))
+                console.info(colours.yellow(module.name + ' can be updated from ' + module.version + ' to ' + module.latestRelease))
             }
         })
         // Logging purposes

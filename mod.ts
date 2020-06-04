@@ -28,9 +28,6 @@ if (wantsHelp) {
     Deno.exit()
 }
 
-console.log(purpose)
-console.log(modulesForPurpose)
-
 // Error when a supported purpose isn't found
 // Must be after the help logic because --help isn't really a supported purpose
 if (typeof purposes[purpose] !== 'function') {

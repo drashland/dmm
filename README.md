@@ -53,8 +53,9 @@ dmm will only read modules that reside on [deno.land](https://deno.land), whethe
 * dmm will read your `deps.ts` and convert the dependencies into objects.
 
 * dmm will then retrieve the rest of the required information for later use for each module:
-    * Latest version - for 3rd party modules, it's taken from the GitHub API. For `std` modules, it's taken from `https://deno.land/std/@<latest version>/version.ts`
+    * Latest version - for 3rd party modules, it's taken from using the GitHub API for Deno's `database.json` file. For `std` modules, it's taken from `https://deno.land/std/@<latest version>/version.ts`
     * GitHub URL - Retrieved through the GitHub API
+    * Description - For 3rd party modules, it is also taken from reading Deno's `database.json` file, which holds all modules that display on https://deno.land/x/
     
 * After this, dmm run different actions based on the purpose:
 
@@ -131,7 +132,7 @@ $ dmm update fs http denon
 
 Provides information about a given module. The module must sit on [deno.land](https://deno.land), regardless of whether it is an `std` or 3rd party module.
 
-The module given does not need to be inside your `deps.ts` file
+The module given does not need to be inside your `deps.ts` file, and unfortunately, there is no description for `std` modules they do not have descriptions associated anywhere.
 
 ```
 $ dmm info http
@@ -140,5 +141,91 @@ $ dmm info http
 # Example
 
 In this example, we are going to run through every step of dmm. We will be checking dependencies, updating them, and getting information about certain ones.
+
+**Step 1 - Info**
+
+Say I want to get information about the fmt module:
+
+```
+$ dmm info fmt
+
+Information on fmt
+
+  - Name: fmt
+  - Description: Cannot retrieve descriptions for std modules
+  - deno.land Link: https://deno.land/std@0.55.0/fmt
+  - GitHub Repository: https://github.com/denoland/deno/tree/master/std/fmt
+  - Import Statement: import * as fmt from "https://deno.land/std@0.55.0/fmt";
+  - Latest Version: 0.55.0
+
+```
+
+**Step 2 - Adding `fmt` as a dependency to use `colors`**
+
+Along with my current dependencies, I decided to import the `colors` sub-module of `fmt` in my `deps.ts` file:
+
+```typescript
+export { Drash } from "https://deno.land/x/drash@v1.0.0/mod.ts"; // out of date
+
+import * as fs from "https://deno.land/std@0.53.0/fs/mod.ts"; // out of date
+
+import * as colors from "https://deno.land/std@0.54.0/fmt/colors.ts"; // up to date
+
+import { Drash as drash } from "https://deno.land/x/drash@v1.0.3/mod.ts" // up to date
+
+export { drash, fs, colors }
+```
+
+Take notice of the out of date dependencies.
+
+**Step 3 - Check**
+
+Now we want to check if any of our dependencies need updating, but we don't want to update them yet.
+
+```
+$ dmm check
+...
+drash can be updated from v1.0.0 to v1.0.3
+fs can be updated from 0.53.0 to 0.55.0
+fmt can be updated from 0.54.0 to 0.55.0
+...
+```
+
+**Step 4 - Update**
+
+Lets update our dependencies as some are out of date:
+
+```
+$ dmm update
+...
+drash was updated from v1.0.0 to v1.0.3
+fs was updated from 0.53.0 to 0.55.0
+fmt was updated from 0.54.0 to 0.55.0
+...
+```
+
+Now lets check the `deps.ts` file, and you will notice the versions have been modified:
+
+```
+import { Drash } from "https://deno.land/x/drash@v1.0.3/mod.ts"; // was out of date
+
+import * as fs from "https://deno.land/std@0.55.0/fs/mod.ts"; // wasout of date
+
+import * as colors from "https://deno.land/std@0.55.0/fmt/colors.ts";
+
+import { Drash as drash } from "https://deno.land/x/drash@v1.0.3/mod.ts";
+
+export { Drash, fs, colors }
+```
+
+**Step 5 - Help**
+
+Should you need any more information, use the `--help` option:
+
+```
+$ dmm --help
+```
+
+
 
 
