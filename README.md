@@ -6,8 +6,8 @@
 
 `dmm` will read your imported/exported modules that sit inside your `deps.ts` and check them against their latest version if you ask it to, and update them if you want it to.
 
-* Deno version: 1.0.4
-* Deno std version: 0.55.0
+* Deno version: 1.0.5
+* Deno std version: 0.56.0
 
 # Contents
 
@@ -40,13 +40,13 @@ dmm will only read modules that reside on [deno.land](https://deno.land), whethe
 
 * Your dependencies must be versioned. Not versioning your dependencies is bad practice and can lead to many problems in your project, which is why dmm will not support it. For example:
     ```
-    import { red } from "https://deno.land/std@0.55.0/fmt/colors.ts";
+    import { red } from "https://deno.land/std@0.56.0/fmt/colors.ts";
                                               ^^^^^^^
     ```
 
 * dmm only supports importing/exporting modules from Deno's registry: [deno.land](https://deno.land), 3rd party or `std`. For example:
     ```
-    import { red } from "https://deno.land/std@0.55.0/fmt/colors.ts"; // supported
+    import { red } from "https://deno.land/std@0.56.0/fmt/colors.ts"; // supported
     import { something } from "https://deno.land/x/something@0v1.0.0/mod.ts"; // supported
     ```
 * dmm will only pull 3rd party dependencies where the entrypoint file is `mod.ts`, as this follows best practice
@@ -80,7 +80,7 @@ As dmm only needs to read and write to your `deps.ts`, as well as requiring netw
 
 *Install*
 ```
-$ deno install --allow-net --allow-read=deps.ts --allow-write=deps.ts dmm
+$ deno install --allow-net --allow-read=deps.ts --allow-write=deps.ts https://deno.land/x/dmm@v1.0.3/mod.ts
 $ dmm ...
 ```
 
@@ -88,7 +88,7 @@ $ dmm ...
 
 If you are using this method, be sure to use the latest version of dmm in the command below
 ```
-$ deno run <permissions> https://deno.land/x/dmm@v1.0.1/mod.ts ...
+$ deno run <permissions> https://deno.land/x/dmm@v1.0.3/mod.ts ...
 ```
 
 In the examples below, dmm is installed and we will be using it that way to make the commands easier to read.
@@ -156,10 +156,10 @@ Information on fmt
 
   - Name: fmt
   - Description: Cannot retrieve descriptions for std modules
-  - deno.land Link: https://deno.land/std@0.55.0/fmt
+  - deno.land Link: https://deno.land/std@0.56.0/fmt
   - GitHub Repository: https://github.com/denoland/deno/tree/master/std/fmt
-  - Import Statement: import * as fmt from "https://deno.land/std@0.55.0/fmt";
-  - Latest Version: 0.55.0
+  - Import Statement: import * as fmt from "https://deno.land/std@0.56.0/fmt";
+  - Latest Version: 0.56.0
 
 ```
 
@@ -172,11 +172,9 @@ export { Drash } from "https://deno.land/x/drash@v1.0.0/mod.ts"; // out of date
 
 import * as fs from "https://deno.land/std@0.53.0/fs/mod.ts"; // out of date
 
-import * as colors from "https://deno.land/std@0.54.0/fmt/colors.ts"; // up to date
+import * as colors from "https://deno.land/std@0.56.0/fmt/colors.ts"; // up to date
 
-import { Drash as drash } from "https://deno.land/x/drash@v1.0.3/mod.ts" // up to date
-
-export { drash, fs, colors }
+export { fs, colors }
 ```
 
 Take notice of the out of date dependencies.
@@ -190,7 +188,6 @@ $ dmm check
 ...
 drash can be updated from v1.0.0 to v1.0.3
 fs can be updated from 0.53.0 to 0.55.0
-fmt can be updated from 0.54.0 to 0.55.0
 ...
 ```
 
@@ -202,23 +199,20 @@ Lets update our dependencies as some are out of date:
 $ dmm update
 ...
 drash was updated from v1.0.0 to v1.0.3
-fs was updated from 0.53.0 to 0.55.0
-fmt was updated from 0.54.0 to 0.55.0
+fs was updated from 0.53.0 to 0.56.0
 ...
 ```
 
 Now lets check the `deps.ts` file, and you will notice the versions have been modified:
 
-```
-import { Drash } from "https://deno.land/x/drash@v1.0.3/mod.ts"; // was out of date
+```typescript
+export { Drash } from "https://deno.land/x/drash@v1.0.3/mod.ts"; // was out of date
 
-import * as fs from "https://deno.land/std@0.55.0/fs/mod.ts"; // wasout of date
+import * as fs from "https://deno.land/std@0.55.0/fs/mod.ts"; // was out of date
 
-import * as colors from "https://deno.land/std@0.55.0/fmt/colors.ts";
+import * as colors from "https://deno.land/std@0.56.0/fmt/colors.ts";
 
-import { Drash as drash } from "https://deno.land/x/drash@v1.0.3/mod.ts";
-
-export { Drash, fs, colors }
+export { fs, colors }
 ```
 
 **Step 5 - Help**
