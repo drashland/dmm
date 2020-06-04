@@ -12,6 +12,17 @@ export interface Module {
     updated?: boolean
 }
 
+const version = "v1.0.2"
+
+export async function checkDmmVersion () {
+    const res = await fetch("https://github.com/ebebbington/dmm/releases/latest");
+    const splitUrl: string[] = res.url.split('/');
+    const latestVersion: string = splitUrl[splitUrl.length - 1];
+    if (version !== latestVersion) {
+        console.warn(colours.yellow('dmm is currently outdated. Please update to the latest version of ' + latestVersion))
+    }
+}
+
 export const helpMessage: string = "\n" +
     "A module manager for Deno." +
     "\n" +

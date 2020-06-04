@@ -4,7 +4,8 @@ import {
     Module,
     addGitHubUrlForModules,
     addLatestReleaseForModules,
-    purposes
+    purposes,
+    checkDmmVersion
 } from "./dmm.ts";
 import { denoStdLatestVersion, colours } from "./deps.ts"
 
@@ -36,5 +37,6 @@ if (typeof purposes[purpose] !== 'function') {
 }
 
 // Run the desired purpose
+await checkDmmVersion()
 await purposes[purpose](modulesForPurpose, purpose)
 Deno.exit()
