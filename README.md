@@ -12,7 +12,7 @@
 # Contents
 
 * [Features](#features)
-* [How it Worka](#how-it-works)
+* [How it Works](#how-it-works)
 * [How to Run](#how-to-run)
 * [Commands](#commands)
     * [Help](#help)
