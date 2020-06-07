@@ -1,13 +1,9 @@
 import {
     helpMessage,
-    getModulesFromDepsFile,
-    Module,
-    addGitHubUrlForModules,
-    addLatestReleaseForModules,
     purposes,
     checkDmmVersion
 } from "./dmm.ts";
-import { denoStdLatestVersion, colours } from "./deps.ts"
+import { colours } from "./deps.ts"
 
 // Gather facts
 const args: string[] = Deno.args;
@@ -17,9 +13,7 @@ if (!args.length) {
 }
 const wantsHelp: boolean = args.filter(arg => arg === '--help').length === 1
 if (!wantsHelp) console.info('Gathering facts...')
-// const purpose: string = args[0];
-// const modulesForPurpose: string[] = (args.slice(1)).filter(arg => arg.indexOf('--') === -1)
-const purposeAndModules = args.filter(arg => arg.indexOf('--') === -1)
+const purposeAndModules: string[] = args.filter(arg => arg.indexOf('--') === -1)
 const purpose: string = purposeAndModules[0]
 const modulesForPurpose: string[] = purposeAndModules.slice(1)
 
@@ -38,5 +32,5 @@ if (typeof purposes[purpose] !== 'function') {
 
 // Run the desired purpose
 await checkDmmVersion()
-await purposes[purpose](modulesForPurpose, purpose)
+await purposes[purpose](modulesForPurpose)
 Deno.exit()
