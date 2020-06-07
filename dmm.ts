@@ -86,8 +86,8 @@ async function getDenoLandDatabase (): Promise<any> {
  *     2. Adds a the github url to each object using Deno's database.json and the modules name
  *     3. Adds the latest version to each object using the github url
  *
- * @param modulesForPurpose Specific modules instead of checking all. Leave empty if all
- * @param purpose The purpose. Purely for logging purposes, eg "check" or "update"
+ * @param {string[]} modulesForPurpose Specific modules instead of checking all. Leave empty if all
+ * @param {string} purpose The purpose. Purely for logging purposes, eg "check" or "update"
  *
  * @return {Module[]} An array of objects, with each object containing information about each module
  */
@@ -98,9 +98,6 @@ async function constructModulesDataFromDeps (modulesForPurpose: string[], purpos
         const latestVersion: string = splitUrl[splitUrl.length - 1];
         return latestVersion
     }
-
-    // TODO :: For each module, check if it uses dependencies, and if it does, check if that uses up to date deps - so we can assure updating athe users deps works (hoping a dep they use isnt running out of date stuff
-    // ...
 
     const denoDatabase = await getDenoLandDatabase()
 
