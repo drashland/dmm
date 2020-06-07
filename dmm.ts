@@ -103,14 +103,14 @@ async function constructModulesDataFromDeps (modulesForPurpose: string[], purpos
 
     // Solely read the users `deps.ts` file
     console.info('Reading deps.ts to gather your dependencies...')
-    const usersWorkingDir: string = "."
+    const usersWorkingDir: string = Deno.realPathSync(".")
     const depsContent: string = decoder.decode(Deno.readFileSync(usersWorkingDir + "/deps.ts")); // no need for a try/catch. The user needs a deps.ts file
     // Turn lines that import from a url into a nice array
     const listOfDeps: string[] = depsContent.split('\n').filter(line =>
         line.indexOf('https://deno.land') !== -1
     )
     // Collate data for each module imported
-    let modules: Array<Module> = [];
+    const modules: Array<Module> = [];
     for (const dep of listOfDeps) {
         // Get if is std, imported version, name and deno.land url from the import line
         const std: boolean = dep.indexOf("https://deno.land/std") >= 0
@@ -226,7 +226,7 @@ export const purposes: { [key: string]: Function } = {
 
         // Check for updates and rewrite `deps.ts` if needed
         console.info('Checking if your modules can be updated...')
-        const usersWorkingDir: string = "."
+        const usersWorkingDir: string = Deno.realPathSync(".")
         let depsWereUpdated = false
         let depsContent: string = decoder.decode(Deno.readFileSync(usersWorkingDir + "/deps.ts")); // no need for a try/catch. The user needs a deps.ts file
         modules.forEach(module => {
