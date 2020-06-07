@@ -7,7 +7,6 @@ Deno.test({
         const p = await Deno.run({
             cmd: ["deno", "run", "--allow-net", "--allow-read", "../../mod.ts", "check", "fs"],
             cwd: "./tests/out-of-date-deps",
-            stdout: "null"
         })
         const status = await p.status()
         const error = await p.stderr
@@ -25,7 +24,6 @@ Deno.test({
         const p = await Deno.run({
             cmd: ["deno", "run", "--allow-net", "--allow-read", "../../mod.ts", "check", "fs"],
             cwd: "./tests/up-to-date-deps",
-            stdout: "null"
         })
         const status = await p.status()
         const error = await p.stderr
@@ -44,7 +42,6 @@ Deno.test({
         const p = await Deno.run({
             cmd: ["deno", "run", "--allow-net", "--allow-read", "../../mod.ts", "check", "fs", "drash"],
             cwd: "./tests/out-of-date-deps",
-            stdout: "null"
         })
         const status = await p.status()
         const error = await p.stderr
@@ -62,7 +59,6 @@ Deno.test({
         const p = await Deno.run({
             cmd: ["deno", "run", "--allow-net", "--allow-read", "../../mod.ts", "check", "fs", "drash"],
             cwd: "./tests/up-to-date-deps",
-            stdout: "null"
         })
         const status = await p.status()
         const error = await p.stderr
@@ -80,7 +76,6 @@ Deno.test({
         const p = await Deno.run({
             cmd: ["deno", "run", "--allow-net", "--allow-read", "../../mod.ts", "check"],
             cwd: "./tests/out-of-date-deps",
-            stdout: "null"
         })
         const status = await p.status()
         const error = await p.stderr
@@ -98,7 +93,6 @@ Deno.test({
         const p = await Deno.run({
             cmd: ["deno", "run", "--allow-net", "--allow-read", "../../mod.ts", "check"],
             cwd: "./tests/up-to-date-deps",
-            stdout: "null"
         })
         const status = await p.status()
         const error = await p.stderr
@@ -115,7 +109,6 @@ Deno.test({
         const p = await Deno.run({
             cmd: ["deno", "run", "--allow-net", "--allow-read", "../../mod.ts", "check", "denon", "io"],
             cwd: "./tests/up-to-date-deps",
-            stdout: "null"
         })
         const status = await p.status()
         p.close()
