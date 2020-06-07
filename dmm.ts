@@ -14,11 +14,10 @@ const version = "v1.0.3"
 const decoder = new TextDecoder()
 
 export async function checkDmmVersion () {
-    const res = await fetch("https://github.com/drashland/dmm/releases/latest");
-    const splitUrl: string[] = res.url.split('/');
-    const latestVersion: string = splitUrl[splitUrl.length - 1];
-    if (version !== latestVersion) {
-        console.warn(colours.yellow('dmm is currently outdated. Please update to the latest version of ' + latestVersion))
+    const res = await fetch("https://api.github.com/repos/drashland/dmm/releases/latest");
+    const json = await res.json()
+    if (json.tag_name && version !== json.tag_name) {
+        console.warn(colours.yellow('A newer version (' + json.tag_name + ') of dmm has been released.'))
     }
 }
 
@@ -116,8 +115,6 @@ async function constructModulesDataFromDeps (modulesForPurpose: string[], purpos
     // Collate data for each module imported
     let modules: Array<Module> = [];
     for (const dep of listOfDeps) {
-        console.log('HEYYY')
-        console.log(dep)
         // Get if is std, imported version, name and deno.land url from the import line
         const std: boolean = dep.indexOf("https://deno.land/std") >= 0
         const denoLandURL: string = dep.substring(

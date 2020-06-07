@@ -26,7 +26,7 @@ if (wantsHelp) {
 // Error when a supported purpose isn't found
 // Must be after the help logic because --help isn't really a supported purpose
 if (typeof purposes[purpose] !== 'function') {
-    console.error(colours.red('Specify either `check` or `update`. See --help'))
+    console.error(colours.red('Specify either `check`, `info` or `update`. See --help'))
     Deno.exit(1)
 }
 
