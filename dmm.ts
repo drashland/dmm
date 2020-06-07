@@ -118,7 +118,6 @@ async function constructModulesDataFromDeps (modulesForPurpose: string[], purpos
             dep.lastIndexOf("https://deno.land/"),
             dep.lastIndexOf(".ts") + 3 // to include the `.ts`
         )
-        console.log(denoLandURL)
         const importVersionRegex = /(v)?[0-9].+[0-9].+[0-9]/g
         const importVersionRegexResult = dep.match(importVersionRegex)
         const importedVersion: string = importVersionRegexResult !== null && importVersionRegexResult.length > 0 ?
