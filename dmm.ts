@@ -125,7 +125,7 @@ async function constructModulesDataFromDeps (modulesForPurpose: string[], purpos
             ? (dep.split('/std@')[1]).split('/')[0]
             : dep.substring(
                 dep.lastIndexOf("@") + 1,
-                dep.lastIndexOf(".ts")
+                dep.lastIndexOf("/mod.ts")
             )
         const name: string = std === true
             ? (dep.split('@' + importedVersion + '/')[1]).split('/')[0]
@@ -135,7 +135,7 @@ async function constructModulesDataFromDeps (modulesForPurpose: string[], purpos
             )
 
         // Leave the module out if it isn't specified
-        if (modulesForPurpose.length && modulesForPurpose.indexOf(name) !== -1) {
+        if (modulesForPurpose.length && modulesForPurpose.indexOf(name) === -1) {
             continue
         }
 
@@ -167,7 +167,6 @@ async function constructModulesDataFromDeps (modulesForPurpose: string[], purpos
             name,
             description
         })
-        console.info('Added ' + name + " into the list to " + purpose)
     }
 
 
@@ -241,7 +240,12 @@ export const purposes: { [key: string]: Function } = {
             console.info(colours.green('Everything is already up to date'))
         }
     },
-    'info': async function (moduleToGetInfoOn: string) {
+    'info': async function (modulesForPurpose: string[]) {
+        if (modulesForPurpose.length === 0 || modulesForPurpose.length > 1) {
+            console.error(colours.red('Specify a single module to get information on. See --help'))
+            Deno.exit(1)
+        }
+        const moduleToGetInfoOn = modulesForPurpose[0]
         const purpose = 'info'
         const database = await getDenoLandDatabase()
         const stdResponse = await fetch("https://github.com/denoland/deno/tree/master/std/" + moduleToGetInfoOn)
