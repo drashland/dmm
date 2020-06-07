@@ -115,9 +115,10 @@ async function constructModulesDataFromDeps (modulesForPurpose: string[], purpos
         // Get if is std, imported version, name and deno.land url from the import line
         const std: boolean = dep.indexOf("https://deno.land/std") >= 0
         const denoLandURL: string = dep.substring(
-            dep.lastIndexOf("from ") + 5,
-            dep.lastIndexOf(".ts")
+            dep.lastIndexOf("https://deno.land/"),
+            dep.lastIndexOf(".ts") + 3 // to include the `.ts`
         )
+        console.log(denoLandURL)
         const importVersionRegex = /(v)?[0-9].+[0-9].+[0-9]/g
         const importVersionRegexResult = dep.match(importVersionRegex)
         const importedVersion: string = importVersionRegexResult !== null && importVersionRegexResult.length > 0 ?
