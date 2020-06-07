@@ -121,12 +121,22 @@ async function constructModulesDataFromDeps (modulesForPurpose: string[], purpos
             dep.lastIndexOf("from ") + 5,
             dep.lastIndexOf(".ts")
         )
-        const importedVersion: string = std === true
-            ? (dep.split('/std@')[1]).split('/')[0]
-            : dep.substring(
-                dep.lastIndexOf("@") + 1,
-                dep.lastIndexOf("/mod.ts")
-            )
+        const importVersionRegex = /(v)?[0-9].+[0-9].+[0-9]/g
+        const importVersionRegexResult = dep.match(importVersionRegex)
+        const importedVersion: string = importVersionRegexResult !== null && importVersionRegexResult.length > 0 ?
+            importVersionRegexResult[0]
+            :
+            ''
+
+        if (!importedVersion) {
+            console.error(colours.red(
+                'The following line is not versioned. To update, your dependencies must be versioned.' +
+                '\n' +
+                '    ' + dep
+            ))
+            Deno.exit(1)
+        }
+
         const name: string = std === true
             ? (dep.split('@' + importedVersion + '/')[1]).split('/')[0]
             : dep.substring(
