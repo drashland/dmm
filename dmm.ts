@@ -130,9 +130,8 @@ async function constructModulesDataFromDeps (modulesForPurpose: string[], purpos
                 dep.lastIndexOf("@") + 1,
                 dep.lastIndexOf(".ts")
             )
-        console.log('the dep: ' + dep)
         const name: string = std === true
-            ? (dep.split('@' + version + '/')[1]).split('/')[0]
+            ? (dep.split('@' + importedVersion + '/')[1]).split('/')[0]
             : dep.substring(
                 dep.lastIndexOf("/x/") + 3,
                 dep.lastIndexOf("@")
