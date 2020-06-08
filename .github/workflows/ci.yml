@@ -1,0 +1,24 @@
+name: ci
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+jobs:
+  test:
+    env:
+      DENO_VERSION: 1.0.5
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Deno
+        run: curl -fsSL https://deno.land/x/install/install.sh | sh -s $DENO_VERSION
+
+      - name: Run Tests
+        run: $HOME/.deno/bin/deno test --allow-run --allow-read
+
+      - name: Check Code FMT
+        run: $HOME/.deno/bin/deno fmt --check
