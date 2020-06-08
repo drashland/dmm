@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install Deno
-        run: curl -fsSL https://deno.land/x/install/install.sh | sh -s $DENO_VERSION
+        run: curl -fsSL https://deno.land/x/install/install.sh | sh -s v$DENO_VERSION
 
       - name: Unit
         run: $HOME/.deno/bin/deno test --allow-run --allow-read
@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install Deno
-        run: curl -fsSL https://deno.land/x/install/install.sh | sh -s $DENO_VERSION
+        run: curl -fsSL https://deno.land/x/install/install.sh | sh -s v$DENO_VERSION
         
       - name: Check Code FMT
         run: $HOME/.deno/bin/deno fmt --check
