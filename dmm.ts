@@ -92,14 +92,31 @@ async function getDenoLandDatabase (): Promise<any> {
  * @return {Module[]} An array of objects, with each object containing information about each module
  */
 async function constructModulesDataFromDeps (modulesForPurpose: string[], purpose: string): Promise<Module[]|boolean> {
-    async function getLatestReleaseOfGitHubRepo (githubURL: string): Promise<string> {
-        const res = await fetch(githubURL + "/releases/latest");
-        const splitUrl: string[] = res.url.split('/');
-        const latestVersion: string = splitUrl[splitUrl.length - 1];
+    const denoDatabase = await getDenoLandDatabase()
+
+    async function getLatestReleaseOfGitHubRepo (isStd: boolean, importedVersion: string, name: string): Promise<string> {
+        let latestVersion: string = ''
+
+        if (isStd) {
+            latestVersion = denoStdLatestVersion
+        } else {
+            const owner = denoDatabase[name].owner
+            const repo = denoDatabase[name].repo
+            const res = await fetch("https://api.github.com/repos/" + owner + "/" + repo + "/releases/latest");
+            const json = await res.json()
+            latestVersion = json.tag_name
+        }
+
+        // If imported version has a `v` and the latest version doesn't then standardise the latest version
+        if (importedVersion.indexOf('v') === 0 && latestVersion.indexOf('v') === -1) {
+            latestVersion = "v" + latestVersion
+        }
+        // if imported version has no `v` but latest release does then strip it
+        if (importedVersion.indexOf('v') === -1 && latestVersion.indexOf('v') === 0) {
+            latestVersion = latestVersion.substring(1)
+        }
         return latestVersion
     }
-
-    const denoDatabase = await getDenoLandDatabase()
 
     // Solely read the users `deps.ts` file
     console.info('Reading deps.ts to gather your dependencies...')
@@ -152,11 +169,8 @@ async function constructModulesDataFromDeps (modulesForPurpose: string[], purpos
             :
             "https://github.com/" + denoDatabase[name].owner + "/" + denoDatabase[name].repo
 
-        // Get the latest release
-        const latestRelease: string = std === true ?
-            denoStdLatestVersion
-            :
-            await getLatestReleaseOfGitHubRepo(githubURL)
+        // Get the latest release - make sure the string is the same format as imported version eg using a "v"
+        const latestRelease: string = await getLatestReleaseOfGitHubRepo(std, importedVersion, name)
 
         // Get the description
         const description: string = std === false ?
