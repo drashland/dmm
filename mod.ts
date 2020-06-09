@@ -31,6 +31,6 @@ if (typeof purposes[purpose] !== 'function') {
 }
 
 // Run the desired purpose
-await checkDmmVersion()
+//await checkDmmVersion()
 await purposes[purpose](modulesForPurpose)
 Deno.exit()

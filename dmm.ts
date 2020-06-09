@@ -10,16 +10,16 @@ interface Module {
     description: string
 }
 
-const version = "v1.0.5"
+//const version = "v1.0.5"
 const decoder = new TextDecoder()
 
-export async function checkDmmVersion () {
-    const res = await fetch("https://api.github.com/repos/drashland/dmm/releases/latest");
-    const json = await res.json()
-    if (json.tag_name && version !== json.tag_name) {
-        console.warn(colours.yellow('A newer version (' + json.tag_name + ') of dmm has been released.'))
-    }
-}
+// export async function checkDmmVersion () {
+//     const res = await fetch("https://api.github.com/repos/drashland/dmm/releases/latest");
+//     const json = await res.json()
+//     if (json.tag_name && version !== json.tag_name) {
+//         console.warn(colours.yellow('A newer version (' + json.tag_name + ') of dmm has been released.'))
+//     }
+// }
 
 export const helpMessage: string = "\n" +
     "A module manager for Deno." +
