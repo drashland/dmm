@@ -1,7 +1,6 @@
 import {
   helpMessage,
   purposes,
-  checkDmmVersion,
 } from "./dmm.ts";
 import { colours } from "./deps.ts";
 
