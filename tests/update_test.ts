@@ -1,5 +1,5 @@
 // Update a specific dep that can be updated
-import {assertEquals} from "../deps.ts";
+import { assertEquals } from "../deps.ts";
 
 // Deno.test({
 //     name: 'Update | Single | Modules to Update Exist',
