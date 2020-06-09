@@ -21,8 +21,6 @@ Deno.test({
       stderr: "piped",
     });
     const status = await p.status();
-    assertEquals(status.code, 0);
-    assertEquals(status.success, true);
     const output = await p.output();
     await p.close();
     const stdout = new TextDecoder("utf-8").decode(output);
@@ -39,6 +37,8 @@ Deno.test({
         "\n",
     );
     assertEquals(stderr, "");
+    assertEquals(status.code, 0);
+    assertEquals(status.success, true);
   },
 });
 
@@ -64,8 +64,6 @@ Deno.test({
     });
     const status = await p.status();
     p.close();
-    assertEquals(status.code, 0);
-    assertEquals(status.success, true);
     const output = await p.output();
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
@@ -78,6 +76,8 @@ Deno.test({
         colours.green("Your dependencies are up to date") + "\n",
     );
     assertEquals(stderr, "");
+    assertEquals(status.code, 0);
+    assertEquals(status.success, true);
   },
 });
 
@@ -104,8 +104,6 @@ Deno.test({
     });
     const status = await p.status();
     p.close();
-    assertEquals(status.code, 0);
-    assertEquals(status.success, true);
     const output = await p.output();
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
@@ -122,6 +120,8 @@ Deno.test({
         "\n",
     );
     assertEquals(stderr, "");
+    assertEquals(status.code, 0);
+    assertEquals(status.success, true);
   },
 });
 
@@ -148,8 +148,6 @@ Deno.test({
     });
     const status = await p.status();
     p.close();
-    assertEquals(status.code, 0);
-    assertEquals(status.success, true);
     const output = await p.output();
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
@@ -162,6 +160,8 @@ Deno.test({
         colours.green("Your dependencies are up to date") + "\n",
     );
     assertEquals(stderr, "");
+    assertEquals(status.code, 0);
+    assertEquals(status.success, true);
   },
 });
 
@@ -186,8 +186,6 @@ Deno.test({
     });
     const status = await p.status();
     p.close();
-    assertEquals(status.code, 0);
-    assertEquals(status.success, true);
     const output = await p.output();
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
@@ -205,6 +203,8 @@ Deno.test({
         "\n",
     );
     assertEquals(stderr, "");
+    assertEquals(status.code, 0);
+    assertEquals(status.success, true);
   },
 });
 
@@ -229,8 +229,6 @@ Deno.test({
     });
     const status = await p.status();
     p.close();
-    assertEquals(status.code, 0);
-    assertEquals(status.success, true);
     const output = await p.output();
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
@@ -243,6 +241,8 @@ Deno.test({
         colours.green("Your dependencies are up to date") + "\n",
     );
     assertEquals(stderr, "");
+    assertEquals(status.code, 0);
+    assertEquals(status.success, true);
   },
 });
 
@@ -268,8 +268,6 @@ Deno.test({
     });
     const status = await p.status();
     p.close();
-    assertEquals(status.code, 1);
-    assertEquals(status.success, false);
     const output = await p.output();
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
@@ -284,6 +282,8 @@ Deno.test({
       colours.red("Modules specified do not exist in your dependencies.") +
         "\n",
     );
+    assertEquals(status.code, 1);
+    assertEquals(status.success, false);
   },
 });
 
@@ -308,8 +308,6 @@ Deno.test({
     });
     const status = await p.status();
     p.close();
-    assertEquals(status.code, 1);
-    assertEquals(status.success, false);
     const output = await p.output();
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
@@ -324,6 +322,8 @@ Deno.test({
       colours.red("Modules specified do not exist in your dependencies.") +
         "\n",
     );
+    assertEquals(status.code, 1);
+    assertEquals(status.success, false);
   },
 });
 
@@ -348,8 +348,6 @@ Deno.test({
     });
     const status = await p.status();
     p.close();
-    assertEquals(status.code, 1);
-    assertEquals(status.success, false);
     const output = await p.output();
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
@@ -364,5 +362,7 @@ Deno.test({
       colours.red("Modules specified do not exist in your dependencies.") +
         "\n",
     );
+    assertEquals(status.code, 1);
+    assertEquals(status.success, false);
   },
 });

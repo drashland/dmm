@@ -11,8 +11,6 @@ Deno.test({
       stderr: "piped",
     });
     const status = await p.status();
-    assertEquals(status.code, 1);
-    assertEquals(status.success, false);
     const output = await p.output();
     await p.close();
     const stdout = new TextDecoder("utf-8").decode(output);
@@ -24,6 +22,8 @@ Deno.test({
       colours.red("Specify a single module to get information on. See --help") +
         "\n",
     );
+    assertEquals(status.code, 1);
+    assertEquals(status.success, false);
   },
 });
 
@@ -38,8 +38,6 @@ Deno.test({
       stderr: "piped",
     });
     const status = await p.status();
-    assertEquals(status.code, 0);
-    assertEquals(status.success, true);
     const output = await p.output();
     await p.close();
     const stdout = new TextDecoder("utf-8").decode(output);
@@ -60,6 +58,8 @@ Deno.test({
         "\n",
     );
     assertEquals(stderr, "");
+    assertEquals(status.code, 0);
+    assertEquals(status.success, true);
   },
 });
 
@@ -74,8 +74,6 @@ Deno.test({
       stderr: "piped",
     });
     const status = await p.status();
-    assertEquals(status.code, 0);
-    assertEquals(status.success, true);
     const output = await p.output();
     await p.close();
     const stdout = new TextDecoder("utf-8").decode(output);
@@ -96,6 +94,8 @@ Deno.test({
         "\n",
     );
     assertEquals(stderr, "");
+    assertEquals(status.code, 0);
+    assertEquals(status.success, true);
   },
 });
 
@@ -118,8 +118,6 @@ Deno.test({
       stderr: "piped",
     });
     const status = await p.status();
-    assertEquals(status.code, 1);
-    assertEquals(status.success, false);
     const output = await p.output();
     await p.close();
     const stdout = new TextDecoder("utf-8").decode(output);
@@ -131,6 +129,8 @@ Deno.test({
       colours.red("Specify a single module to get information on. See --help") +
         "\n",
     );
+    assertEquals(status.code, 1);
+    assertEquals(status.success, false);
   },
 });
 
@@ -151,8 +151,6 @@ Deno.test({
       stderr: "piped",
     });
     const status = await p.status();
-    assertEquals(status.code, 1);
-    assertEquals(status.success, false);
     const output = await p.output();
     await p.close();
     const stdout = new TextDecoder("utf-8").decode(output);
@@ -163,5 +161,7 @@ Deno.test({
       stderr,
       colours.red("No module was found with somethinggg") + "\n",
     );
+    assertEquals(status.code, 1);
+    assertEquals(status.success, false);
   },
 });

@@ -10,8 +10,6 @@ Deno.test({
       stderr: "piped",
     });
     const status = await p.status();
-    assertEquals(status.code, 1);
-    assertEquals(status.success, false);
     const output = await p.output();
     await p.close();
     const stdout = new TextDecoder("utf-8").decode(output);
@@ -19,6 +17,8 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(stdout, "");
     assertEquals(stderr, colours.red("Invalid arguments. See --help") + "\n");
+    assertEquals(status.code, 1);
+    assertEquals(status.success, false);
   },
 });
 
@@ -39,8 +39,6 @@ Deno.test({
       stderr: "piped",
     });
     const status = await p.status();
-    assertEquals(status.code, 1);
-    assertEquals(status.success, false);
     const output = await p.output();
     await p.close();
     const stdout = new TextDecoder("utf-8").decode(output);
@@ -52,5 +50,7 @@ Deno.test({
       colours.red("Specify either `check`, `info` or `update`. See --help") +
         "\n",
     );
+    assertEquals(status.code, 1);
+    assertEquals(status.success, false);
   },
 });

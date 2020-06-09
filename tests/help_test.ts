@@ -10,8 +10,6 @@ Deno.test({
       stderr: "piped",
     });
     const status = await p.status();
-    assertEquals(status.code, 0);
-    assertEquals(status.success, true);
     const output = await p.output();
     await p.close();
     const stdout = new TextDecoder("utf-8").decode(output);
@@ -48,5 +46,7 @@ Deno.test({
         "\n",
     );
     assertEquals(stderr, "");
+    assertEquals(status.code, 0);
+    assertEquals(status.success, true);
   },
 });
