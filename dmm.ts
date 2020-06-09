@@ -50,7 +50,7 @@ export const helpMessage: string = "\n" +
     "\n" +
     "     info" +
     "\n" +
-    "        Shows information about the given module." +
+    "        Shows information about the given module, be it std or 3rd party. The 3rd party module must be referenced at https://deno.land/x/" +
     "\n" +
     "\n" +
     "EXAMPLE USAGE:" +
@@ -297,7 +297,11 @@ export const purposes: { [key: string]: Function } = {
             denoLandUrl = "https://deno.land/x/" + name + "@" + latestVersion
         }
         const importLine = "import * as " + name + " from \"" + denoLandUrl + "\";"
-        console.info(colours.yellow(`\nInformation on ${name}\n\n  - Name: ${name}\n  - Description: ${description}\n  - deno.land Link: ${denoLandUrl}\n  - GitHub Repository: ${gitHubUrl}\n  - Import Statement: ${importLine}\n  - Latest Version: ${latestVersion}\n`))
+        console.info(
+            '\n' +
+            `Information on ${name}\n\n  - Name: ${name}\n  - Description: ${description}\n  - deno.land Link: ${denoLandUrl}\n  - GitHub Repository: ${gitHubUrl}\n  - Import Statement: ${importLine}\n  - Latest Version: ${latestVersion}` +
+            '\n'
+        )
         Deno.exit()
     }
 }
