@@ -1,6 +1,6 @@
 # **D**eno **M**odule **M**anager
 
-[![Build Status](https://travis-ci.com/ebebbington/dmm.svg?branch=master)](https://travis-ci.com/ebebbington/dmm)
+![master](https://github.com/drashland/dmm/workflows/master/badge.svg?branch=master)
 
 `dmm` (pronounced "Dim") is a Deno module manager. Updating your dependencies within `deps.ts` and checking if new versions are available hasn't been easier.
 
@@ -81,7 +81,7 @@ As dmm only needs to read and write to your `deps.ts`, as well as requiring netw
 
 *Install*
 ```
-$ deno install --allow-net --allow-read=deps.ts --allow-write=deps.ts https://deno.land/x/dmm@v1.0.3/mod.ts
+$ deno install --allow-net --allow-read=deps.ts --allow-write=deps.ts https://deno.land/x/dmm@v1.0.5/mod.ts
 $ dmm ...
 ```
 
@@ -89,7 +89,7 @@ $ dmm ...
 
 If you are using this method, be sure to use the latest version of dmm in the command below
 ```
-$ deno run <permissions> https://deno.land/x/dmm@v1.0.3/mod.ts ...
+$ deno run <permissions> https://deno.land/x/dmm@v1.0.5/mod.ts ...
 ```
 
 In the examples below, dmm is installed and we will be using it that way to make the commands easier to read.
@@ -187,8 +187,8 @@ Now we want to check if any of our dependencies need updating, but we don't want
 ```
 $ dmm check
 ...
-drash can be updated from v1.0.0 to v1.0.3
-fs can be updated from 0.53.0 to 0.55.0
+drash can be updated from v1.0.0 to v1.0.5
+fs can be updated from 0.53.0 to 0.56.0
 ...
 ```
 
@@ -199,7 +199,7 @@ Lets update our dependencies as some are out of date:
 ```
 $ dmm update
 ...
-drash was updated from v1.0.0 to v1.0.3
+drash was updated from v1.0.0 to v1.0.5
 fs was updated from 0.53.0 to 0.56.0
 ...
 ```
@@ -207,9 +207,9 @@ fs was updated from 0.53.0 to 0.56.0
 Now lets check the `deps.ts` file, and you will notice the versions have been modified:
 
 ```typescript
-export { Drash } from "https://deno.land/x/drash@v1.0.3/mod.ts"; // was out of date
+export { Drash } from "https://deno.land/x/drash@v1.0.5/mod.ts"; // was out of date
 
-import * as fs from "https://deno.land/std@0.55.0/fs/mod.ts"; // was out of date
+import * as fs from "https://deno.land/std@0.56.0/fs/mod.ts"; // was out of date
 
 import * as colors from "https://deno.land/std@0.56.0/fmt/colors.ts";
 

@@ -10,7 +10,7 @@ interface Module {
     description: string
 }
 
-const version = "v1.0.3"
+const version = "v1.0.5"
 const decoder = new TextDecoder()
 
 export async function checkDmmVersion () {
