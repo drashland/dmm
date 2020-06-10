@@ -112,11 +112,12 @@ async function constructModulesDataFromDeps(
       const owner = denoDatabase[name].owner;
       const repo = denoDatabase[name].repo;
       const res = await fetch(
-        "https://api.github.com/repos/" + owner + "/" + repo +
-          "/releases/latest",
+        "https://github.com/" + owner + "/" + repo + "/releases/latest",
       );
-      const json = await res.json();
-      latestVersion = json.tag_name;
+      const url = res.url;
+      const urlSplit = url.split("/");
+      const latestRelease = urlSplit[urlSplit.length - 1];
+      return latestRelease;
     }
 
     // If imported version has a `v` and the latest version doesn't then standardise the latest version
