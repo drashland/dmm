@@ -22,7 +22,9 @@ jobs:
           deno-version: ${{ matrix.deno }}
 
       - name: Unit
-        run: deno test --allow-run --allow-read
+        run: |
+          deno cache mod.ts
+          deno test --allow-run --allow-read
   linting:
     strategy:
       matrix:
