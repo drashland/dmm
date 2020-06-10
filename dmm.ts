@@ -140,26 +140,32 @@ async function constructModulesDataFromDeps(
   const depsContent: string = decoder.decode(
     Deno.readFileSync(usersWorkingDir + "/deps.ts"),
   ); // no need for a try/catch. The user needs a deps.ts file
+
   // Turn lines that import from a url into a nice array
   const listOfDeps: string[] = depsContent.split("\n").filter((line) =>
     line.indexOf("https://deno.land") !== -1
   );
+
   // Collate data for each module imported
   const modules: Array<Module> = [];
   for (const dep of listOfDeps) {
-    // Get if is std, imported version, name and deno.land url from the import line
+
+    // Get if is std
     const std: boolean = dep.indexOf("https://deno.land/std") >= 0;
+
+    // Get deno land URL
     const denoLandURL: string = dep.substring(
       dep.lastIndexOf("https://deno.land/"),
       dep.lastIndexOf(".ts") + 3, // to include the `.ts`
     );
+
+    // Get the imported version
     const importVersionRegex = /(v)?[0-9].+[0-9].+[0-9]/g;
     const importVersionRegexResult = dep.match(importVersionRegex);
     const importedVersion: string =
       importVersionRegexResult !== null && importVersionRegexResult.length > 0
         ? importVersionRegexResult[0]
         : "";
-
     if (!importedVersion) {
       console.error(colours.red(
         "The following line is not versioned. To update, your dependencies must be versioned." +
@@ -169,6 +175,7 @@ async function constructModulesDataFromDeps(
       Deno.exit(1);
     }
 
+    // Get the module name
     const name: string = std === true
       ? (dep.split("@" + importedVersion + "/")[1]).split("/")[0]
       : dep.substring(

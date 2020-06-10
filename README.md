@@ -15,6 +15,8 @@
 * [Quick Start](#quick-start)
 * [Example](#example)
 * [How it Works](#how-it-works)
+* [Contributing](#contributing)
+* [License](#license)
 
 # Features
 
@@ -196,3 +198,12 @@ dmm will only read modules that reside on [deno.land](https://deno.land), whethe
     * **info**
     
         Displays information about the given module using information collated at the start of the script
+        
+## Contributing
+
+Contributors are welcomed!
+
+Please read through our [contributing guidelines](./.github/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
+
+## License
+By contributing your code, you agree to license your contribution under the [MIT License](./LICENSE).
