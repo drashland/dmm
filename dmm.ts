@@ -116,6 +116,9 @@ async function constructModulesDataFromDeps(
           "/releases/latest",
       );
       const json = await res.json();
+      if (!json.tag_name) {
+        console.error(json)
+      }
       latestVersion = json.tag_name;
     }
 
