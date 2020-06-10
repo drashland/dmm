@@ -149,7 +149,6 @@ async function constructModulesDataFromDeps(
   // Collate data for each module imported
   const modules: Array<Module> = [];
   for (const dep of listOfDeps) {
-
     // Get if is std
     const std: boolean = dep.indexOf("https://deno.land/std") >= 0;
 
