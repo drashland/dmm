@@ -15,6 +15,7 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
+    assertEquals(stderr, "");
     assertEquals(
       stdout,
       "\n" +
@@ -45,7 +46,6 @@ Deno.test({
         "    dmm info http\n" +
         "\n",
     );
-    assertEquals(stderr, "");
     assertEquals(status.code, 0);
     assertEquals(status.success, true);
   },

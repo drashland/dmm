@@ -24,7 +24,7 @@ jobs:
       - name: Unit
         run: |
           deno cache mod.ts
-          deno test --allow-run --allow-read
+          deno test --allow-read --allow-run --allow-net
   linting:
     strategy:
       matrix:

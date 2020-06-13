@@ -39,7 +39,7 @@ As dmm only needs to read and write to your `deps.ts`, as well as requiring netw
 
 *Install*
 ```
-$ deno install --allow-net --allow-read=deps.ts --allow-write=deps.ts https://deno.land/x/dmm@v1.0.5/mod.ts
+$ deno install --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.5/mod.ts
 $ dmm ...
 ```
 
