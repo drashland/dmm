@@ -2,16 +2,16 @@ import { colours } from "../../deps.ts";
 import Module from "../interfaces/module.ts";
 import { constructModulesDataFromDeps } from "../utils.ts";
 
-export async function check (dependencies: string[]): Promise<void> {
+export async function check(dependencies: string[]): Promise<void> {
   // Create objects for each dep, with its name and version
   const modules = await constructModulesDataFromDeps(
-      dependencies,
-      "check",
+    dependencies,
+    "check",
   );
 
   if (modules === false || typeof modules === "boolean") {
     console.error(
-        colours.red("Modules specified do not exist in your dependencies."),
+      colours.red("Modules specified do not exist in your dependencies."),
     );
     Deno.exit(1);
     return;
@@ -26,17 +26,17 @@ export async function check (dependencies: string[]): Promise<void> {
       depsCanBeUpdated = true;
       listOfModuleNamesToBeUpdated.push(module.name);
       console.info(
-          colours.yellow(
-              module.name + " can be updated from " + module.importedVersion +
-              " to " + module.latestRelease,
-          ),
+        colours.yellow(
+          module.name + " can be updated from " + module.importedVersion +
+            " to " + module.latestRelease,
+        ),
       );
     }
   });
   // Logging purposes
   if (depsCanBeUpdated) {
     console.info(
-        "To update, run: \n    dmm update " +
+      "To update, run: \n    dmm update " +
         listOfModuleNamesToBeUpdated.join(" "),
     );
   } else {

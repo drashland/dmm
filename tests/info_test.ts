@@ -4,6 +4,7 @@ import { latestStdRelease } from "../src/utils.ts";
 // Check a specific dep that can be updated
 Deno.test({
   name: "Info | Module Omitted | Should fail",
+
   //ignore: true,
   async fn(): Promise<void> {
     const p = await Deno.run({
@@ -32,6 +33,7 @@ Deno.test({
 // Check a specific dep that is already up to date
 Deno.test({
   name: "Info | 3rd Party Module | Should pass",
+
   //ignore: true,
   async fn(): Promise<void> {
     const p = await Deno.run({
@@ -69,6 +71,7 @@ Deno.test({
 // Check a list of deps that can be updated
 Deno.test({
   name: "Info | std Module | Should pass",
+
   //ignore: true,
   async fn(): Promise<void> {
     const p = await Deno.run({
@@ -106,6 +109,7 @@ Deno.test({
 // Check a list of deps that are already up to date
 Deno.test({
   name: "Info | Multiple Modules | Should fail",
+
   //ignore: true,
   async fn(): Promise<void> {
     const p = await Deno.run({
@@ -141,6 +145,7 @@ Deno.test({
 
 Deno.test({
   name: "Info | Invalid Module | Should fail",
+
   //ignore: true,
   async fn(): Promise<void> {
     const p = await Deno.run({

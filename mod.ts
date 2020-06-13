@@ -4,16 +4,19 @@ import { info } from "./src/commands/info.ts";
 import { check } from "./src/commands/check.ts";
 import { update } from "./src/commands/update.ts";
 
-async function run (purpose: string, modulesForPurpose: string[]): Promise<void> {
+async function run(
+  purpose: string,
+  modulesForPurpose: string[],
+): Promise<void> {
   if (purpose === "check") {
-    await check(modulesForPurpose)
+    await check(modulesForPurpose);
   } else if (purpose === "info") {
-    await info(modulesForPurpose)
+    await info(modulesForPurpose);
   } else if (purpose === "update") {
-    await update(modulesForPurpose)
+    await update(modulesForPurpose);
   } else {
     console.error(
-        colours.red("Specify either `check`, `info` or `update`. See --help"),
+      colours.red("Specify either `check`, `info` or `update`. See --help"),
     );
     Deno.exit(1);
   }
@@ -41,4 +44,4 @@ const purposeAndModules: string[] = args.filter((arg) =>
 const purpose: string = purposeAndModules[0];
 const modulesForPurpose: string[] = purposeAndModules.slice(1);
 
-await run(purpose, modulesForPurpose)
+await run(purpose, modulesForPurpose);
