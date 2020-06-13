@@ -1,12 +1,10 @@
 # Upgrading Deno
 
-* Update the version import in `deps.ts`
-
 * Update README
 
-* Update `dmm.ts` references of dmm's version
+* Update deno version in `.github/workflows/master.yml`
 
-* Update deno version in `travis.yml`
+* Update the help message in `dmm.ts`
 
 * Run tests
 

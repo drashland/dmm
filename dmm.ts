@@ -27,7 +27,7 @@ export const helpMessage: string = "\n" +
   "\n" +
   "USAGE:" +
   "\n" +
-  "    deno run --allow-read --allow-net [--allow-write] https://deno.land/x/dmm@v1.0.3/mod.ts [ARGS] [MODULES]" +
+  "    deno run --allow-read --allow-net [--allow-write] https://deno.land/x/dmm@v1.0.6/mod.ts [ARGS] [MODULES]" +
   "\n" +
   "\n" +
   "    dmm [ARGS] [MODULES]" +
@@ -57,11 +57,11 @@ export const helpMessage: string = "\n" +
   "\n" +
   "    Assume you are importing an out of date version of `fs` from `std`." +
   "\n" +
-  "    deno run --allow-net --allow-read https://deno.land/x/dmm@v1.0.3/mod.ts check fs" +
+  "    deno run --allow-net --allow-read https://deno.land/x/dmm@v1.0.6/mod.ts check fs" +
   "\n" +
-  "    deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.3/mod.ts update fs" +
+  "    deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.6/mod.ts update fs" +
   "\n" +
-  "    deno run --allow-net https://deno.land/x/dmm@v1.0.3/mod.ts info http" +
+  "    deno run --allow-net https://deno.land/x/dmm@v1.0.6/mod.ts info http" +
   "\n" +
   "    dmm info http" +
   "\n";
