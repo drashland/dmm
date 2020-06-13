@@ -87,10 +87,10 @@ Deno.test({
         "\n" +
         "  - Name: fs\n" +
         "  - Description: Cannot retrieve descriptions for std modules\n" +
-        "  - deno.land Link: https://deno.land/std@0.56.0/fs\n" +
+        "  - deno.land Link: https://deno.land/std@0.57.0/fs\n" +
         "  - GitHub Repository: https://github.com/denoland/deno/tree/master/std/fs\n" +
-        '  - Import Statement: import * as fs from \"https://deno.land/std@0.56.0/fs\";\n' +
-        "  - Latest Version: 0.56.0\n" +
+        '  - Import Statement: import * as fs from \"https://deno.land/std@0.57.0/fs\";\n' +
+        "  - Latest Version: 0.57.0\n" +
         "\n",
     );
     assertEquals(stderr, "");

@@ -1,4 +1,4 @@
-import { denoStdLatestVersion, colours } from "./deps.ts";
+import { colours } from "./deps.ts";
 
 interface Module {
   std: boolean;
@@ -80,6 +80,13 @@ async function getDenoLandDatabase(): Promise<any> {
   return denoDatabase;
 }
 
+async function getStdLatestVersion (): Promise<string> {
+  const res = await fetch("https://raw.githubusercontent.com/denoland/deno_website2/master/deno_std_versions.json")
+  const versions = await res.json()
+  const latestVersion = versions[0]
+  return latestVersion
+}
+
 /**
  * @description
  * Constructs the object representations for the users modules, that contains all the information about those modules,
@@ -98,6 +105,7 @@ async function constructModulesDataFromDeps(
   purpose: string,
 ): Promise<Module[] | boolean> {
   const denoDatabase = await getDenoLandDatabase();
+  const latestStdVersion = await getStdLatestVersion()
 
   async function getLatestReleaseOfGitHubRepo(
     isStd: boolean,
@@ -107,7 +115,7 @@ async function constructModulesDataFromDeps(
     let latestVersion: string = "";
 
     if (isStd) {
-      latestVersion = denoStdLatestVersion;
+      latestVersion = latestStdVersion;
     } else {
       const owner = denoDatabase[name].owner;
       const repo = denoDatabase[name].repo;
@@ -302,7 +310,7 @@ export const purposes: { [key: string]: Function } = {
       console.info(
         colours.green(
           module.name + " was updated from " + module.importedVersion + " to " +
-            denoStdLatestVersion,
+            module.latestRelease,
         ),
       );
       depsWereUpdated = true;
@@ -315,7 +323,7 @@ export const purposes: { [key: string]: Function } = {
     );
 
     // And if none were updated, add some more logging
-    if (depsWereUpdated) {
+    if (!depsWereUpdated) {
       console.info(colours.green("Everything is already up to date"));
     }
   },
@@ -348,9 +356,9 @@ export const purposes: { [key: string]: Function } = {
     let gitHubUrl;
     let latestVersion;
     if (isStd) {
-      latestVersion = denoStdLatestVersion;
+      latestVersion = await getStdLatestVersion();
       description = "Cannot retrieve descriptions for std modules";
-      denoLandUrl = "https://deno.land/std@" + denoStdLatestVersion + "/" +
+      denoLandUrl = "https://deno.land/std@" + latestVersion + "/" +
         name;
       gitHubUrl = "https://github.com/denoland/deno/tree/master/std/" + name;
     }
