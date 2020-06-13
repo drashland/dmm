@@ -33,7 +33,8 @@ Deno.test({
       "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Comparing versions...\n" +
-        colours.yellow(`fs can be updated from 0.53.0 to ${latestStdVersion}`) + "\n" +
+        colours.yellow(`fs can be updated from 0.53.0 to ${latestStdVersion}`) +
+        "\n" +
         "To update, run: \n" +
         "    dmm update fs" +
         "\n",
@@ -116,7 +117,8 @@ Deno.test({
         "Reading deps.ts to gather your dependencies...\n" +
         "Comparing versions...\n" +
         colours.yellow("drash can be updated from v1.0.0 to v1.0.5") + "\n" +
-        colours.yellow(`fs can be updated from 0.53.0 to ${latestStdVersion}`) + "\n" +
+        colours.yellow(`fs can be updated from 0.53.0 to ${latestStdVersion}`) +
+        "\n" +
         "To update, run: \n" +
         "    dmm update drash fs" +
         "\n",
@@ -198,8 +200,11 @@ Deno.test({
         "Reading deps.ts to gather your dependencies...\n" +
         "Comparing versions...\n" +
         colours.yellow("drash can be updated from v1.0.0 to v1.0.5") + "\n" +
-        colours.yellow(`fs can be updated from 0.53.0 to ${latestStdVersion}`) + "\n" +
-        colours.yellow(`fmt can be updated from v0.53.0 to v${latestStdVersion}`) + "\n" +
+        colours.yellow(`fs can be updated from 0.53.0 to ${latestStdVersion}`) +
+        "\n" +
+        colours.yellow(
+          `fmt can be updated from v0.53.0 to v${latestStdVersion}`,
+        ) + "\n" +
         "To update, run: \n" +
         "    dmm update drash fs fmt" +
         "\n",
