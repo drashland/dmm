@@ -6,9 +6,6 @@
 
 `dmm` will read your imported/exported modules that sit inside your `deps.ts` and check them against their latest version if you ask it to, and update them if you want it to.
 
-* Deno version: 1.1.0
-* Deno std version: 0.57.0
-
 # Contents
 
 * [Features](#features)
@@ -39,7 +36,7 @@ As dmm only needs to read and write to your `deps.ts`, as well as requiring netw
 
 *Install*
 ```
-$ deno install --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.1.0/mod.ts
+$ deno install --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.6/mod.ts
 $ dmm ...
 ```
 
@@ -47,7 +44,7 @@ $ dmm ...
 
 If you are using this method, be sure to use the latest version of dmm in the command below
 ```
-$ deno run <permissions> https://deno.land/x/dmm@v1.1.0/mod.ts ...
+$ deno run <permissions> https://deno.land/x/dmm@v1.0.6/mod.ts ...
 ```
 
 In the examples below, dmm is installed and we will be using it that way to make the commands easier to read.
@@ -136,7 +133,7 @@ $ dmm --help
 A module manager for Deno.
 
 USAGE:
-    deno run --allow-read --allow-net [--allow-write] https://deno.land/x/dmm@v1.1.0/mod.ts [ARGS] [MODULES]
+    deno run --allow-read --allow-net [--allow-write] https://deno.land/x/dmm@v1.0.6/mod.ts [ARGS] [MODULES]
 
     dmm [ARGS] [MODULES]
 
@@ -154,9 +151,9 @@ The check and update arguments cannot be used together.
 
 EXAMPLE USAGE:
     Assume you are importing an out of date version of `fs` from `std`.
-    deno run --allow-net --allow-read https://deno.land/x/dmm@v1.1.0/mod.ts check fs
-    deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.1.0/mod.ts update fs
-    deno run --allow-net https://deno.land/x/dmm@v1.1.0/mod.ts info http
+    deno run --allow-net --allow-read https://deno.land/x/dmm@v1.0.6/mod.ts check fs
+    deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.0.6/mod.ts update fs
+    deno run --allow-net https://deno.land/x/dmm@v1.0.6/mod.ts info http
     dmm info http
 
 ```
