@@ -1,8 +1,8 @@
 import {
-  helpMessage,
   purposes,
 } from "./dmm.ts";
 import { colours } from "./deps.ts";
+import { helpMessage } from "./src/help.ts";
 
 // Gather args
 const args: string[] = Deno.args;
