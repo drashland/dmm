@@ -1,5 +1,5 @@
-import {colours} from "../deps";
-import { Module } from "./interfaces/module.ts"
+import {colours} from "../deps.ts";
+import Module from "./interfaces/module.ts"
 
 export function standardiseVersion (importedVersion: string, latestVersion: string): string {
   const importedVersionHasV = importedVersion.indexOf("v") === 0;
@@ -14,6 +14,8 @@ export function standardiseVersion (importedVersion: string, latestVersion: stri
     latestVersion = latestVersion.substring(1);
     return latestVersion
   }
+
+  return latestVersion
 }
 
 interface DenoLandDatabase {
@@ -90,7 +92,7 @@ export async function getLatestThirdPartyRelease(name: string): Promise<string> 
  *
  * @return {Module[]} An array of objects, with each object containing information about each module
  */
-async function constructModulesDataFromDeps(
+export async function constructModulesDataFromDeps(
     modulesForPurpose: string[],
     purpose: string,
 ): Promise<Module[] | boolean> {

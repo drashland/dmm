@@ -1,5 +1,5 @@
-import { colours } from "../../deps";
-import {denoLandDatabase, latestStdRelease, getLatestThirdPartyRelease} from "../utils";
+import { colours } from "../../deps.ts";
+import {denoLandDatabase, latestStdRelease, getLatestThirdPartyRelease} from "../utils.ts";
 
 export async function info (modules: string[]) {
   if (modules.length === 0 || modules.length > 1) {
@@ -11,7 +11,10 @@ export async function info (modules: string[]) {
     Deno.exit(1);
   }
   const moduleToGetInfoOn = modules[0];
-  const isStd = denoLandDatabase[moduleToGetInfoOn] === undefined;
+  const stdResponse = await fetch(
+      "https://github.com/denoland/deno/tree/master/std/" + moduleToGetInfoOn,
+  );
+  const isStd = stdResponse.status === 200;
   const isThirdParty = typeof denoLandDatabase[moduleToGetInfoOn] === "object";
   if (!isStd && !isThirdParty) {
     console.error(

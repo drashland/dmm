@@ -1,9 +1,10 @@
-import { colours } from "../../deps";
-import Module from "../interfaces/module";
+import { colours } from "../../deps.ts";
+import Module from "../interfaces/module.ts";
+import { constructModulesDataFromDeps } from "../utils.ts";
 
 export async function check (dependencies: string[]): Promise<void> {
   // Create objects for each dep, with its name and version
-  const modules: Module[]|false = await constructModulesDataFromDeps(
+  const modules = await constructModulesDataFromDeps(
       dependencies,
       "check",
   );
