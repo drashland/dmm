@@ -1,6 +1,23 @@
-import { purposes } from "./dmm.ts";
 import { colours } from "./deps.ts";
 import { helpMessage } from "./src/options/help.ts";
+import { info } from "./src/commands/info.ts";
+import { check } from "./src/commands/check.ts";
+import { update } from "./src/commands/update.ts";
+
+async function run (purpose: string, modulesForPurpose: string[]): Promise<void> {
+  if (purpose === "check") {
+    await check(modulesForPurpose)
+  } else if (purpose === "info") {
+    await info(modulesForPurpose)
+  } else if (purpose === "update") {
+    await update(modulesForPurpose)
+  } else {
+    console.error(
+        colours.red("Specify either `check`, `info` or `update`. See --help"),
+    );
+    Deno.exit(1);
+  }
+}
 
 // Gather args
 const args: string[] = Deno.args;
@@ -24,16 +41,4 @@ const purposeAndModules: string[] = args.filter((arg) =>
 const purpose: string = purposeAndModules[0];
 const modulesForPurpose: string[] = purposeAndModules.slice(1);
 
-// Error when a supported purpose isn't found
-// Must be after the help logic because --help isn't really a supported purpose
-if (typeof purposes[purpose] !== "function") {
-  console.error(
-    colours.red("Specify either `check`, `info` or `update`. See --help"),
-  );
-  Deno.exit(1);
-}
-
-// Run the desired purpose
-//await checkDmmVersion()
-await purposes[purpose](modulesForPurpose);
-Deno.exit();
+await run(purpose, modulesForPurpose)

@@ -1,5 +1,5 @@
 import { colours } from "../../deps";
-import {denoLandDatabase, getLatestStdRelease, getLatestThirdPartyRelease} from "../utils";
+import {denoLandDatabase, latestStdRelease, getLatestThirdPartyRelease} from "../utils";
 
 export async function info (modules: string[]) {
   if (modules.length === 0 || modules.length > 1) {
@@ -25,7 +25,7 @@ export async function info (modules: string[]) {
   let gitHubUrl;
   let latestVersion;
   if (isStd) {
-    latestVersion = await getLatestStdRelease();
+    latestVersion = latestStdRelease;
     description = "Cannot retrieve descriptions for std modules";
     denoLandUrl = "https://deno.land/std@" + latestVersion + "/" +
         name;
