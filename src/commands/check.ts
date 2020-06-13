@@ -1,8 +1,9 @@
 import { colours } from "../../deps";
+import Module from "../interfaces/module";
 
-export async function check (dependencies: string[]): Promise<any> {
+export async function check (dependencies: string[]): Promise<void> {
   // Create objects for each dep, with its name and version
-  const modules = await constructModulesDataFromDeps(
+  const modules: Module[]|false = await constructModulesDataFromDeps(
       dependencies,
       "check",
   );
