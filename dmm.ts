@@ -1,15 +1,5 @@
 import { colours } from "./deps.ts";
 
-interface Module {
-  std: boolean;
-  name: string;
-  importedVersion: string;
-  denoLandURL: string;
-  githubURL: string;
-  latestRelease: string;
-  description: string;
-}
-
 //const version = "v1.0.5"
 const decoder = new TextDecoder();
 
