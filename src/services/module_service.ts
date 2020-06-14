@@ -78,11 +78,10 @@ export default class ModuleService {
       // Get the imported version
       const importVersionRegex = /(v)?[0-9].+[0-9].+[0-9]/g;
       const importVersionRegexResult = dep.match(importVersionRegex);
-      const importedVersion: string =
-        importVersionRegexResult !== null &&
+      const importedVersion: string = importVersionRegexResult !== null &&
         importVersionRegexResult.length > 0
-          ? importVersionRegexResult[0]
-          : "";
+        ? importVersionRegexResult[0]
+        : "";
       if (!importedVersion) {
         console.error(colours.red(
           "The following line is not versioned. To update, your dependencies must be versioned." +
