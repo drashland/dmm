@@ -1,4 +1,4 @@
-export default interface Module {
+export default interface IModule {
   std: boolean;
   name: string;
   importedVersion: string;

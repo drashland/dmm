@@ -1,9 +1,5 @@
 import { colours } from "../../deps.ts";
-import {
-  denoLandDatabase,
-  latestStdRelease,
-  getLatestThirdPartyRelease,
-} from "../utils.ts";
+import { DenoService } from "../services/deno_service.ts";
 
 export async function info(modules: string[]) {
   if (modules.length === 0 || modules.length > 1) {
@@ -19,6 +15,7 @@ export async function info(modules: string[]) {
     "https://github.com/denoland/deno/tree/master/std/" + moduleToGetInfoOn,
   );
   const isStd = stdResponse.status === 200;
+  const denoLandDatabase = DenoService.getDenoLandDatabase()
   const isThirdParty = typeof denoLandDatabase[moduleToGetInfoOn] === "object";
   if (!isStd && !isThirdParty) {
     console.error(
@@ -32,7 +29,7 @@ export async function info(modules: string[]) {
   let gitHubUrl;
   let latestVersion;
   if (isStd) {
-    latestVersion = latestStdRelease;
+    latestVersion = DenoService.getLatestStdRelease();
     description = "Cannot retrieve descriptions for std modules";
     denoLandUrl = "https://deno.land/std@" + latestVersion + "/" +
       name;
@@ -43,7 +40,7 @@ export async function info(modules: string[]) {
     description = databaseModule.desc;
     gitHubUrl = "https://github.com/" + databaseModule.owner + "/" +
       databaseModule.repo;
-    latestVersion = await getLatestThirdPartyRelease(name);
+    latestVersion = await DenoService.getLatestThirdPartyRelease(name);
     denoLandUrl = "https://deno.land/x/" + name + "@" + latestVersion;
   }
   const importLine = "import * as " + name + ' from "' + denoLandUrl + '";';

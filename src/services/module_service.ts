@@ -1,10 +1,6 @@
-import Module from "../interfaces/module.ts";
+import IModule from "../interfaces/module.ts";
 import { colours } from "../../deps.ts";
-import {
-  denoLandDatabase,
-  getLatestThirdPartyRelease,
-  latestStdRelease
-} from "../utils.ts";
+import { DenoService } from "../services/deno_service.ts";
 
 export default class ModuleService {
 
@@ -55,7 +51,7 @@ export default class ModuleService {
    public static async constructModulesDataFromDeps(
       modulesForPurpose: string[],
       purpose: string,
-  ): Promise<Module[] | boolean> {
+  ): Promise<IModule[] | boolean> {
     // Solely read the users `deps.ts` file
     console.info("Reading deps.ts to gather your dependencies...");
     const usersWorkingDir: string = Deno.realPathSync(".");
@@ -69,7 +65,7 @@ export default class ModuleService {
     );
 
     // Collate data for each module imported
-    const modules: Array<Module> = [];
+    const modules: Array<IModule> = [];
     for (const dep of listOfDeps) {
       // Get if is std
       const std: boolean = dep.indexOf("https://deno.land/std") >= 0;
@@ -110,6 +106,7 @@ export default class ModuleService {
       }
 
       // Get the github url
+      const denoLandDatabase = DenoService.getDenoLandDatabase();
       const githubURL: string = std === true
           ? "https://github.com/denoland/deno/std/" + name
           : "https://github.com/" + denoLandDatabase[name].owner + "/" +
@@ -117,10 +114,10 @@ export default class ModuleService {
 
       // Get the latest release - make sure the string is the same format as imported version eg using a "v"
       const latestRelease: string = std === true
-          ? ModuleService.standardiseVersion(importedVersion, latestStdRelease)
+          ? ModuleService.standardiseVersion(importedVersion, DenoService.getLatestStdRelease())
           : ModuleService.standardiseVersion(
               importedVersion,
-              await getLatestThirdPartyRelease(name),
+              await DenoService.getLatestThirdPartyRelease(name),
           );
 
       // Get the description

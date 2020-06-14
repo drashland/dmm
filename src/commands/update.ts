@@ -1,10 +1,10 @@
 import { colours } from "../../deps.ts";
-import Module from "../interfaces/module.ts";
-import { constructModulesDataFromDeps } from "../utils.ts";
+import IModule from "../interfaces/module.ts";
+import { ModuleService } from "../services/module_service.ts";
 
 export async function update(dependencies: string[]): Promise<void> {
   // Create objects for each dep, with its name and version
-  const modules = await constructModulesDataFromDeps(
+  const modules = await ModuleService.constructModulesDataFromDeps(
     dependencies,
     "update",
   );
