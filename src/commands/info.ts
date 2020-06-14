@@ -1,5 +1,5 @@
 import { colours } from "../../deps.ts";
-import { DenoService } from "../services/deno_service.ts";
+import DenoService from "../services/deno_service.ts";
 
 export async function info(modules: string[]) {
   if (modules.length === 0 || modules.length > 1) {

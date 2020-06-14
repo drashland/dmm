@@ -1,5 +1,5 @@
 import { assertEquals, colours } from "../deps.ts";
-import { latestStdRelease } from "../src/utils.ts";
+import DenoService from "../src/services/deno_service.ts";
 
 // Check a specific dep that can be updated
 Deno.test({
@@ -94,10 +94,10 @@ Deno.test({
         "\n" +
         "  - Name: fs\n" +
         "  - Description: Cannot retrieve descriptions for std modules\n" +
-        `  - deno.land Link: https://deno.land/std@${latestStdRelease}/fs\n` +
+        `  - deno.land Link: https://deno.land/std@${DenoService.getLatestStdRelease()}/fs\n` +
         "  - GitHub Repository: https://github.com/denoland/deno/tree/master/std/fs\n" +
-        `  - Import Statement: import * as fs from \"https://deno.land/std@${latestStdRelease}/fs\";\n` +
-        `  - Latest Version: ${latestStdRelease}\n` +
+        `  - Import Statement: import * as fs from \"https://deno.land/std@${DenoService.getLatestStdRelease()}/fs\";\n` +
+        `  - Latest Version: ${DenoService.getLatestStdRelease()}\n` +
         "\n",
     );
     assertEquals(stderr, "");

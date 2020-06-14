@@ -1,6 +1,6 @@
 import IModule from "../interfaces/module.ts";
 import { colours } from "../../deps.ts";
-import { DenoService } from "../services/deno_service.ts";
+import DenoService from "../services/deno_service.ts";
 
 export default class ModuleService {
 

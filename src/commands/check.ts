@@ -1,6 +1,6 @@
 import { colours } from "../../deps.ts";
 import IModule from "../interfaces/module.ts";
-import { ModuleService } from "../services/module_service.ts";
+import ModuleService from "../services/module_service.ts";
 
 export async function check(dependencies: string[]): Promise<void> {
   // Create objects for each dep, with its name and version
