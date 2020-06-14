@@ -15,11 +15,11 @@ interface DenoLandDatabase {
  */
 async function getLatestStdRelease(): Promise<string> {
   const res = await fetch(
-      "https://raw.githubusercontent.com/denoland/deno_website2/master/deno_std_versions.json",
+    "https://raw.githubusercontent.com/denoland/deno_website2/master/deno_std_versions.json",
   );
-const versions: string[] = await res.json();
-let latestVersion = versions[0];
-return latestVersion;
+  const versions: string[] = await res.json();
+  let latestVersion = versions[0];
+  return latestVersion;
 }
 
 const latestStdRelease = await getLatestStdRelease();
@@ -32,7 +32,7 @@ const latestStdRelease = await getLatestStdRelease();
  */
 async function getDenoLandDatabase(): Promise<DenoLandDatabase> {
   const res = await fetch(
-      "https://raw.githubusercontent.com/denoland/deno_website2/master/database.json",
+    "https://raw.githubusercontent.com/denoland/deno_website2/master/database.json",
   );
   const denoDatabase: DenoLandDatabase = await res.json();
   return denoDatabase;
@@ -40,9 +40,7 @@ async function getDenoLandDatabase(): Promise<DenoLandDatabase> {
 
 const denoLandDatabase: DenoLandDatabase = await getDenoLandDatabase();
 
-
 export default class DenoService {
-
   /**
    * @description
    * Fetches the latest release of a module from it's GitHub repository.
@@ -53,13 +51,13 @@ export default class DenoService {
    *
    * @returns {Promise<string>} The latest version.
    */
-   public static async getLatestThirdPartyRelease(
-      name: string,
+  public static async getLatestThirdPartyRelease(
+    name: string,
   ): Promise<string> {
     const owner = denoLandDatabase[name].owner;
     const repo = denoLandDatabase[name].repo;
     const res = await fetch(
-        "https://github.com/" + owner + "/" + repo + "/releases/latest",
+      "https://github.com/" + owner + "/" + repo + "/releases/latest",
     );
     const url = res.url;
     const urlSplit = url.split("/");
@@ -74,7 +72,7 @@ export default class DenoService {
    * @returns {string} eg "0.57.0"
    */
   public static getLatestStdRelease(): string {
-    return latestStdRelease
+    return latestStdRelease;
   }
 
   /**
@@ -83,8 +81,7 @@ export default class DenoService {
    *
    * @returns {DenoLandDatabase}
    */
-  public static getDenoLandDatabase (): DenoLandDatabase {
-    return denoLandDatabase
+  public static getDenoLandDatabase(): DenoLandDatabase {
+    return denoLandDatabase;
   }
-
 }

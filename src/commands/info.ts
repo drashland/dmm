@@ -15,7 +15,7 @@ export async function info(modules: string[]) {
     "https://github.com/denoland/deno/tree/master/std/" + moduleToGetInfoOn,
   );
   const isStd = stdResponse.status === 200;
-  const denoLandDatabase = DenoService.getDenoLandDatabase()
+  const denoLandDatabase = DenoService.getDenoLandDatabase();
   const isThirdParty = typeof denoLandDatabase[moduleToGetInfoOn] === "object";
   if (!isStd && !isThirdParty) {
     console.error(
