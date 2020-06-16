@@ -1,6 +1,20 @@
-# **D**eno **M**odule **M**anager
+<p align="center">
+  <img height="200" src="logo.png" alt="Deno Module Manager">
+  <h1 align="center">Deno Module Manager</h1>
+</p>
+<p align="center">
+  <a href="https://github.com/drashland/dmm/releases">
+    <img src="https://img.shields.io/github/release/drashland/dmm.svg?color=bright_green&label=latest">
+  </a>
+  <a href="https://github.com/drashland/dmm/actions">
+    <img src="https://img.shields.io/github/workflow/status/drashland/dmm/master?label=ci">
+  </a>
+  <a href="https://discord.gg/SgejNXq">
+    <img src="https://img.shields.io/badge/chat-on%20discord-blue">
+  </a>
+</p>
 
-![master](https://github.com/drashland/dmm/workflows/master/badge.svg?branch=master)
+---
 
 `dmm` (pronounced "Dim") is a Deno module manager. Updating your dependencies within `deps.ts` and checking if new versions are available hasn't been easier.
 
