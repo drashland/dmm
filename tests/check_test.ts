@@ -1,5 +1,5 @@
 import { assertEquals, colours } from "../deps.ts";
-import { latestStdVersion } from "./utils.ts";
+import DenoService from "../src/services/deno_service.ts";
 
 // Check a specific dep that can be updated
 Deno.test({
@@ -33,7 +33,9 @@ Deno.test({
       "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Comparing versions...\n" +
-        colours.yellow(`fs can be updated from 0.53.0 to ${latestStdVersion}`) +
+        colours.yellow(
+          `fs can be updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+        ) +
         "\n" +
         "To update, run: \n" +
         "    dmm update fs" +
@@ -117,7 +119,9 @@ Deno.test({
         "Reading deps.ts to gather your dependencies...\n" +
         "Comparing versions...\n" +
         colours.yellow("drash can be updated from v1.0.0 to v1.0.5") + "\n" +
-        colours.yellow(`fs can be updated from 0.53.0 to ${latestStdVersion}`) +
+        colours.yellow(
+          `fs can be updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+        ) +
         "\n" +
         "To update, run: \n" +
         "    dmm update drash fs" +
@@ -200,10 +204,12 @@ Deno.test({
         "Reading deps.ts to gather your dependencies...\n" +
         "Comparing versions...\n" +
         colours.yellow("drash can be updated from v1.0.0 to v1.0.5") + "\n" +
-        colours.yellow(`fs can be updated from 0.53.0 to ${latestStdVersion}`) +
+        colours.yellow(
+          `fs can be updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+        ) +
         "\n" +
         colours.yellow(
-          `fmt can be updated from v0.53.0 to v${latestStdVersion}`,
+          `fmt can be updated from v0.53.0 to v${DenoService.getLatestStdRelease()}`,
         ) + "\n" +
         "To update, run: \n" +
         "    dmm update drash fs fmt" +

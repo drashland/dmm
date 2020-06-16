@@ -1,9 +1,11 @@
 import { assertEquals, colours } from "../deps.ts";
-import { latestStdVersion } from "./utils.ts";
+import DenoService from "../src/services/deno_service.ts";
 
 // Check a specific dep that can be updated
 Deno.test({
   name: "Info | Module Omitted | Should fail",
+
+  //ignore: true,
   async fn(): Promise<void> {
     const p = await Deno.run({
       cmd: ["deno", "run", "--allow-net", "../../mod.ts", "info"],
@@ -31,6 +33,8 @@ Deno.test({
 // Check a specific dep that is already up to date
 Deno.test({
   name: "Info | 3rd Party Module | Should pass",
+
+  //ignore: true,
   async fn(): Promise<void> {
     const p = await Deno.run({
       cmd: ["deno", "run", "--allow-net", "../../mod.ts", "info", "drash"],
@@ -67,6 +71,8 @@ Deno.test({
 // Check a list of deps that can be updated
 Deno.test({
   name: "Info | std Module | Should pass",
+
+  //ignore: true,
   async fn(): Promise<void> {
     const p = await Deno.run({
       cmd: ["deno", "run", "--allow-net", "../../mod.ts", "info", "fs"],
@@ -88,10 +94,10 @@ Deno.test({
         "\n" +
         "  - Name: fs\n" +
         "  - Description: Cannot retrieve descriptions for std modules\n" +
-        `  - deno.land Link: https://deno.land/std@${latestStdVersion}/fs\n` +
+        `  - deno.land Link: https://deno.land/std@${DenoService.getLatestStdRelease()}/fs\n` +
         "  - GitHub Repository: https://github.com/denoland/deno/tree/master/std/fs\n" +
-        `  - Import Statement: import * as fs from \"https://deno.land/std@${latestStdVersion}/fs\";\n` +
-        `  - Latest Version: ${latestStdVersion}\n` +
+        `  - Import Statement: import * as fs from \"https://deno.land/std@${DenoService.getLatestStdRelease()}/fs\";\n` +
+        `  - Latest Version: ${DenoService.getLatestStdRelease()}\n` +
         "\n",
     );
     assertEquals(stderr, "");
@@ -103,6 +109,8 @@ Deno.test({
 // Check a list of deps that are already up to date
 Deno.test({
   name: "Info | Multiple Modules | Should fail",
+
+  //ignore: true,
   async fn(): Promise<void> {
     const p = await Deno.run({
       cmd: [
@@ -137,6 +145,8 @@ Deno.test({
 
 Deno.test({
   name: "Info | Invalid Module | Should fail",
+
+  //ignore: true,
   async fn(): Promise<void> {
     const p = await Deno.run({
       cmd: [

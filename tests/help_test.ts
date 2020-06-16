@@ -4,7 +4,7 @@ Deno.test({
   name: "Help",
   async fn(): Promise<void> {
     const p = await Deno.run({
-      cmd: ["deno", "run", "../../mod.ts", "--help"],
+      cmd: ["deno", "run", "--allow-net", "../../mod.ts", "--help"],
       cwd: "./tests/up-to-date-deps",
       stdout: "piped",
       stderr: "piped",
