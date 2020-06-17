@@ -144,7 +144,7 @@ Should you need any more information, use the `--help` option:
 ```
 $ dmm --help
 
-A module manager for Deno.
+A module manager for Deno.    
 
 USAGE:
     deno run --allow-read --allow-net [--allow-write] https://deno.land/x/dmm@v1.0.6/mod.ts [ARGS] [MODULES]
@@ -162,6 +162,12 @@ The check and update arguments cannot be used together.
 
      info
         Shows information about the given module, be it std or 3rd party. The 3rd party module must be referenced at https://deno.land/x/
+
+OPTIONS:
+    --help
+        Prints help message
+    --version
+        Prints dmm version
 
 EXAMPLE USAGE:
     Assume you are importing an out of date version of `fs` from `std`.
