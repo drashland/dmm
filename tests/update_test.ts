@@ -56,6 +56,10 @@ Deno.test({
         assertEquals(stderr, "");
         assertEquals(status.code, 0);
         assertEquals(status.success, true);
+        const originalDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"));
+        const newDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/deps.ts"));
+        assertEquals(newDepContent !== originalDepContent, true)
+        assertEquals(newDepContent.indexOf("std@0.57.0/fs") !== -1, true)
         defaultDepsBackToOriginal("out-of-date-deps")
     }
 })
@@ -85,6 +89,9 @@ Deno.test({
         assertEquals(stderr, "");
         assertEquals(status.code, 0);
         assertEquals(status.success, true);
+        const originalDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"));
+        const newDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/deps.ts"));
+        assertEquals(newDepContent === originalDepContent, true)
     }
 })
 
@@ -115,6 +122,11 @@ Deno.test({
         assertEquals(stderr, "");
         assertEquals(status.code, 0);
         assertEquals(status.success, true);
+        const originalDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"));
+        const newDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/deps.ts"));
+        assertEquals(newDepContent !== originalDepContent, true)
+        assertEquals(newDepContent.indexOf("std@0.57.0/fs") !== -1, true)
+        assertEquals(newDepContent.indexOf("std@v0.57.0/fmt") !== -1, true)
         defaultDepsBackToOriginal("out-of-date-deps")
     }
 })
@@ -144,6 +156,9 @@ Deno.test({
         assertEquals(stderr, "");
         assertEquals(status.code, 0);
         assertEquals(status.success, true);
+        const originalDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"));
+        const newDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/deps.ts"));
+        assertEquals(newDepContent === originalDepContent, true)
     }
 })
 
@@ -174,6 +189,12 @@ Deno.test({
         assertEquals(stderr, "");
         assertEquals(status.code, 0);
         assertEquals(status.success, true);
+        const originalDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"));
+        const newDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/deps.ts"));
+        assertEquals(newDepContent !== originalDepContent, true)
+        assertEquals(newDepContent.indexOf("std@0.57.0/fs") !== -1, true)
+        assertEquals(newDepContent.indexOf("std@v0.57.0/fmt") !== -1, true)
+        assertEquals(newDepContent.indexOf("drash@v1.0.5") !== -1, true)
         defaultDepsBackToOriginal("out-of-date-deps")
     }
 })
@@ -202,6 +223,9 @@ Deno.test({
         assertEquals(stderr, "");
         assertEquals(status.code, 0);
         assertEquals(status.success, true);
+        const originalDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"));
+        const newDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/deps.ts"));
+        assertEquals(newDepContent === originalDepContent, true)
     }
 })
 
@@ -230,6 +254,10 @@ Deno.test({
         assertEquals(stderr, "");
         assertEquals(status.code, 0);
         assertEquals(status.success, true);
+        const originalDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"));
+        const newDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/deps.ts"));
+        assertEquals(newDepContent !== originalDepContent, true)
+        assertEquals(newDepContent.indexOf("drash@v1.0.5") !== -1, true)
         defaultDepsBackToOriginal("out-of-date-deps")
     }
 })
@@ -256,6 +284,9 @@ Deno.test({
         assertEquals(stderr, colours.red("Modules specified do not exist in your dependencies.") + "\n");
         assertEquals(status.code, 1);
         assertEquals(status.success, false);
+        const originalDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"));
+        const newDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/deps.ts"));
+        assertEquals(newDepContent === originalDepContent, true)
     }
 })
 
@@ -285,6 +316,11 @@ Deno.test({
         assertEquals(stderr, "");
         assertEquals(status.code, 0);
         assertEquals(status.success, true);
+        const originalDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"));
+        const newDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/deps.ts"));
+        assertEquals(newDepContent !== originalDepContent, true)
+        assertEquals(newDepContent.indexOf("std@v0.57.0/fmt") !== -1, true)
+        assertEquals(newDepContent.indexOf("drash@v1.0.5") !== -1, true)
         defaultDepsBackToOriginal("out-of-date-deps")
     }
 })
@@ -314,6 +350,10 @@ Deno.test({
         assertEquals(stderr, "");
         assertEquals(status.code, 0);
         assertEquals(status.success, true);
+        const originalDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"));
+        const newDepContent = new TextDecoder("utf-8").decode(Deno.readFileSync("tests/out-of-date-deps/deps.ts"));
+        assertEquals(newDepContent !== originalDepContent, true)
+        assertEquals(newDepContent.indexOf("std@0.57.0/fs") !== -1, true)
         defaultDepsBackToOriginal("out-of-date-deps")
     }
 })

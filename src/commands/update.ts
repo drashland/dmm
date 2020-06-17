@@ -29,10 +29,17 @@ export async function update(dependencies: string[]): Promise<void> {
     if (module.importedVersion === module.latestRelease) {
       return;
     }
-    depsContent = depsContent.replace(
-      "std@" + module.importedVersion + "/" + module.name,
-      "std@" + module.latestRelease + "/" + module.name,
-    );
+    if (module.std) {
+      depsContent = depsContent.replace(
+          "std@" + module.importedVersion + "/" + module.name,
+          "std@" + module.latestRelease + "/" + module.name,
+      );
+    } else {
+      depsContent = depsContent.replace(
+          module.name + "@" + module.importedVersion,
+          module.name + "@" + module.latestRelease
+      )
+    }
     console.info(
       colours.green(
         module.name + " was updated from " + module.importedVersion + " to " +
