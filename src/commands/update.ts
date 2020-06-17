@@ -31,14 +31,14 @@ export async function update(dependencies: string[]): Promise<void> {
     }
     if (module.std) {
       depsContent = depsContent.replace(
-          "std@" + module.importedVersion + "/" + module.name,
-          "std@" + module.latestRelease + "/" + module.name,
+        "std@" + module.importedVersion + "/" + module.name,
+        "std@" + module.latestRelease + "/" + module.name,
       );
     } else {
       depsContent = depsContent.replace(
-          module.name + "@" + module.importedVersion,
-          module.name + "@" + module.latestRelease
-      )
+        module.name + "@" + module.importedVersion,
+        module.name + "@" + module.latestRelease,
+      );
     }
     console.info(
       colours.green(
