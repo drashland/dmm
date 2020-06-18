@@ -9,3 +9,5 @@
 * Run tests
 
 * Commit: `git commit -m "upgrade deno to [version]`
+
+* Update `version` in `src/options/version.ts` to reflect the new release version of dmm

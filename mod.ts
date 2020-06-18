@@ -1,5 +1,6 @@
 import { colours } from "./deps.ts";
 import { helpMessage } from "./src/options/help.ts";
+import { versionMessage } from "./src/options/version.ts";
 import { info } from "./src/commands/info.ts";
 import { check } from "./src/commands/check.ts";
 import { update } from "./src/commands/update.ts";
@@ -33,6 +34,14 @@ if (!args.length) {
 const wantsHelp: boolean = args.filter((arg) => arg === "--help").length === 1;
 if (wantsHelp) {
   console.info(helpMessage);
+  Deno.exit();
+}
+
+// Support --version usage
+const wantsVersion: boolean =
+  args.filter((arg) => arg === "--version").length === 1;
+if (wantsVersion) {
+  console.info(versionMessage);
   Deno.exit();
 }
 
