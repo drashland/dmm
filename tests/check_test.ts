@@ -118,7 +118,7 @@ Deno.test({
       "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Comparing versions...\n" +
-        colours.yellow("drash can be updated from v1.0.0 to v1.0.5") + "\n" +
+        colours.yellow("drash can be updated from v1.0.0 to v1.0.6") + "\n" +
         colours.yellow(
           `fs can be updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
         ) +
@@ -203,7 +203,7 @@ Deno.test({
       "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Comparing versions...\n" +
-        colours.yellow("drash can be updated from v1.0.0 to v1.0.5") + "\n" +
+        colours.yellow("drash can be updated from v1.0.0 to v1.0.6") + "\n" +
         colours.yellow(
           `fs can be updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
         ) +
