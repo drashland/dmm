@@ -202,7 +202,7 @@ dmm will only read modules that reside on [deno.land](https://deno.land), whethe
     * GitHub URL - Retrieved through the GitHub API
     * Description - For 3rd party modules, it is also taken from reading Deno's `database.json` file, which holds all modules that display on https://deno.land/x/
     
-* After this, dmm rwill un different actions based on the purpose:
+* After this, dmm will un different actions based on the purpose:
 
     * **check**
     
