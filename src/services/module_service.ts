@@ -107,7 +107,7 @@ export default class ModuleService {
       // Get the github url
       const denoLandDatabase = DenoService.getDenoLandDatabase();
       const githubURL: string = std === true
-        ? "https://github.com/denoland/deno/std/" + name
+        ? "https://github.com/denoland/deno/tree/master/std/" + name
         : "https://github.com/" + denoLandDatabase[name].owner + "/" +
           denoLandDatabase[name].repo;
 
