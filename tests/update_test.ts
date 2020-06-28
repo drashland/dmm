@@ -62,7 +62,7 @@ Deno.test({
       "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
-        colours.green("fs was updated from 0.53.0 to 0.58.0") + "\n",
+        colours.green("fs was updated from 0.53.0 to 0.59.0") + "\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -74,7 +74,7 @@ Deno.test({
       Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
     );
     assertEquals(newDepContent !== originalDepContent, true);
-    assertEquals(newDepContent.indexOf("std@0.58.0/fs") !== -1, true);
+    assertEquals(newDepContent.indexOf("std@0.59.0/fs") !== -1, true);
     defaultDepsBackToOriginal("out-of-date-deps");
   },
 });
@@ -156,8 +156,8 @@ Deno.test({
       "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
-        colours.green("fs was updated from 0.53.0 to 0.58.0") + "\n" +
-        colours.green("fmt was updated from v0.53.0 to v0.58.0") + "\n",
+        colours.green("fs was updated from 0.53.0 to 0.59.0") + "\n" +
+        colours.green("fmt was updated from v0.53.0 to v0.59.0") + "\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -169,8 +169,8 @@ Deno.test({
       Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
     );
     assertEquals(newDepContent !== originalDepContent, true);
-    assertEquals(newDepContent.indexOf("std@0.58.0/fs") !== -1, true);
-    assertEquals(newDepContent.indexOf("std@v0.58.0/fmt") !== -1, true);
+    assertEquals(newDepContent.indexOf("std@0.59.0/fs") !== -1, true);
+    assertEquals(newDepContent.indexOf("std@v0.59.0/fmt") !== -1, true);
     defaultDepsBackToOriginal("out-of-date-deps");
   },
 });
@@ -251,8 +251,8 @@ Deno.test({
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
         colours.green("drash was updated from v1.0.0 to v1.0.6") + "\n" +
-        colours.green("fs was updated from 0.53.0 to 0.58.0") + "\n" +
-        colours.green("fmt was updated from v0.53.0 to v0.58.0") + "\n",
+        colours.green("fs was updated from 0.53.0 to 0.59.0") + "\n" +
+        colours.green("fmt was updated from v0.53.0 to v0.59.0") + "\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -264,8 +264,8 @@ Deno.test({
       Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
     );
     assertEquals(newDepContent !== originalDepContent, true);
-    assertEquals(newDepContent.indexOf("std@0.58.0/fs") !== -1, true);
-    assertEquals(newDepContent.indexOf("std@v0.58.0/fmt") !== -1, true);
+    assertEquals(newDepContent.indexOf("std@0.59.0/fs") !== -1, true);
+    assertEquals(newDepContent.indexOf("std@v0.59.0/fmt") !== -1, true);
     assertEquals(newDepContent.indexOf("drash@v1.0.6") !== -1, true);
     defaultDepsBackToOriginal("out-of-date-deps");
   },
@@ -439,7 +439,7 @@ Deno.test({
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
         colours.green("drash was updated from v1.0.0 to v1.0.6") + "\n" +
-        colours.green("fmt was updated from v0.53.0 to v0.58.0") + "\n",
+        colours.green("fmt was updated from v0.53.0 to v0.59.0") + "\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -451,7 +451,7 @@ Deno.test({
       Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
     );
     assertEquals(newDepContent !== originalDepContent, true);
-    assertEquals(newDepContent.indexOf("std@v0.58.0/fmt") !== -1, true);
+    assertEquals(newDepContent.indexOf("std@v0.59.0/fmt") !== -1, true);
     assertEquals(newDepContent.indexOf("drash@v1.0.6") !== -1, true);
     defaultDepsBackToOriginal("out-of-date-deps");
   },
@@ -488,7 +488,7 @@ Deno.test({
       "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
-        colours.green("fs was updated from 0.53.0 to 0.58.0") + "\n",
+        colours.green("fs was updated from 0.53.0 to 0.59.0") + "\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -500,7 +500,7 @@ Deno.test({
       Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
     );
     assertEquals(newDepContent !== originalDepContent, true);
-    assertEquals(newDepContent.indexOf("std@0.58.0/fs") !== -1, true);
+    assertEquals(newDepContent.indexOf("std@0.59.0/fs") !== -1, true);
     defaultDepsBackToOriginal("out-of-date-deps");
   },
 });
