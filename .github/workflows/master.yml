@@ -42,3 +42,5 @@ jobs:
         
       - name: Check Code FMT
         run: deno fmt --check
+      - name: Linter
+        run: deno lint --unstable
