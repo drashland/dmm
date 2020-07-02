@@ -12,6 +12,9 @@
   <a href="https://discord.gg/SgejNXq">
     <img src="https://img.shields.io/badge/chat-on%20discord-blue">
   </a>
+  <a href="https://rb.gy/5ppdbh">
+    <img src="https://img.shields.io/badge/Tutorials-YouTube-red">
+  </a>
 </p>
 
 ---
