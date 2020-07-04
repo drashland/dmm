@@ -1,5 +1,5 @@
 <p align="center">
-  <img height="200" src="logo.png" alt="Deno Module Manager">
+  <img height="200" src="logo.svg" alt="Deno Module Manager">
   <h1 align="center">Deno Module Manager</h1>
 </p>
 <p align="center">
