@@ -1,20 +1,10 @@
 # Upgrading Deno
 
-* Update README
+* Update README (references of std versions)
 
-* Update deno version in `.github/workflows/master.yml`
+* Fix tests (update versions in test files and deps)
 
-* Update the help message in `src/options/help.ts`
-
-* Run tests
-
-* Update `deps.ts`
-
-* Commit: `git commit -m "upgrade deno to [version]`
-
-* Update `version` in `src/options/version.ts` to reflect the new release version of dmm
-
-* Update `bumper.yml`
+* Update deno version in `.github/workflows`
 
 # Release a New Dmm Version
 
