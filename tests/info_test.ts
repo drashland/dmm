@@ -56,10 +56,10 @@ Deno.test({
         "\n" +
         "  - Name: drash\n" +
         "  - Description: A REST microframework for Deno's HTTP server with zero dependencies.\n" +
-        "  - deno.land Link: https://deno.land/x/drash@v1.0.6\n" +
+        "  - deno.land Link: https://deno.land/x/drash@v1.0.7\n" +
         "  - GitHub Repository: https://github.com/drashland/deno-drash\n" +
-        '  - Import Statement: import * as drash from \"https://deno.land/x/drash@v1.0.6\";\n' +
-        "  - Latest Version: v1.0.6\n" +
+        '  - Import Statement: import * as drash from \"https://deno.land/x/drash@v1.0.7\";\n' +
+        "  - Latest Version: v1.0.7\n" +
         "\n",
     );
     assertEquals(stderr, "");
