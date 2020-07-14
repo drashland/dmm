@@ -57,14 +57,13 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    const expected =
-        "Gathering facts...\n" +
-        "Reading deps.ts to gather your dependencies...\n" +
-        "Checking if your modules can be updated...\n" +
-        colours.green("fs was updated from 0.53.0 to 0.61.0") + "\n"
+    const expected = "Gathering facts...\n" +
+      "Reading deps.ts to gather your dependencies...\n" +
+      "Checking if your modules can be updated...\n" +
+      colours.green("fs was updated from 0.53.0 to 0.61.0") + "\n";
     assertEquals(
       stdout,
-      expected
+      expected,
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
