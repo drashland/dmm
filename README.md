@@ -12,6 +12,9 @@
   <a href="https://discord.gg/SgejNXq">
     <img src="https://img.shields.io/badge/chat-on%20discord-blue">
   </a>
+  <a href="https://rb.gy/5ppdbh">
+    <img src="https://img.shields.io/badge/Tutorials-YouTube-red">
+  </a>
 </p>
 
 ---
@@ -50,7 +53,7 @@ As dmm only needs to read and write to your `deps.ts`, as well as requiring netw
 
 *Install*
 ```
-$ deno install --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.1.0/mod.ts
+$ deno install --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.1.1/mod.ts
 $ dmm ...
 ```
 
@@ -58,7 +61,7 @@ $ dmm ...
 
 If you are using this method, be sure to use the latest version of dmm in the command below
 ```
-$ deno run <permissions> https://deno.land/x/dmm@v1.1.0/mod.ts ...
+$ deno run <permissions> https://deno.land/x/dmm@v1.1.1/mod.ts ...
 ```
 
 In the examples below, dmm is installed and we will be using it that way to make the commands easier to read.
@@ -78,10 +81,10 @@ Information on fmt
 
   - Name: fmt
   - Description: Cannot retrieve descriptions for std modules
-  - deno.land Link: https://deno.land/std@0.57.0/fmt
+  - deno.land Link: https://deno.land/std@0.61.0/fmt
   - GitHub Repository: https://github.com/denoland/deno/tree/master/std/fmt
-  - Import Statement: import * as fmt from "https://deno.land/std@0.57.0/fmt";
-  - Latest Version: 0.57.0
+  - Import Statement: import * as fmt from "https://deno.land/std@0.61.0/fmt";
+  - Latest Version: 0.61.0
 
 ```
 
@@ -94,7 +97,7 @@ export { Drash } from "https://deno.land/x/drash@v1.0.0/mod.ts"; // out of date
 
 import * as fs from "https://deno.land/std@0.53.0/fs/mod.ts"; // out of date
 
-import * as colors from "https://deno.land/std@0.57.0/fmt/colors.ts"; // up to date
+import * as colors from "https://deno.land/std@0.61.0/fmt/colors.ts"; // up to date
 
 export { fs, colors }
 ```
@@ -108,8 +111,8 @@ Now we want to check if any of our dependencies need updating, but we don't want
 ```
 $ dmm check
 ...
-drash can be updated from v1.0.0 to v1.0.5
-fs can be updated from 0.53.0 to 0.57.0
+drash can be updated from v1.0.0 to v1.0.7
+fs can be updated from 0.53.0 to 0.61.0
 ...
 ```
 
@@ -120,19 +123,19 @@ Lets update our dependencies as some are out of date:
 ```
 $ dmm update
 ...
-drash was updated from v1.0.0 to v1.0.5
-fs was updated from 0.53.0 to 0.57.0
+drash was updated from v1.0.0 to v1.0.7
+fs was updated from 0.53.0 to 0.61.0
 ...
 ```
 
 Now lets check the `deps.ts` file, and you will notice the versions have been modified:
 
 ```typescript
-export { Drash } from "https://deno.land/x/drash@v1.0.5/mod.ts"; // was out of date
+export { Drash } from "https://deno.land/x/drash@v1.0.7/mod.ts"; // was out of date
 
-import * as fs from "https://deno.land/std@0.57.0/fs/mod.ts"; // was out of date
+import * as fs from "https://deno.land/std@0.61.0/fs/mod.ts"; // was out of date
 
-import * as colors from "https://deno.land/std@0.57.0/fmt/colors.ts";
+import * as colors from "https://deno.land/std@0.61.0/fmt/colors.ts";
 
 export { fs, colors }
 ```
@@ -147,7 +150,7 @@ $ dmm --help
 A module manager for Deno.    
 
 USAGE:
-    deno run --allow-read --allow-net [--allow-write] https://deno.land/x/dmm@v1.1.0/mod.ts [ARGS] [MODULES]
+    deno run --allow-read --allow-net [--allow-write] https://deno.land/x/dmm@v1.1.1/mod.ts [ARGS] [MODULES]
 
     dmm [ARGS] [MODULES]
 
@@ -171,9 +174,9 @@ OPTIONS:
 
 EXAMPLE USAGE:
     Assume you are importing an out of date version of `fs` from `std`.
-    deno run --allow-net --allow-read https://deno.land/x/dmm@v1.1.0/mod.ts check fs
-    deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.1.0/mod.ts update fs
-    deno run --allow-net https://deno.land/x/dmm@v1.1.0/mod.ts info http
+    deno run --allow-net --allow-read https://deno.land/x/dmm@v1.1.1/mod.ts check fs
+    deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.1.1/mod.ts update fs
+    deno run --allow-net https://deno.land/x/dmm@v1.1.1/mod.ts info http
     dmm info http
 
 ```

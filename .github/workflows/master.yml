@@ -9,8 +9,8 @@ jobs:
   tests:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
-        deno: ["1.1.0"]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        deno: ["1.2.0"]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -24,11 +24,11 @@ jobs:
       - name: Unit
         run: |
           deno cache mod.ts
-          deno test --allow-read --allow-run --allow-net
+          deno test --allow-read --allow-run --allow-write --allow-net
   linting:
     strategy:
       matrix:
-        deno: ["1.1.0"]
+        deno: ["1.2.0"]
     # Doesn't need to be checked in all OS
     runs-on: ubuntu-latest
 
