@@ -111,7 +111,7 @@ Now we want to check if any of our dependencies need updating, but we don't want
 ```
 $ dmm check
 ...
-drash can be updated from v1.0.0 to v1.0.7
+drash can be updated from v1.0.0 to v1.1.1
 fs can be updated from 0.53.0 to 0.61.0
 ...
 ```
@@ -123,7 +123,7 @@ Lets update our dependencies as some are out of date:
 ```
 $ dmm update
 ...
-drash was updated from v1.0.0 to v1.0.7
+drash was updated from v1.0.0 to v1.1.1
 fs was updated from 0.53.0 to 0.61.0
 ...
 ```
@@ -131,7 +131,7 @@ fs was updated from 0.53.0 to 0.61.0
 Now lets check the `deps.ts` file, and you will notice the versions have been modified:
 
 ```typescript
-export { Drash } from "https://deno.land/x/drash@v1.0.7/mod.ts"; // was out of date
+export { Drash } from "https://deno.land/x/drash@v1.1.1/mod.ts"; // was out of date
 
 import * as fs from "https://deno.land/std@0.61.0/fs/mod.ts"; // was out of date
 
