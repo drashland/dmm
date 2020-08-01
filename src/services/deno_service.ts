@@ -15,10 +15,13 @@ interface DenoLandDatabase {
  */
 async function getLatestStdRelease(): Promise<string> {
   const res = await fetch(
-    "https://raw.githubusercontent.com/denoland/deno_website2/master/deno_std_versions.json",
+    "https://raw.githubusercontent.com/denoland/deno_website2/master/versions.json",
   );
-  const versions: string[] = await res.json();
-  let latestVersion = versions[0];
+  const versions: {
+    std: string[],
+    cli_to_std: {[key: string]: string }
+  } = await res.json(); // { std: ["0.63.0", ...], cli_to_std: { v1.2.2: "0.63.0", ... } }
+  const latestVersion = versions.std[0];
   return latestVersion;
 }
 
