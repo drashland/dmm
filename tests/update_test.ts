@@ -246,13 +246,12 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    const assertedOutput =
-        "Gathering facts...\n" +
-        "Reading deps.ts to gather your dependencies...\n" +
-        "Checking if your modules can be updated...\n" +
-        colours.green("drash was updated from v1.0.0 to v1.2.1") + "\n" +
-        colours.green("fs was updated from 0.53.0 to 0.63.0") + "\n" +
-        colours.green("fmt was updated from v0.53.0 to v0.63.0") + "\n";
+    const assertedOutput = "Gathering facts...\n" +
+      "Reading deps.ts to gather your dependencies...\n" +
+      "Checking if your modules can be updated...\n" +
+      colours.green("drash was updated from v1.0.0 to v1.2.1") + "\n" +
+      colours.green("fs was updated from 0.53.0 to 0.63.0") + "\n" +
+      colours.green("fmt was updated from v0.53.0 to v0.63.0") + "\n";
     assertEquals(stdout, assertedOutput);
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
