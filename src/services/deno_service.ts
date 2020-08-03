@@ -33,8 +33,8 @@ export default class DenoService {
     const res = await fetch(
       "https://cdn.deno.land/" + name + "/meta/versions.json",
     );
-    const json: { latest: string, versions: string[] } = await res.json()
-    const latestRelease = json.latest
+    const json: { latest: string; versions: string[] } = await res.json();
+    const latestRelease = json.latest;
     return latestRelease;
   }
 
@@ -57,22 +57,27 @@ export default class DenoService {
    *
    * @returns The description
    */
-  public static async getThirdPartyDescription (importedModuleName: string): Promise<string> {
-    const res = await fetch("https://api.deno.land/modules?query={module:" + importedModuleName + "}&limit=1")
+  public static async getThirdPartyDescription(
+    importedModuleName: string,
+  ): Promise<string> {
+    const res = await fetch(
+      "https://api.deno.land/modules?query={module:" + importedModuleName +
+        "}&limit=1",
+    );
     const json: {
-      success: boolean,
+      success: boolean;
       data: {
-        total_count: number,
+        total_count: number;
         results: Array<{
-          name: string,
-          description: string,
-          star_count: number,
-          search_score: number
-        }>
-      }
-    } = await res.json()
-    const description = json.data.results[0].description
-    return description
+          name: string;
+          description: string;
+          star_count: number;
+          search_score: number;
+        }>;
+      };
+    } = await res.json();
+    const description = json.data.results[0].description;
+    return description;
   }
 
   /**
@@ -84,15 +89,22 @@ export default class DenoService {
    *
    * @returns The owner and repo name, eg "<owner>/<repo>"
    */
-  public static async getThirdPartyRepoAndOwner (importedModuleName: string): Promise<string> {
-    const latestRelease = await DenoService.getLatestThirdPartyRelease(importedModuleName)
-    const res = await fetch("https://cdn.deno.land/" + importedModuleName + "/versions/" + latestRelease + "/meta/meta.json")
+  public static async getThirdPartyRepoAndOwner(
+    importedModuleName: string,
+  ): Promise<string> {
+    const latestRelease = await DenoService.getLatestThirdPartyRelease(
+      importedModuleName,
+    );
+    const res = await fetch(
+      "https://cdn.deno.land/" + importedModuleName + "/versions/" +
+        latestRelease + "/meta/meta.json",
+    );
     const json: {
       upload_options: {
-        repository: string
-      }
-    } = await res.json()
-    const repository = json.upload_options.repository
-    return repository
+        repository: string;
+      };
+    } = await res.json();
+    const repository = json.upload_options.repository;
+    return repository;
   }
 }

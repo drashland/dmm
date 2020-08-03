@@ -2,7 +2,9 @@
 import { assertEquals, colours } from "../deps.ts";
 import DenoService from "../src/services/deno_service.ts";
 
-const latestDrashRelease = await DenoService.getLatestThirdPartyRelease("drash")
+const latestDrashRelease = await DenoService.getLatestThirdPartyRelease(
+  "drash",
+);
 
 /**
  * @param dir eg "out-of-date-deps"
@@ -63,7 +65,9 @@ Deno.test({
     const expected = "Gathering facts...\n" +
       "Reading deps.ts to gather your dependencies...\n" +
       "Checking if your modules can be updated...\n" +
-      colours.green(`fs was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`) + "\n";
+      colours.green(
+        `fs was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+      ) + "\n";
     assertEquals(
       stdout,
       expected,
@@ -78,7 +82,11 @@ Deno.test({
       Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
     );
     assertEquals(newDepContent !== originalDepContent, true);
-    assertEquals(newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fs`) !== -1, true);
+    assertEquals(
+      newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fs`) !==
+        -1,
+      true,
+    );
     defaultDepsBackToOriginal("out-of-date-deps");
   },
 });
@@ -160,8 +168,12 @@ Deno.test({
       "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
-        colours.green(`fs was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`) + "\n" +
-        colours.green(`fmt was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`) + "\n",
+        colours.green(
+          `fs was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+        ) + "\n" +
+        colours.green(
+          `fmt was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+        ) + "\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -173,8 +185,16 @@ Deno.test({
       Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
     );
     assertEquals(newDepContent !== originalDepContent, true);
-    assertEquals(newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fs`) !== -1, true);
-    assertEquals(newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fmt`) !== -1, true);
+    assertEquals(
+      newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fs`) !==
+        -1,
+      true,
+    );
+    assertEquals(
+      newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fmt`) !==
+        -1,
+      true,
+    );
     defaultDepsBackToOriginal("out-of-date-deps");
   },
 });
@@ -252,9 +272,14 @@ Deno.test({
     const assertedOutput = "Gathering facts...\n" +
       "Reading deps.ts to gather your dependencies...\n" +
       "Checking if your modules can be updated...\n" +
-      colours.green(`drash was updated from v1.0.0 to ${latestDrashRelease}`) + "\n" +
-      colours.green(`fs was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`) + "\n" +
-      colours.green(`fmt was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`) + "\n";
+      colours.green(`drash was updated from v1.0.0 to ${latestDrashRelease}`) +
+      "\n" +
+      colours.green(
+        `fs was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+      ) + "\n" +
+      colours.green(
+        `fmt was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+      ) + "\n";
     assertEquals(stdout, assertedOutput);
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -266,8 +291,16 @@ Deno.test({
       Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
     );
     assertEquals(newDepContent !== originalDepContent, true);
-    assertEquals(newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fs`) !== -1, true);
-    assertEquals(newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fmt`) !== -1, true);
+    assertEquals(
+      newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fs`) !==
+        -1,
+      true,
+    );
+    assertEquals(
+      newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fmt`) !==
+        -1,
+      true,
+    );
     assertEquals(newDepContent.indexOf("drash@v1.2.1") !== -1, true);
     defaultDepsBackToOriginal("out-of-date-deps");
   },
@@ -346,7 +379,9 @@ Deno.test({
       "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
-        colours.green(`drash was updated from v1.0.0 to ${latestDrashRelease}`) + "\n",
+        colours.green(
+          `drash was updated from v1.0.0 to ${latestDrashRelease}`,
+        ) + "\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -440,8 +475,12 @@ Deno.test({
       "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
-        colours.green(`drash was updated from v1.0.0 to ${latestDrashRelease}`) + "\n" +
-        colours.green(`fmt was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`) + "\n",
+        colours.green(
+          `drash was updated from v1.0.0 to ${latestDrashRelease}`,
+        ) + "\n" +
+        colours.green(
+          `fmt was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+        ) + "\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -453,8 +492,15 @@ Deno.test({
       Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
     );
     assertEquals(newDepContent !== originalDepContent, true);
-    assertEquals(newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fmt`) !== -1, true);
-    assertEquals(newDepContent.indexOf(`drash@${latestDrashRelease}`) !== -1, true);
+    assertEquals(
+      newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fmt`) !==
+        -1,
+      true,
+    );
+    assertEquals(
+      newDepContent.indexOf(`drash@${latestDrashRelease}`) !== -1,
+      true,
+    );
     defaultDepsBackToOriginal("out-of-date-deps");
   },
 });
@@ -490,7 +536,9 @@ Deno.test({
       "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
-        colours.green(`fs was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`) + "\n",
+        colours.green(
+          `fs was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+        ) + "\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -502,7 +550,11 @@ Deno.test({
       Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
     );
     assertEquals(newDepContent !== originalDepContent, true);
-    assertEquals(newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fs`) !== -1, true);
+    assertEquals(
+      newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fs`) !==
+        -1,
+      true,
+    );
     defaultDepsBackToOriginal("out-of-date-deps");
   },
 });

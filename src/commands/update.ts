@@ -36,7 +36,11 @@ export async function update(dependencies: string[]): Promise<void> {
       );
       // `v` is not supported for std imports anymore
       if (module.importedVersion.indexOf("v") > -1) {
-        console.warn(colours.yellow(`You are importing a version of ${module.name} prefixed with "v". deno.land does not support this and will throw a 403 error.`))
+        console.warn(
+          colours.yellow(
+            `You are importing a version of ${module.name} prefixed with "v". deno.land does not support this and will throw a 403 error.`,
+          ),
+        );
       }
     } else {
       depsContent = depsContent.replace(

@@ -107,7 +107,8 @@ export default class ModuleService {
       // Get the github url
       const githubURL: string = std === true
         ? "https://github.com/denoland/deno/tree/master/std/" + name
-        : "https://github.com/" + await DenoService.getThirdPartyRepoAndOwner(name);
+        : "https://github.com/" +
+          await DenoService.getThirdPartyRepoAndOwner(name);
 
       // Get the latest release - make sure the string is the same format as imported version eg using a "v"
       const latestRelease: string = std === true
