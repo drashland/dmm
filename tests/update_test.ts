@@ -454,7 +454,7 @@ Deno.test({
     );
     assertEquals(newDepContent !== originalDepContent, true);
     assertEquals(newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fmt`) !== -1, true);
-    assertEquals(newDepContent.indexOf(`drash@${DenoService.}`) !== -1, true);
+    assertEquals(newDepContent.indexOf(`drash@${latestDrashRelease}`) !== -1, true);
     defaultDepsBackToOriginal("out-of-date-deps");
   },
 });
