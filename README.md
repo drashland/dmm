@@ -53,7 +53,7 @@ As dmm only needs to read and write to your `deps.ts`, as well as requiring netw
 
 *Install*
 ```
-$ deno install --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.1.1/mod.ts
+$ deno install --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.1.3/mod.ts
 $ dmm ...
 ```
 
@@ -61,7 +61,7 @@ $ dmm ...
 
 If you are using this method, be sure to use the latest version of dmm in the command below
 ```
-$ deno run <permissions> https://deno.land/x/dmm@v1.1.1/mod.ts ...
+$ deno run <permissions> https://deno.land/x/dmm@v1.1.3/mod.ts ...
 ```
 
 In the examples below, dmm is installed and we will be using it that way to make the commands easier to read.
@@ -111,7 +111,7 @@ Now we want to check if any of our dependencies need updating, but we don't want
 ```
 $ dmm check
 ...
-drash can be updated from v1.0.0 to v1.1.1
+drash can be updated from v1.0.0 to v1.2.1
 fs can be updated from 0.53.0 to 0.63.0
 ...
 ```
@@ -123,7 +123,7 @@ Lets update our dependencies as some are out of date:
 ```
 $ dmm update
 ...
-drash was updated from v1.0.0 to v1.1.1
+drash was updated from v1.0.0 to v1.2.1
 fs was updated from 0.53.0 to 0.63.0
 ...
 ```
@@ -131,7 +131,7 @@ fs was updated from 0.53.0 to 0.63.0
 Now lets check the `deps.ts` file, and you will notice the versions have been modified:
 
 ```typescript
-export { Drash } from "https://deno.land/x/drash@v1.1.1/mod.ts"; // was out of date
+export { Drash } from "https://deno.land/x/drash@v1.2.1/mod.ts"; // was out of date
 
 import * as fs from "https://deno.land/std@0.63.0/fs/mod.ts"; // was out of date
 
@@ -150,7 +150,7 @@ $ dmm --help
 A module manager for Deno.    
 
 USAGE:
-    deno run --allow-read --allow-net [--allow-write] https://deno.land/x/dmm@v1.1.1/mod.ts [ARGS] [MODULES]
+    deno run --allow-read --allow-net [--allow-write] https://deno.land/x/dmm@v1.1.3/mod.ts [ARGS] [MODULES]
 
     dmm [ARGS] [MODULES]
 
@@ -174,9 +174,9 @@ OPTIONS:
 
 EXAMPLE USAGE:
     Assume you are importing an out of date version of `fs` from `std`.
-    deno run --allow-net --allow-read https://deno.land/x/dmm@v1.1.1/mod.ts check fs
-    deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.1.1/mod.ts update fs
-    deno run --allow-net https://deno.land/x/dmm@v1.1.1/mod.ts info http
+    deno run --allow-net --allow-read https://deno.land/x/dmm@v1.1.3/mod.ts check fs
+    deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.1.3/mod.ts update fs
+    deno run --allow-net https://deno.land/x/dmm@v1.1.3/mod.ts info http
     dmm info http
 
 ```
