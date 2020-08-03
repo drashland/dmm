@@ -211,7 +211,7 @@ Deno.test({
         ) +
         "\n" +
         colours.yellow(
-          `fmt can be updated from 0.53.0 to v${DenoService.getLatestStdRelease()}`,
+          `fmt can be updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
         ) + "\n" +
         "To update, run: \n" +
         "    dmm update drash fs fmt" +

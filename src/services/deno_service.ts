@@ -13,7 +13,6 @@ async function getLatestStdRelease(): Promise<string> {
     cli: string[];
     cli_to_std: { [key: string]: string };
   } = await res.json(); // { std: ["0.63.0", ...], cli: ["v1.2.2", ...], cli_to_std: { v1.2.2: "0.63.0", ... } }
-  console.log(versions.std[0])
   const latestVersion = versions.std[0];
   return latestVersion;
 }
@@ -34,8 +33,8 @@ export default class DenoService {
     const res = await fetch(
       "https://cdn.deno.land/" + name + "/meta/versions.json",
     );
-    const json: { latest_release: string, versions: string[] } = await res.json()
-    const latestRelease = json.latest_release
+    const json: { latest: string, versions: string[] } = await res.json()
+    const latestRelease = json.latest
     return latestRelease;
   }
 
