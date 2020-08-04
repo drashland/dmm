@@ -21,6 +21,16 @@ const latestStdRelease = await getLatestStdRelease();
 
 export default class DenoService {
   /**
+   * Url for Deno's CDN link
+   */
+  public static readonly DENO_CDN_URL: string = "https://cdn.deno.land/";
+
+  /**
+   * Url for Deno's API link
+   */
+  public static readonly DENO_API_URL: string = "https://api.deno.land/";
+
+  /**
    * Fetches the latest release of a module using deno.land cdn.
    *
    * @param name - Module name
@@ -31,7 +41,7 @@ export default class DenoService {
     name: string,
   ): Promise<string> {
     const res = await fetch(
-      "https://cdn.deno.land/" + name + "/meta/versions.json",
+      DenoService.DENO_CDN_URL + name + "/meta/versions.json",
     );
     const json: { latest: string; versions: string[] } = await res.json();
     const latestRelease = json.latest;
@@ -61,7 +71,7 @@ export default class DenoService {
     importedModuleName: string,
   ): Promise<string> {
     const res = await fetch(
-      "https://api.deno.land/modules?query={module:" + importedModuleName +
+      DenoService.DENO_API_URL + "modules?query={module:" + importedModuleName +
         "}&limit=1",
     );
     const json: {
@@ -96,7 +106,7 @@ export default class DenoService {
       importedModuleName,
     );
     const res = await fetch(
-      "https://cdn.deno.land/" + importedModuleName + "/versions/" +
+      DenoService.DENO_CDN_URL + importedModuleName + "/versions/" +
         latestRelease + "/meta/meta.json",
     );
     const json: {

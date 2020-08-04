@@ -15,7 +15,7 @@ export async function info(modules: string[]) {
     "https://github.com/denoland/deno/tree/master/std/" + moduleToGetInfoOn,
   );
   const thirdPartyResponse = await fetch(
-    "https://cdn.deno.land/" + moduleToGetInfoOn + "/meta/versions.json",
+    DenoService.DENO_CDN_URL + moduleToGetInfoOn + "/meta/versions.json",
   ); // Only used so we can check if the module exists
   const isStd = stdResponse.status === 200;
   const isThirdParty = thirdPartyResponse.status === 200;
