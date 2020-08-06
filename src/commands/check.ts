@@ -2,6 +2,13 @@ import { colours } from "../../deps.ts";
 import IModule from "../interfaces/module.ts";
 import ModuleService from "../services/module_service.ts";
 
+/**
+ * Reads the dependency file(s) and checks if dependencies are out of date
+ *     - If `dependencies` passed in, it will only  check those deps inside the dep file
+ *     - If `dependencies` is empty, checks all
+ *
+ * @param dependencies - A list of dependencies (module names) to check
+ */
 export async function check(dependencies: string[]): Promise<void> {
   // Create objects for each dep, with its name and version
   const modules = await ModuleService.constructModulesDataFromDeps(

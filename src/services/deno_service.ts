@@ -8,14 +8,11 @@ interface DenoLandDatabase {
 }
 
 /**
- * @description
- * Fetches the latest std version
- *
- * @returns {Promise<string>} eg "0.57.0"
+ * Gets the latest STD release
  */
-async function getLatestStdRelease(): Promise<string> {
+const latestStdRelease = await (async function () {
   const res = await fetch(
-    "https://raw.githubusercontent.com/denoland/deno_website2/master/versions.json",
+      "https://raw.githubusercontent.com/denoland/deno_website2/master/versions.json",
   );
   const versions: {
     std: string[];
@@ -23,9 +20,7 @@ async function getLatestStdRelease(): Promise<string> {
   } = await res.json(); // { std: ["0.63.0", ...], cli_to_std: { v1.2.2: "0.63.0", ... } }
   const latestVersion = versions.std[0];
   return latestVersion;
-}
-
-const latestStdRelease = await getLatestStdRelease();
+}())
 
 /**
  * @description
@@ -69,10 +64,9 @@ export default class DenoService {
   }
 
   /**
-   * @description
    * Get the latest std release version
    *
-   * @returns {string} eg "0.57.0"
+   * @returns The latest release eg "0.57.0"
    */
   public static getLatestStdRelease(): string {
     return latestStdRelease;

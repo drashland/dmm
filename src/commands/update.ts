@@ -2,6 +2,13 @@ import { colours } from "../../deps.ts";
 import IModule from "../interfaces/module.ts";
 import ModuleService from "../services/module_service.ts";
 
+/**
+ * Reads users deps file and will update based on:
+ *     - if `dependencies` has items, only update those in users deps file
+ *     - if `dependencies` is empty, update all
+ *
+ * @param dependencies - List of dependencies the user wishes to update
+ */
 export async function update(dependencies: string[]): Promise<void> {
   // Create objects for each dep, with its name and version
   const modules = await ModuleService.constructModulesDataFromDeps(
