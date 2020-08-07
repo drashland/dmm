@@ -105,11 +105,10 @@ export default class ModuleService {
       }
 
       // Get the github url
-      const denoLandDatabase = DenoService.getDenoLandDatabase();
       const githubURL: string = std === true
         ? "https://github.com/denoland/deno/tree/master/std/" + name
-        : "https://github.com/" + denoLandDatabase[name].owner + "/" +
-          denoLandDatabase[name].repo;
+        : "https://github.com/" +
+          await DenoService.getThirdPartyRepoAndOwner(name);
 
       // Get the latest release - make sure the string is the same format as imported version eg using a "v"
       const latestRelease: string = std === true
@@ -124,7 +123,7 @@ export default class ModuleService {
 
       // Get the description
       const description: string = std === false
-        ? denoLandDatabase[name].desc
+        ? await DenoService.getThirdPartyDescription(name)
         : colours.red(
           "Descriptions for std modules are not currently supported",
         );

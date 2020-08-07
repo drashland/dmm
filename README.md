@@ -201,11 +201,11 @@ dmm will only read modules that reside on [deno.land](https://deno.land), whethe
 * dmm will read every `from "https://deno.land/..."` line in your `deps.ts` and using the name and version, will convert the dependencies into objects.
 
 * dmm will then retrieve the rest of the required information for later use for each module:
-    * Latest version - for 3rd party modules, it's taken from using the GitHub API for Deno's `database.json` file. For `std` modules, it's taken from `https://deno.land/std/@<latest version>/version.ts`
+    * Latest version - for 3rd party modules, it's pulled using `https://github.com/owner/repo/releases/latest`. For `std` modules, it's taken from `https://raw.githubusercontent.com/denoland/deno_website2/master/versions.json`
     * GitHub URL - Retrieved through the GitHub API
     * Description - For 3rd party modules, it is also taken from reading Deno's `database.json` file, which holds all modules that display on https://deno.land/x/
     
-* After this, dmm will un different actions based on the purpose:
+* After this, dmm will run different actions based on the purpose:
 
     * **check**
     
