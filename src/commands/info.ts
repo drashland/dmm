@@ -20,9 +20,11 @@ export async function info(modules: string[]): Promise<void> {
   const stdResponse = await fetch(
     "https://github.com/denoland/deno/tree/master/std/" + moduleToGetInfoOn,
   );
+  const thirdPartyResponse = await fetch(
+    DenoService.DENO_CDN_URL + moduleToGetInfoOn + "/meta/versions.json",
+  ); // Only used so we can check if the module exists
   const isStd = stdResponse.status === 200;
-  const denoLandDatabase = DenoService.getDenoLandDatabase();
-  const isThirdParty = typeof denoLandDatabase[moduleToGetInfoOn] === "object";
+  const isThirdParty = thirdPartyResponse.status === 200;
   if (!isStd && !isThirdParty) {
     console.error(
       colours.red("No module was found with " + moduleToGetInfoOn),
@@ -42,10 +44,9 @@ export async function info(modules: string[]): Promise<void> {
     gitHubUrl = "https://github.com/denoland/deno/tree/master/std/" + name;
   }
   if (isThirdParty) {
-    const databaseModule = denoLandDatabase[moduleToGetInfoOn];
-    description = databaseModule.desc;
-    gitHubUrl = "https://github.com/" + databaseModule.owner + "/" +
-      databaseModule.repo;
+    description = await DenoService.getThirdPartyDescription(name);
+    gitHubUrl = "https://github.com/" +
+      await DenoService.getThirdPartyRepoAndOwner(name);
     latestVersion = await DenoService.getLatestThirdPartyRelease(name);
     denoLandUrl = "https://deno.land/x/" + name + "@" + latestVersion;
   }
