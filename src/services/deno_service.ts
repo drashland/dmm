@@ -10,9 +10,9 @@ interface DenoLandDatabase {
 /**
  * Gets the latest STD release
  */
-async function _getLatestStdRelease () {
+async function _getLatestStdRelease() {
   const res = await fetch(
-      "https://raw.githubusercontent.com/denoland/deno_website2/master/versions.json",
+    "https://raw.githubusercontent.com/denoland/deno_website2/master/versions.json",
   );
   const versions: {
     std: string[];
@@ -21,7 +21,7 @@ async function _getLatestStdRelease () {
   const latestVersion = versions.std[0];
   return latestVersion;
 }
-const latestStdRelease = await _getLatestStdRelease()
+const latestStdRelease = await _getLatestStdRelease();
 
 /**
  * @description
