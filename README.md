@@ -150,7 +150,7 @@ $ dmm --help
 A module manager for Deno.    
 
 USAGE:
-    deno run --allow-read --allow-net [--allow-write] https://deno.land/x/dmm@v1.1.4mod.ts [ARGS] [MODULES]
+    deno run --allow-read --allow-net [--allow-write] https://deno.land/x/dmm@v1.1.4/mod.ts [ARGS] [MODULES]
 
     dmm [ARGS] [MODULES]
 
