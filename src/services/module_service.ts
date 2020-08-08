@@ -4,15 +4,14 @@ import DenoService from "../services/deno_service.ts";
 
 export default class ModuleService {
   /**
-   * @description
    * Keeps the latest release string in-line with the imported version.
    * Latest release will contain or lose the "v" prefix to match the
    * imported version
    *
-   * @param {string} importedVersion eg "v1.0.1" or "1.0.1"
-   * @param {string} latestVersion eg "v1.0.1" or "1.0.1"
+   * @param importedVersion - eg "v1.0.1" or "1.0.1"
+   * @param latestVersion - eg "v1.0.1" or "1.0.1"
    *
-   * @returns {string} "v1.0.1" if `importedVersion` is "v1.0.1", else "1.0.1"
+   * @returns The version eg "v1.0.1" if `importedVersion` is "v1.0.1", else "1.0.1"
    */
   private static standardiseVersion(
     importedVersion: string,
@@ -35,17 +34,16 @@ export default class ModuleService {
   }
 
   /**
-   * @description
    * Constructs the object representations for the given modules, that contains all the information about those modules
    * needed to: run any queries on them, or log information about them.
    *     1. Reads `deps.ts` and turns each dependency into a module object
    *     2. Adds a the github url to each object using Deno's database.json and the modules name
    *     3. Adds the latest version to each object using the github url
    *
-   * @param {string[]} modulesForPurpose Specific modules instead of checking all. Leave empty if all
-   * @param {string} purpose The purpose. Purely for logging purposes, eg "check" or "update"
+   * @param modulesForPurpose - Specific modules instead of checking all. Leave empty if all
+   * @param purpose - The purpose. Purely for logging purposes, eg "check" or "update"
    *
-   * @return {Module[]} An array of objects, with each object containing information about each module
+   * @returns An array of objects, with each object containing information about each module
    */
   public static async constructModulesDataFromDeps(
     modulesForPurpose: string[],

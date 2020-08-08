@@ -1,7 +1,13 @@
 import { colours } from "../../deps.ts";
 import DenoService from "../services/deno_service.ts";
 
-export async function info(modules: string[]) {
+/**
+ * Supplies information on the given module in the first
+ * index of `modules`
+ *
+ * @param modules - List of modules to get info on. Currently, we only support 1, so `modules[0]` will be used
+ */
+export async function info(modules: string[]): Promise<void> {
   if (modules.length === 0 || modules.length > 1) {
     console.error(
       colours.red(
