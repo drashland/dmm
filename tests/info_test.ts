@@ -1,5 +1,8 @@
 import { assertEquals, colours } from "../deps.ts";
 import DenoService from "../src/services/deno_service.ts";
+const latestDrashRelease = await DenoService.getLatestThirdPartyRelease(
+    "drash",
+);
 
 // Check a specific dep that can be updated
 Deno.test({
@@ -56,10 +59,10 @@ Deno.test({
         "\n" +
         "  - Name: drash\n" +
         "  - Description: A REST microframework for Deno's HTTP server with zero dependencies.\n" +
-        "  - deno.land Link: https://deno.land/x/drash@v1.2.1\n" +
+        `  - deno.land Link: https://deno.land/x/drash@${latestDrashRelease}\n` +
         "  - GitHub Repository: https://github.com/drashland/deno-drash\n" +
-        '  - Import Statement: import * as drash from \"https://deno.land/x/drash@v1.2.1\";\n' +
-        "  - Latest Version: v1.2.1\n" +
+        `  - Import Statement: import * as drash from \"https://deno.land/x/drash@${latestDrashRelease}\";\n` +
+        `  - Latest Version: ${latestDrashRelease}\n` +
         "\n",
     );
     assertEquals(stderr, "");

@@ -301,7 +301,7 @@ Deno.test({
         -1,
       true,
     );
-    assertEquals(newDepContent.indexOf("drash@v1.2.1") !== -1, true);
+    assertEquals(newDepContent.indexOf(`drash@${latestDrashRelease}`) !== -1, true);
     defaultDepsBackToOriginal("out-of-date-deps");
   },
 });
@@ -393,7 +393,7 @@ Deno.test({
       Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
     );
     assertEquals(newDepContent !== originalDepContent, true);
-    assertEquals(newDepContent.indexOf("drash@v1.2.1") !== -1, true);
+    assertEquals(newDepContent.indexOf(`drash@${latestDrashRelease}`) !== -1, true);
     defaultDepsBackToOriginal("out-of-date-deps");
   },
 });
