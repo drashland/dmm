@@ -1,5 +1,5 @@
 import { assertEquals, colours } from "../deps.ts";
-import { version } from "../src/options/version.ts"
+import { version } from "../src/options/version.ts";
 
 Deno.test({
   name: "Help",

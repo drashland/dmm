@@ -1,7 +1,7 @@
 import { assertEquals, colours } from "../deps.ts";
 import DenoService from "../src/services/deno_service.ts";
 const latestDrashRelease = await DenoService.getLatestThirdPartyRelease(
-    "drash",
+  "drash",
 );
 
 // Check a specific dep that can be updated
