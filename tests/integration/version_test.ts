@@ -1,11 +1,12 @@
-import { assertEquals } from "../deps.ts";
+import { assertEquals } from "../../deps.ts";
+import { upToDateDepsDir } from "./test_constants.ts";
 
 Deno.test({
   name: "Version",
   async fn(): Promise<void> {
     const p = await Deno.run({
-      cmd: ["deno", "run", "--allow-net", "../../mod.ts", "--version"],
-      cwd: "./tests/up-to-date-deps",
+      cmd: ["deno", "run", "--allow-net", "../../../mod.ts", "--version"],
+      cwd: upToDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });

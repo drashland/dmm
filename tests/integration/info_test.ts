@@ -1,5 +1,6 @@
-import { assertEquals, colours } from "../deps.ts";
-import DenoService from "../src/services/deno_service.ts";
+import { assertEquals, colours } from "../../deps.ts";
+import DenoService from "../../src/services/deno_service.ts";
+import { upToDateDepsDir, outOfDateDepsDir } from "./test_constants.ts";
 const latestDrashRelease = await DenoService.getLatestThirdPartyRelease(
   "drash",
 );
@@ -11,8 +12,8 @@ Deno.test({
   //ignore: true,
   async fn(): Promise<void> {
     const p = await Deno.run({
-      cmd: ["deno", "run", "--allow-net", "../../mod.ts", "info"],
-      cwd: "./tests/out-of-date-deps",
+      cmd: ["deno", "run", "--allow-net", "../../../mod.ts", "info"],
+      cwd: outOfDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
@@ -40,8 +41,8 @@ Deno.test({
   //ignore: true,
   async fn(): Promise<void> {
     const p = await Deno.run({
-      cmd: ["deno", "run", "--allow-net", "../../mod.ts", "info", "drash"],
-      cwd: "./tests/up-to-date-deps",
+      cmd: ["deno", "run", "--allow-net", "../../../mod.ts", "info", "drash"],
+      cwd: upToDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
@@ -78,8 +79,8 @@ Deno.test({
   //ignore: true,
   async fn(): Promise<void> {
     const p = await Deno.run({
-      cmd: ["deno", "run", "--allow-net", "../../mod.ts", "info", "fs"],
-      cwd: "./tests/out-of-date-deps",
+      cmd: ["deno", "run", "--allow-net", "../../../mod.ts", "info", "fs"],
+      cwd: outOfDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
@@ -120,12 +121,12 @@ Deno.test({
         "deno",
         "run",
         "--allow-net",
-        "../../mod.ts",
+        "../../../mod.ts",
         "info",
         "fs",
         "drash",
       ],
-      cwd: "./tests/up-to-date-deps",
+      cwd: upToDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
@@ -156,11 +157,11 @@ Deno.test({
         "deno",
         "run",
         "--allow-net",
-        "../../mod.ts",
+        "../../../mod.ts",
         "info",
         "somethinggg",
       ],
-      cwd: "./tests/up-to-date-deps",
+      cwd: upToDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
