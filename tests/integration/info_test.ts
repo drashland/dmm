@@ -1,6 +1,6 @@
 import { assertEquals, colours } from "../../deps.ts";
 import DenoService from "../../src/services/deno_service.ts";
-import { upToDateDepsDir, outOfDateDepsDir } from "./test_constants.ts"
+import { upToDateDepsDir, outOfDateDepsDir } from "./test_constants.ts";
 const latestDrashRelease = await DenoService.getLatestThirdPartyRelease(
   "drash",
 );

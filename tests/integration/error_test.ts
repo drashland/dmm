@@ -1,5 +1,5 @@
 import { assertEquals, colours } from "../../deps.ts";
-import { upToDateDepsDir, outOfDateDepsDir } from "./test_constants.ts"
+import { upToDateDepsDir, outOfDateDepsDir } from "./test_constants.ts";
 
 Deno.test({
   name: "No Purpose",

@@ -1,5 +1,5 @@
 import { assertEquals } from "../../deps.ts";
-import {upToDateDepsDir} from "./test_constants.ts";
+import { upToDateDepsDir } from "./test_constants.ts";
 
 Deno.test({
   name: "Version",

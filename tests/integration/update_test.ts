@@ -1,7 +1,14 @@
 // Update a specific dep that can be updated
 import { assertEquals, colours } from "../../deps.ts";
 import DenoService from "../../src/services/deno_service.ts";
-import { upToDateDepsDir, outOfDateDepsDir, outOfDateDepsFile, outOfDateOriginalDepsFile, upToDateDepsFile, upToDateOriginalDepsFile } from "./test_constants.ts"
+import {
+  upToDateDepsDir,
+  outOfDateDepsDir,
+  outOfDateDepsFile,
+  outOfDateOriginalDepsFile,
+  upToDateDepsFile,
+  upToDateOriginalDepsFile,
+} from "./test_constants.ts";
 
 const latestDrashRelease = await DenoService.getLatestThirdPartyRelease(
   "drash",
