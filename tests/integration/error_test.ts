@@ -1,11 +1,12 @@
 import { assertEquals, colours } from "../../deps.ts";
+import { upToDateDepsDir, outOfDateDepsDir } from "./test_constants.ts"
 
 Deno.test({
   name: "No Purpose",
   async fn(): Promise<void> {
     const p = await Deno.run({
-      cmd: ["deno", "run", "--allow-net", "--allow-read", "../../mod.ts"],
-      cwd: "./tests/up-to-date-deps",
+      cmd: ["deno", "run", "--allow-net", "--allow-read", "../../../mod.ts"],
+      cwd: upToDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
@@ -31,10 +32,10 @@ Deno.test({
         "run",
         "--allow-net",
         "--allow-read",
-        "../../mod.ts",
+        "../../../mod.ts",
         "something",
       ],
-      cwd: "./tests/up-to-date-deps",
+      cwd: upToDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });

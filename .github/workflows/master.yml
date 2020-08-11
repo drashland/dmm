@@ -21,10 +21,10 @@ jobs:
         with:
           deno-version: ${{ matrix.deno }}
 
-      - name: Unit
+      - name: Integration
         run: |
           deno cache mod.ts
-          deno test --allow-read --allow-run --allow-write --allow-net
+          deno test --allow-read --allow-run --allow-write --allow-net tests/integration
   linting:
     strategy:
       matrix:

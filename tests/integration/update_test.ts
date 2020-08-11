@@ -1,6 +1,7 @@
 // Update a specific dep that can be updated
 import { assertEquals, colours } from "../../deps.ts";
 import DenoService from "../../src/services/deno_service.ts";
+import { upToDateDepsDir, outOfDateDepsDir, outOfDateDepsFile, outOfDateOriginalDepsFile, upToDateDepsFile, upToDateOriginalDepsFile } from "./test_constants.ts"
 
 const latestDrashRelease = await DenoService.getLatestThirdPartyRelease(
   "drash",
@@ -10,8 +11,8 @@ const latestDrashRelease = await DenoService.getLatestThirdPartyRelease(
  * @param dir eg "out-of-date-deps"
  */
 function defaultDepsBackToOriginal(dir: string): void {
-  const pathToOriginal = "tests/" + dir + "/original_deps.ts";
-  const pathToMain = "tests/" + dir + "/deps.ts";
+  const pathToOriginal = "tests/integration/" + dir + "/original_deps.ts";
+  const pathToMain = "tests/integration/" + dir + "/deps.ts";
   const originalContent = new TextDecoder().decode(
     Deno.readFileSync(pathToOriginal),
   );
@@ -48,11 +49,11 @@ Deno.test({
         "--allow-net",
         "--allow-read",
         "--allow-write",
-        "../../mod.ts",
+        "../../../mod.ts",
         "update",
         "fs",
       ],
-      cwd: "./tests/out-of-date-deps",
+      cwd: outOfDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
@@ -76,10 +77,10 @@ Deno.test({
     assertEquals(status.code, 0);
     assertEquals(status.success, true);
     const originalDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"),
+      Deno.readFileSync(outOfDateOriginalDepsFile),
     );
     const newDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
+      Deno.readFileSync(outOfDateDepsFile),
     );
     assertEquals(newDepContent !== originalDepContent, true);
     assertEquals(
@@ -102,11 +103,11 @@ Deno.test({
         "--allow-net",
         "--allow-read",
         "--allow-write",
-        "../../mod.ts",
+        "../../../mod.ts",
         "update",
         "fs",
       ],
-      cwd: "./tests/up-to-date-deps",
+      cwd: upToDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
@@ -127,10 +128,10 @@ Deno.test({
     assertEquals(status.code, 0);
     assertEquals(status.success, true);
     const originalDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"),
+      Deno.readFileSync(upToDateOriginalDepsFile),
     );
     const newDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
+      Deno.readFileSync(upToDateDepsFile),
     );
     assertEquals(newDepContent === originalDepContent, true);
   },
@@ -148,12 +149,12 @@ Deno.test({
         "--allow-net",
         "--allow-read",
         "--allow-write",
-        "../../mod.ts",
+        "../../../mod.ts",
         "update",
         "fs",
         "fmt",
       ],
-      cwd: "./tests/out-of-date-deps",
+      cwd: outOfDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
@@ -179,10 +180,10 @@ Deno.test({
     assertEquals(status.code, 0);
     assertEquals(status.success, true);
     const originalDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"),
+      Deno.readFileSync(outOfDateOriginalDepsFile),
     );
     const newDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
+      Deno.readFileSync(outOfDateDepsFile),
     );
     assertEquals(newDepContent !== originalDepContent, true);
     assertEquals(
@@ -210,12 +211,12 @@ Deno.test({
         "--allow-net",
         "--allow-read",
         "--allow-write",
-        "../../mod.ts",
+        "../../../mod.ts",
         "update",
         "fs",
         "fmt",
       ],
-      cwd: "./tests/up-to-date-deps",
+      cwd: upToDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
@@ -236,10 +237,10 @@ Deno.test({
     assertEquals(status.code, 0);
     assertEquals(status.success, true);
     const originalDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"),
+      Deno.readFileSync(upToDateOriginalDepsFile),
     );
     const newDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
+      Deno.readFileSync(upToDateDepsFile),
     );
     assertEquals(newDepContent === originalDepContent, true);
   },
@@ -256,10 +257,10 @@ Deno.test({
         "--allow-net",
         "--allow-read",
         "--allow-write",
-        "../../mod.ts",
+        "../../../mod.ts",
         "update",
       ],
-      cwd: "./tests/out-of-date-deps",
+      cwd: outOfDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
@@ -285,10 +286,10 @@ Deno.test({
     assertEquals(status.code, 0);
     assertEquals(status.success, true);
     const originalDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"),
+      Deno.readFileSync(outOfDateOriginalDepsFile),
     );
     const newDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
+      Deno.readFileSync(outOfDateDepsFile),
     );
     assertEquals(newDepContent !== originalDepContent, true);
     assertEquals(
@@ -319,10 +320,10 @@ Deno.test({
         "--allow-net",
         "--allow-read",
         "--allow-write",
-        "../../mod.ts",
+        "../../../mod.ts",
         "update",
       ],
-      cwd: "./tests/up-to-date-deps",
+      cwd: upToDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
@@ -343,10 +344,10 @@ Deno.test({
     assertEquals(status.code, 0);
     assertEquals(status.success, true);
     const originalDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"),
+      Deno.readFileSync(upToDateOriginalDepsFile),
     );
     const newDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
+      Deno.readFileSync(upToDateDepsFile),
     );
     assertEquals(newDepContent === originalDepContent, true);
   },
@@ -363,11 +364,11 @@ Deno.test({
         "--allow-net",
         "--allow-read",
         "--allow-write",
-        "../../mod.ts",
+        "../../../mod.ts",
         "update",
         "drash",
       ],
-      cwd: "./tests/out-of-date-deps",
+      cwd: outOfDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
@@ -390,10 +391,10 @@ Deno.test({
     assertEquals(status.code, 0);
     assertEquals(status.success, true);
     const originalDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"),
+      Deno.readFileSync(outOfDateOriginalDepsFile),
     );
     const newDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
+      Deno.readFileSync(outOfDateDepsFile),
     );
     assertEquals(newDepContent !== originalDepContent, true);
     assertEquals(
@@ -413,12 +414,12 @@ Deno.test({
         "run",
         "--allow-net",
         "--allow-read",
-        "../../mod.ts",
+        "../../../mod.ts",
         "update",
         "denon",
         "io",
       ],
-      cwd: "./tests/up-to-date-deps",
+      cwd: upToDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
@@ -441,10 +442,10 @@ Deno.test({
     assertEquals(status.code, 1);
     assertEquals(status.success, false);
     const originalDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"),
+      Deno.readFileSync(outOfDateOriginalDepsFile),
     );
     const newDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
+      Deno.readFileSync(outOfDateDepsFile),
     );
     assertEquals(newDepContent === originalDepContent, true);
   },
@@ -461,12 +462,12 @@ Deno.test({
         "--allow-net",
         "--allow-read",
         "--allow-write",
-        "../../mod.ts",
+        "../../../mod.ts",
         "update",
         "fmt",
         "drash",
       ],
-      cwd: "./tests/out-of-date-deps",
+      cwd: outOfDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
@@ -492,10 +493,10 @@ Deno.test({
     assertEquals(status.code, 0);
     assertEquals(status.success, true);
     const originalDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"),
+      Deno.readFileSync(outOfDateOriginalDepsFile),
     );
     const newDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
+      Deno.readFileSync(outOfDateDepsFile),
     );
     assertEquals(newDepContent !== originalDepContent, true);
     assertEquals(
@@ -523,11 +524,11 @@ Deno.test({
         "--allow-net",
         "--allow-read",
         "--allow-write",
-        "../../mod.ts",
+        "../../../mod.ts",
         "update",
         "fs",
       ],
-      cwd: "./tests/out-of-date-deps",
+      cwd: outOfDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
@@ -550,10 +551,10 @@ Deno.test({
     assertEquals(status.code, 0);
     assertEquals(status.success, true);
     const originalDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/original_deps.ts"),
+      Deno.readFileSync(outOfDateOriginalDepsFile),
     );
     const newDepContent = new TextDecoder("utf-8").decode(
-      Deno.readFileSync("tests/out-of-date-deps/deps.ts"),
+      Deno.readFileSync(outOfDateDepsFile),
     );
     assertEquals(newDepContent !== originalDepContent, true);
     assertEquals(
