@@ -5,7 +5,7 @@ import { upToDateDepsDir, outOfDateDepsDir } from "./test_constants.ts";
 const latestDrashRelease = await DenoService.getLatestModuleRelease(
   "drash",
 );
-const latestStdRelease  = await DenoService.getLatestModuleRelease("std");
+const latestStdRelease = await DenoService.getLatestModuleRelease("std");
 
 // Check a specific dep that can be updated
 Deno.test({
