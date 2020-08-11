@@ -29,7 +29,8 @@ jobs:
       - name: Install
         run: |
           deno install --allow-read='.' --allow-write='deps.ts' --allow-net='cdn.deno.land,api.deno.land' https://deno.land/x/dmm/mod.ts
-          dmm version
+          export PATH="/home/runner/.deno/bin:$PATH"
+          dmm --version
 
   linting:
     strategy:
