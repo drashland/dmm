@@ -25,6 +25,11 @@ jobs:
         run: |
           deno cache mod.ts
           deno test --allow-read --allow-run --allow-write --allow-net tests/integration
+
+      - name: Install
+        run: |
+          deno install --allow-read --allow-run --allow-write --allow-net https://deno.land/x/dmm/mod.ts
+
   linting:
     strategy:
       matrix:
