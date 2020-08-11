@@ -10,9 +10,10 @@ import {
   upToDateOriginalDepsFile,
 } from "./test_constants.ts";
 
-const latestDrashRelease = await DenoService.getLatestThirdPartyRelease(
+const latestDrashRelease = await DenoService.getLatestModuleRelease(
   "drash",
 );
+const latestStdRelease = await DenoService.getLatestModuleRelease("std");
 
 /**
  * @param dir eg "out-of-date-deps"
@@ -74,7 +75,7 @@ Deno.test({
       "Reading deps.ts to gather your dependencies...\n" +
       "Checking if your modules can be updated...\n" +
       colours.green(
-        `fs was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+        `fs was updated from 0.53.0 to ${latestStdRelease}`,
       ) + "\n";
     assertEquals(
       stdout,
@@ -91,7 +92,7 @@ Deno.test({
     );
     assertEquals(newDepContent !== originalDepContent, true);
     assertEquals(
-      newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fs`) !==
+      newDepContent.indexOf(`std@${latestStdRelease}/fs`) !==
         -1,
       true,
     );
@@ -177,10 +178,10 @@ Deno.test({
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
         colours.green(
-          `fs was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+          `fs was updated from 0.53.0 to ${latestStdRelease}`,
         ) + "\n" +
         colours.green(
-          `fmt was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+          `fmt was updated from 0.53.0 to ${latestStdRelease}`,
         ) + "\n",
     );
     assertEquals(stderr, "");
@@ -194,12 +195,12 @@ Deno.test({
     );
     assertEquals(newDepContent !== originalDepContent, true);
     assertEquals(
-      newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fs`) !==
+      newDepContent.indexOf(`std@${latestStdRelease}/fs`) !==
         -1,
       true,
     );
     assertEquals(
-      newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fmt`) !==
+      newDepContent.indexOf(`std@${latestStdRelease}/fmt`) !==
         -1,
       true,
     );
@@ -283,10 +284,10 @@ Deno.test({
       colours.green(`drash was updated from v1.0.0 to ${latestDrashRelease}`) +
       "\n" +
       colours.green(
-        `fs was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+        `fs was updated from 0.53.0 to ${latestStdRelease}`,
       ) + "\n" +
       colours.green(
-        `fmt was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+        `fmt was updated from 0.53.0 to ${latestStdRelease}`,
       ) + "\n";
     assertEquals(stdout, assertedOutput);
     assertEquals(stderr, "");
@@ -300,12 +301,12 @@ Deno.test({
     );
     assertEquals(newDepContent !== originalDepContent, true);
     assertEquals(
-      newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fs`) !==
+      newDepContent.indexOf(`std@${latestStdRelease}/fs`) !==
         -1,
       true,
     );
     assertEquals(
-      newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fmt`) !==
+      newDepContent.indexOf(`std@${latestStdRelease}/fmt`) !==
         -1,
       true,
     );
@@ -493,7 +494,7 @@ Deno.test({
           `drash was updated from v1.0.0 to ${latestDrashRelease}`,
         ) + "\n" +
         colours.green(
-          `fmt was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+          `fmt was updated from 0.53.0 to ${latestStdRelease}`,
         ) + "\n",
     );
     assertEquals(stderr, "");
@@ -507,7 +508,7 @@ Deno.test({
     );
     assertEquals(newDepContent !== originalDepContent, true);
     assertEquals(
-      newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fmt`) !==
+      newDepContent.indexOf(`std@${latestStdRelease}/fmt`) !==
         -1,
       true,
     );
@@ -551,7 +552,7 @@ Deno.test({
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
         colours.green(
-          `fs was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+          `fs was updated from 0.53.0 to ${latestStdRelease}`,
         ) + "\n",
     );
     assertEquals(stderr, "");
@@ -565,7 +566,7 @@ Deno.test({
     );
     assertEquals(newDepContent !== originalDepContent, true);
     assertEquals(
-      newDepContent.indexOf(`std@${DenoService.getLatestStdRelease()}/fs`) !==
+      newDepContent.indexOf(`std@${latestStdRelease}/fs`) !==
         -1,
       true,
     );
