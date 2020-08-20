@@ -221,7 +221,7 @@ Deno.test({
           `fmt can be updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
         ) + "\n" +
         colours.yellow(
-            `uuid can be updated from 0.61.0 to ${DenoService.getLatestStdRelease()}`
+          `uuid can be updated from 0.61.0 to ${DenoService.getLatestStdRelease()}`,
         ) + "\n" +
         "To update, run: \n" +
         "    dmm update drash fs fmt uuid" +

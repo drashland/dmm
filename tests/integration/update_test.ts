@@ -289,7 +289,7 @@ Deno.test({
         `fmt was updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
       ) + "\n" +
       colours.green(
-          `uuid was updated from 0.61.0 to ${DenoService.getLatestStdRelease()}`
+        `uuid was updated from 0.61.0 to ${DenoService.getLatestStdRelease()}`,
       ) + "\n";
     assertEquals(stdout, assertedOutput);
     assertEquals(stderr, "");
