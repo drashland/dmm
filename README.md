@@ -1,3 +1,7 @@
+[![nest badge](https://nest.land/badge.svg)](https://nest.land/package/dmm)  
+  
+  
+<br>
 <p align="center">
   <img height="200" src="logo.png" alt="Deno Module Manager">
   <h1 align="center">Deno Module Manager</h1>
