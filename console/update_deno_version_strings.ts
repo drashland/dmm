@@ -14,11 +14,11 @@ let versions: {
 } = await fetchRes.json(); // eg { latest: "v1.3.3", versions: ["v1.3.2", ...] }
 const latestDenoVersion = versions.latest.replace("v", "");
 fetchRes = await fetch("https://cdn.deno.land/std/meta/versions.json");
-versions = await fetchRes.json()
-const latestStdVersion = versions.latest.replace('v', '') // replacing because std doesn't allow `v` in imports, so it's never seen anymore
+versions = await fetchRes.json();
+const latestStdVersion = versions.latest.replace("v", ""); // replacing because std doesn't allow `v` in imports, so it's never seen anymore
 fetchRes = await fetch("https://cdn.deno.land/drash/meta/versions.json");
-versions = await fetchRes.json()
-const latestDrashVersion = versions.latest
+versions = await fetchRes.json();
+const latestDrashVersion = versions.latest;
 
 // Master workflow
 fileContent = decoder.decode(
@@ -48,38 +48,38 @@ await Deno.writeFile(
 
 // Readme, all occurrences for std versions
 fileContent = decoder.decode(
-    await Deno.readFile("./.README.md"),
+  await Deno.readFile("./.README.md"),
 );
 fileContent = fileContent.replace( // imports
-    /{{ latestStdVersion }}/g,
-    `${latestStdVersion}`,
+  /{{ latestStdVersion }}/g,
+  `${latestStdVersion}`,
 );
-fileContent = fileContent.replace(  // "<module> was updated from <v> to <v>
-    /{{ latestDrashVersion }}/g,
-    `${latestDrashVersion}`,
+fileContent = fileContent.replace( // "<module> was updated from <v> to <v>
+  /{{ latestDrashVersion }}/g,
+  `${latestDrashVersion}`,
 );
 await Deno.writeFile(
-    "./README.md",
-    encoder.encode(fileContent),
+  "./README.md",
+  encoder.encode(fileContent),
 );
 
 // up-to-date dependencies for tests
 fileContent = decoder.decode(
-    await Deno.readFile("./tests/integration/up-to-date-deps/original_deps.ts"),
+  await Deno.readFile("./tests/integration/up-to-date-deps/original_deps.ts"),
 );
 fileContent = fileContent.replace( // imports
-    /std@[0-9.]+[0-9.]+[0-9]/g,
-    `std@${latestStdVersion}`,
+  /std@[0-9.]+[0-9.]+[0-9]/g,
+  `std@${latestStdVersion}`,
 );
 fileContent = fileContent.replace( // imports
-    /drash@v[0-9.]+[0-9.]+[0-9]/g,
-    `drash@${latestDrashVersion}`,
+  /drash@v[0-9.]+[0-9.]+[0-9]/g,
+  `drash@${latestDrashVersion}`,
 );
 await Deno.writeFile(
-    "./tests/integration/up-to-date-deps/original_deps.ts",
-    encoder.encode(fileContent),
+  "./tests/integration/up-to-date-deps/original_deps.ts",
+  encoder.encode(fileContent),
 );
 await Deno.writeFile(
-    "./tests/integration/up-to-date-deps/deps.ts",
-    encoder.encode(fileContent),
+  "./tests/integration/up-to-date-deps/deps.ts",
+  encoder.encode(fileContent),
 );
