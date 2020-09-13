@@ -65,7 +65,7 @@ await Deno.writeFile(
 
 // up-to-date dependencies for tests
 fileContent = decoder.decode(
-    await Deno.readFile("./tests/integration/update-to-date-deps/original_deps.ts"),
+    await Deno.readFile("./tests/integration/up-to-date-deps/original_deps.ts"),
 );
 fileContent = fileContent.replace( // imports
     /std@[0-9.]+[0-9.]+[0-9]/g,
