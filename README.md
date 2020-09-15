@@ -49,11 +49,11 @@
 
 There are two ways you can use this module: installing it though `deno`, or running it though a URL.
 
-As dmm only needs to read and write to your `deps.ts`, as well as requiring network access for reading Deno's `database.json`, you can restrict the access this module has.
+As dmm only needs to read and write to your `deps.ts`, as well as requiring network access using Deno's CDN and API, you can restrict the access this module has.
 
 *Install*
 ```
-$ deno install --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.1.5/mod.ts
+$ deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts
 $ dmm ...
 ```
 
@@ -61,7 +61,7 @@ $ dmm ...
 
 If you are using this method, be sure to use the latest version of dmm in the command below
 ```
-$ deno run <permissions> https://deno.land/x/dmm@v1.1.5/mod.ts ...
+$ deno run --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts ...
 ```
 
 In the examples below, dmm is installed and we will be using it that way to make the commands easier to read.
@@ -173,7 +173,7 @@ OPTIONS:
         Prints dmm version
 
 EXAMPLE USAGE:
-    Assume you are importing an out of date version of `fs` from `std`.
+    Assume you are importing an out of date version of `fs` from `std`. See [here](#quick-start) for adding further restrictions.
     deno run --allow-net --allow-read https://deno.land/x/dmm@v1.1.5/mod.ts check fs
     deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.1.5/mod.ts update fs
     deno run --allow-net https://deno.land/x/dmm@v1.1.5/mod.ts info http
@@ -196,14 +196,13 @@ dmm will only read modules that reside on [deno.land](https://deno.land), whethe
     import { red } from "https://deno.land/std@0.56.0/fmt/colors.ts"; // supported
     import { something } from "https://deno.land/x/something@0v1.0.0/mod.ts"; // supported
     ```
-* dmm will only pull 3rd party dependencies where the entrypoint file is `mod.ts`, as this follows best practice
-
+  
 * dmm will read every `from "https://deno.land/..."` line in your `deps.ts` and using the name and version, will convert the dependencies into objects.
 
 * dmm will then retrieve the rest of the required information for later use for each module:
-    * Latest version - for 3rd party modules, it's pulled using `https://github.com/owner/repo/releases/latest`. For `std` modules, it's taken from `https://raw.githubusercontent.com/denoland/deno_website2/master/versions.json`
+    * Latest version - For std and 3rd party, this is pulled using `https://cdn.deno.land`.
     * GitHub URL - Retrieved through the GitHub API
-    * Description - For 3rd party modules, it is also taken from reading Deno's `database.json` file, which holds all modules that display on https://deno.land/x/
+    * Description - For 3rd party modules, it is taken from `https://api.deno.land`. There is currently no way to get descriptions for std modules.
     
 * After this, dmm will run different actions based on the purpose:
 

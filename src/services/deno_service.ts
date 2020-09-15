@@ -1,20 +1,3 @@
-/**
- * Gets the latest STD release
- */
-async function _getLatestStdRelease() {
-  const res = await fetch(
-    "https://raw.githubusercontent.com/denoland/deno_website2/master/versions.json",
-  );
-  const versions: {
-    std: string[];
-    cli: string[];
-    cli_to_std: { [key: string]: string };
-  } = await res.json(); // { std: ["0.63.0", ...], cli: ["v1.2.2", ...], cli_to_std: { v1.2.2: "0.63.0", ... } }
-  const latestVersion = versions.std[0];
-  return latestVersion;
-}
-const latestStdRelease = await _getLatestStdRelease();
-
 export default class DenoService {
   /**
    * Url for Deno's CDN link
@@ -27,13 +10,13 @@ export default class DenoService {
   public static readonly DENO_API_URL: string = "https://api.deno.land/";
 
   /**
-   * Fetches the latest release of a module using deno.land cdn.
+   * Fetches the latest release of a module using deno.land cdn. Includes std as well.
    *
    * @param name - Module name
    *
    * @returns The latest version.
    */
-  public static async getLatestThirdPartyRelease(
+  public static async getLatestModuleRelease(
     name: string,
   ): Promise<string> {
     const res = await fetch(
@@ -42,15 +25,6 @@ export default class DenoService {
     const json: { latest: string; versions: string[] } = await res.json();
     const latestRelease = json.latest;
     return latestRelease;
-  }
-
-  /**
-   * Get the latest std release version
-   *
-   * @returns The latest release eg "0.57.0"
-   */
-  public static getLatestStdRelease(): string {
-    return latestStdRelease;
   }
 
   /**
@@ -97,7 +71,7 @@ export default class DenoService {
   public static async getThirdPartyRepoAndOwner(
     importedModuleName: string,
   ): Promise<string> {
-    const latestRelease = await DenoService.getLatestThirdPartyRelease(
+    const latestRelease = await DenoService.getLatestModuleRelease(
       importedModuleName,
     );
     const res = await fetch(

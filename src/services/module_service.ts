@@ -112,11 +112,11 @@ export default class ModuleService {
       const latestRelease: string = std === true
         ? ModuleService.standardiseVersion(
           importedVersion,
-          DenoService.getLatestStdRelease(),
+          await DenoService.getLatestModuleRelease("std"),
         )
         : ModuleService.standardiseVersion(
           importedVersion,
-          await DenoService.getLatestThirdPartyRelease(name),
+          await DenoService.getLatestModuleRelease(name),
         );
 
       // Get the description

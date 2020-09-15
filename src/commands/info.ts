@@ -37,7 +37,7 @@ export async function info(modules: string[]): Promise<void> {
   let gitHubUrl;
   let latestVersion;
   if (isStd) {
-    latestVersion = DenoService.getLatestStdRelease();
+    latestVersion = await DenoService.getLatestModuleRelease("std");
     description = "Cannot retrieve descriptions for std modules";
     denoLandUrl = "https://deno.land/std@" + latestVersion + "/" +
       name;
@@ -47,7 +47,7 @@ export async function info(modules: string[]): Promise<void> {
     description = await DenoService.getThirdPartyDescription(name);
     gitHubUrl = "https://github.com/" +
       await DenoService.getThirdPartyRepoAndOwner(name);
-    latestVersion = await DenoService.getLatestThirdPartyRelease(name);
+    latestVersion = await DenoService.getLatestModuleRelease(name);
     denoLandUrl = "https://deno.land/x/" + name + "@" + latestVersion;
   }
   const importLine = "import * as " + name + ' from "' + denoLandUrl + '";';

@@ -2,9 +2,10 @@ import { assertEquals, colours } from "../../deps.ts";
 import DenoService from "../../src/services/deno_service.ts";
 import { upToDateDepsDir, outOfDateDepsDir } from "./test_constants.ts";
 
-const latestDrashRelease = await DenoService.getLatestThirdPartyRelease(
+const latestDrashRelease = await DenoService.getLatestModuleRelease(
   "drash",
 );
+const latestStdRelease = await DenoService.getLatestModuleRelease("std");
 
 // Check a specific dep that can be updated
 Deno.test({
@@ -39,7 +40,7 @@ Deno.test({
         "Reading deps.ts to gather your dependencies...\n" +
         "Comparing versions...\n" +
         colours.yellow(
-          `fs can be updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+          `fs can be updated from 0.53.0 to ${latestStdRelease}`,
         ) +
         "\n" +
         "To update, run: \n" +
@@ -127,7 +128,7 @@ Deno.test({
           `drash can be updated from v1.0.0 to ${latestDrashRelease}`,
         ) + "\n" +
         colours.yellow(
-          `fs can be updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+          `fs can be updated from 0.53.0 to ${latestStdRelease}`,
         ) +
         "\n" +
         "To update, run: \n" +
@@ -214,14 +215,14 @@ Deno.test({
           `drash can be updated from v1.0.0 to ${latestDrashRelease}`,
         ) + "\n" +
         colours.yellow(
-          `fs can be updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+          `fs can be updated from 0.53.0 to ${latestStdRelease}`,
         ) +
         "\n" +
         colours.yellow(
-          `fmt can be updated from 0.53.0 to ${DenoService.getLatestStdRelease()}`,
+          `fmt can be updated from 0.53.0 to ${latestStdRelease}`,
         ) + "\n" +
         colours.yellow(
-          `uuid can be updated from 0.61.0 to ${DenoService.getLatestStdRelease()}`,
+          `uuid can be updated from 0.61.0 to ${latestStdRelease}`,
         ) + "\n" +
         "To update, run: \n" +
         "    dmm update drash fs fmt uuid" +
