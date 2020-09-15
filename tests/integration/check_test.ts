@@ -221,8 +221,11 @@ Deno.test({
         colours.yellow(
           `fmt can be updated from 0.53.0 to ${latestStdRelease}`,
         ) + "\n" +
+        colours.yellow(
+          `uuid can be updated from 0.61.0 to ${DenoService.getLatestStdRelease()}`,
+        ) + "\n" +
         "To update, run: \n" +
-        "    dmm update drash fs fmt" +
+        "    dmm update drash fs fmt uuid" +
         "\n",
     );
     assertEquals(status.code, 0);

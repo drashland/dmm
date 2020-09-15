@@ -74,7 +74,7 @@ export default class ModuleService {
       );
 
       // Get the imported version
-      const importVersionRegex = /(v)?[0-9].+[0-9].+[0-9]/g;
+      const importVersionRegex = /(v)?[0-9\.]+[0-9\.]+[0-9]/g;
       const importVersionRegexResult = dep.match(importVersionRegex);
       const importedVersion: string = importVersionRegexResult !== null &&
           importVersionRegexResult.length > 0

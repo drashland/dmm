@@ -288,7 +288,10 @@ Deno.test({
       ) + "\n" +
       colours.green(
         `fmt was updated from 0.53.0 to ${latestStdRelease}`,
-      ) + "\n";
+      ) + "\n" +
+        colours.green(
+            `uuid was updated from 0.61.0 to ${latestStdRelease}`,
+        ) + "\n";
     assertEquals(stdout, assertedOutput);
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
