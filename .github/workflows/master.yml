@@ -26,11 +26,10 @@ jobs:
           deno cache mod.ts
           deno test --allow-read --allow-run --allow-write --allow-net tests/integration
 
-      - name: Install
+      - name: Install and Permissions
         run: |
           deno install --allow-read='.' --allow-write='deps.ts' --allow-net='cdn.deno.land,api.deno.land' mod.ts
-          export PATH="/home/runner/.deno/bin:$PATH"
-          dmm --version
+          /Users/runner/.deno/bin/dmm --version
 
   linting:
     strategy:
