@@ -26,11 +26,9 @@ jobs:
           deno cache mod.ts
           deno test --allow-read --allow-run --allow-write --allow-net tests/integration
 
-      - name: Install and Permissions
+      - name: Ensure Permissions Work
         run: |
-          deno install --allow-read='.' --allow-write='deps.ts' --allow-net='cdn.deno.land,api.deno.land' mod.ts
-          /home/runner/.deno/bin/dmm --version
-
+          deno run --allow-read='.' --allow-write='deps.ts' --allow-net='cdn.deno.land,api.deno.land' mod.ts update
   linting:
     strategy:
       matrix:
