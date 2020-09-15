@@ -29,7 +29,7 @@ jobs:
       - name: Install and Permissions
         run: |
           deno install --allow-read='.' --allow-write='deps.ts' --allow-net='cdn.deno.land,api.deno.land' mod.ts
-          /Users/runner/.deno/bin/dmm --version
+          /home/runner/.deno/bin/dmm --version
 
   linting:
     strategy:
