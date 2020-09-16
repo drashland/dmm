@@ -196,7 +196,7 @@ dmm will only read modules that reside on [deno.land](https://deno.land), whethe
     import { red } from "https://deno.land/std@0.56.0/fmt/colors.ts"; // supported
     import { something } from "https://deno.land/x/something@0v1.0.0/mod.ts"; // supported
     ```
-  
+
 * dmm will read every `from "https://deno.land/..."` line in your `deps.ts` and using the name and version, will convert the dependencies into objects.
 
 * dmm will then retrieve the rest of the required information for later use for each module:
