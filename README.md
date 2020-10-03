@@ -81,10 +81,10 @@ Information on fmt
 
   - Name: fmt
   - Description: Cannot retrieve descriptions for std modules
-  - deno.land Link: https://deno.land/std@0.70.0/fmt
+  - deno.land Link: https://deno.land/std@0.72.0/fmt
   - GitHub Repository: https://github.com/denoland/deno/tree/master/std/fmt
-  - Import Statement: import * as fmt from "https://deno.land/std@0.70.0/fmt";
-  - Latest Version: 0.70.0
+  - Import Statement: import * as fmt from "https://deno.land/std@0.72.0/fmt";
+  - Latest Version: 0.72.0
 
 ```
 
@@ -97,7 +97,7 @@ export { Drash } from "https://deno.land/x/drash@v1.0.0/mod.ts"; // out of date
 
 import * as fs from "https://deno.land/std@0.53.0/fs/mod.ts"; // out of date
 
-import * as colors from "https://deno.land/std@0.70.0/fmt/colors.ts"; // up to date
+import * as colors from "https://deno.land/std@0.72.0/fmt/colors.ts"; // up to date
 
 export { fs, colors }
 ```
@@ -111,8 +111,8 @@ Now we want to check if any of our dependencies need updating, but we don't want
 ```
 $ dmm check
 ...
-drash can be updated from v1.0.0 to v1.2.3
-fs can be updated from 0.53.0 to 0.70.0
+drash can be updated from v1.0.0 to v1.2.4
+fs can be updated from 0.53.0 to 0.72.0
 ...
 ```
 
@@ -123,19 +123,19 @@ Lets update our dependencies as some are out of date:
 ```
 $ dmm update
 ...
-drash was updated from v1.0.0 to v1.2.3
-fs was updated from 0.53.0 to 0.70.0
+drash was updated from v1.0.0 to v1.2.4
+fs was updated from 0.53.0 to 0.72.0
 ...
 ```
 
 Now lets check the `deps.ts` file, and you will notice the versions have been modified:
 
 ```typescript
-export { Drash } from "https://deno.land/x/drash@v1.2.3/mod.ts"; // was out of date
+export { Drash } from "https://deno.land/x/drash@v1.2.4/mod.ts"; // was out of date
 
-import * as fs from "https://deno.land/std@0.70.0/fs/mod.ts"; // was out of date
+import * as fs from "https://deno.land/std@0.72.0/fs/mod.ts"; // was out of date
 
-import * as colors from "https://deno.land/std@0.70.0/fmt/colors.ts";
+import * as colors from "https://deno.land/std@0.72.0/fmt/colors.ts";
 
 export { fs, colors }
 ```
