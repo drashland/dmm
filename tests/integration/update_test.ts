@@ -2,10 +2,10 @@
 import { assertEquals, colours } from "../../deps.ts";
 import DenoService from "../../src/services/deno_service.ts";
 import {
-  upToDateDepsDir,
   outOfDateDepsDir,
   outOfDateDepsFile,
   outOfDateOriginalDepsFile,
+  upToDateDepsDir,
   upToDateDepsFile,
   upToDateOriginalDepsFile,
 } from "./test_constants.ts";

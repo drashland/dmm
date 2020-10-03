@@ -6,4 +6,4 @@ import * as colors from "https://deno.land/std@0.53.0/fmt/colors.ts"; // out to 
 
 export { v4 } from "https://deno.land/std@0.61.0/uuid/mod.ts";
 
-export { Drash, fs, colors };
+export { colors, Drash, fs };
