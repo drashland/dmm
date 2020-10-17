@@ -25,12 +25,17 @@
 
 # Contents
 
+* [Documentation](#documentation)
 * [Features](#features)
 * [Quick Start](#quick-start)
 * [Example](#example)
 * [How it Works](#how-it-works)
 * [Contributing](#contributing)
 * [License](#license)
+
+# Documentation
+
+[Full Documentation](https://drash.land/dmm/)
 
 # Features
 
