@@ -30,6 +30,7 @@
 * [Quick Start](#quick-start)
 * [Example](#example)
 * [How it Works](#how-it-works)
+* [Mirrors](#mirrors)
 * [Contributing](#contributing)
 * [License](#license)
 
@@ -222,7 +223,11 @@ dmm will only read modules that reside on [deno.land](https://deno.land), whethe
     * **info**
     
         Displays information about the given module using information collated at the start of the script
-        
+
+## Mirrors
+
+* https://nest.land/package/dmm
+
 ## Contributing
 
 Contributors are welcomed!
