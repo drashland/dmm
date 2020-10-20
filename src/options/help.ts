@@ -1,55 +1,45 @@
-export const helpMessage: string = "\n" +
-  "A module manager for Deno." +
-  "\n" +
-  "\n" +
-  "USAGE:" +
-  "\n" +
-  "    deno run --allow-read --allow-net [--allow-write] https://deno.land/x/dmm@v1.1.5/mod.ts [ARGS] [MODULES]" +
-  "\n" +
-  "\n" +
-  "    dmm [ARGS] [MODULES]" +
-  "\n" +
-  "\n" +
-  "ARGUMENTS:" +
-  "\n" +
-  "The check and update arguments cannot be used together." +
-  "\n" +
-  "\n" +
-  "    check" +
-  "\n" +
-  "        Checks the specified modules for newer version. Will check all if modules are omitted." +
-  "\n" +
-  "\n" +
-  "    update" +
-  "\n" +
-  "        Updates the specified modules to the newest version. Will update all if modules are omitted." +
-  "\n" +
-  "\n" +
-  "     info" +
-  "\n" +
-  "        Shows information about the given module, be it std or 3rd party. The 3rd party module must be referenced at https://deno.land/x/" +
-  "\n" +
-  "\n" +
-  "OPTIONS:" +
-  "\n" +
-  "    --help" +
-  "\n" +
-  "        Prints help message" +
-  "\n" +
-  "    --version" +
-  "\n" +
-  "        Prints dmm version" +
-  "\n" +
-  "\n" +
-  "EXAMPLE USAGE:" +
-  "\n" +
-  "    Assume you are importing an out of date version of `fs` from `std`." +
-  "\n" +
-  "    deno run --allow-net --allow-read https://deno.land/x/dmm@v1.1.5/mod.ts check fs" +
-  "\n" +
-  "    deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.1.5/mod.ts update fs" +
-  "\n" +
-  "    deno run --allow-net https://deno.land/x/dmm@v1.1.5/mod.ts info http" +
-  "\n" +
-  "    dmm info http" +
-  "\n";
+import {createHelpMenu} from "../../deps.ts";
+import {version} from "./version.ts";
+
+export const helpMessage = createHelpMenu({
+  description: `A module manager for Deno.`,
+  usage: [
+      `deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v${version}/mod.ts`,
+      `dmm [command]`
+  ],
+  commands: {
+    'check [modules]': "Checks the specified modules for newer version. Will check all if modules are omitted.",
+    'update [modules]': 'Updates the specified modules to the newest version. Will update all if modules are omitted.',
+    'info': "Shows information about the given module, be it std or 3rd party. The 3rd party module must be referenced at https://deno.land/x/",
+    '--help': "Prints the help message",
+    '--version': "Prints the current dmm version",
+    'help': "Prints the help message",
+    'version': "Prints the current dmm version"
+  },
+  example_usage: [
+    {
+      description: "Install dmm",
+      examples: [
+          `deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v${version}/mod.ts`
+      ]
+    },
+    {
+      description: "Check a single module",
+      examples: [
+          `dmm check fs`
+      ]
+    },
+    {
+      description: "Update a single module",
+      examples: [
+          `dmm update fs`
+      ]
+    },
+    {
+      description: "Get information about a module",
+      examples: [
+          "dmm info http"
+      ]
+    }
+  ]
+})
