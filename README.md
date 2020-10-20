@@ -65,7 +65,6 @@ $ dmm ...
 
 *Through the URL*
 
-If you are using this method, be sure to use the latest version of dmm in the command below
 ```
 $ deno run --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts ...
 ```
@@ -151,40 +150,54 @@ export { fs, colors }
 Should you need any more information, use the `--help` option:
 
 ```
-$ dmm --help
+A module manager for Deno.
 
-A module manager for Deno.    
+USAGE
 
-USAGE:
-    deno run --allow-read --allow-net [--allow-write] https://deno.land/x/dmm@v1.1.5/mod.ts [ARGS] [MODULES]
+    deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts
+    dmm [command]
 
-    dmm [ARGS] [MODULES]
 
-ARGUMENTS:
-The check and update arguments cannot be used together.
+COMMANDS
 
-    check
-        Checks the specified modules for newer version. Will check all if modules are omitted.
+    check [modules]
+        Checks the specified modules for newer version. Will check all if modules are 
+        omitted.
 
-    update
-        Updates the specified modules to the newest version. Will update all if modules are omitted.
+    update [modules]
+        Updates the specified modules to the newest version. Will update all if modules 
+        are omitted.
 
-     info
-        Shows information about the given module, be it std or 3rd party. The 3rd party module must be referenced at https://deno.land/x/
+    info
+        Shows information about the given module, be it std or 3rd party. The 3rd party 
+        module must be referenced at https://deno.land/x/
 
-OPTIONS:
     --help
-        Prints help message
+        Prints the help message
+
     --version
-        Prints dmm version
+        Prints the current dmm version
 
-EXAMPLE USAGE:
-    Assume you are importing an out of date version of `fs` from `std`. See [here](#quick-start) for adding further restrictions.
-    deno run --allow-net --allow-read https://deno.land/x/dmm@v1.1.5/mod.ts check fs
-    deno run --allow-net --allow-read --allow-write https://deno.land/x/dmm@v1.1.5/mod.ts update fs
-    deno run --allow-net https://deno.land/x/dmm@v1.1.5/mod.ts info http
-    dmm info http
+    help
+        Prints the help message
 
+    version
+        Prints the current dmm version
+
+
+EXAMPLE USAGE
+
+    Install dmm
+        deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts
+
+    Check a single module
+        dmm check fs
+
+    Update a single module
+        dmm update fs
+
+    Get information about a module
+        dmm info http
 ```
 
 # How it Works
