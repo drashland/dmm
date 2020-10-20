@@ -36,7 +36,6 @@ Deno.test({
     assertEquals(stderr, "");
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Comparing versions...\n" +
         colours.yellow(
@@ -81,7 +80,6 @@ Deno.test({
     assertEquals(stderr, "");
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Comparing versions...\n" +
         colours.green("Your dependencies are up to date") + "\n",
@@ -121,7 +119,6 @@ Deno.test({
     assertEquals(stderr, "");
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Comparing versions...\n" +
         colours.yellow(
@@ -170,7 +167,6 @@ Deno.test({
     assertEquals(stderr, "");
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Comparing versions...\n" +
         colours.green("Your dependencies are up to date") + "\n",
@@ -208,7 +204,6 @@ Deno.test({
     assertEquals(stderr, "");
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Comparing versions...\n" +
         colours.yellow(
@@ -261,7 +256,6 @@ Deno.test({
     assertEquals(stderr, "");
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Comparing versions...\n" +
         colours.green("Your dependencies are up to date") + "\n",
@@ -304,7 +298,6 @@ Deno.test({
     );
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n",
     );
     assertEquals(status.code, 1);
@@ -344,7 +337,6 @@ Deno.test({
     );
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n",
     );
     assertEquals(status.code, 1);
@@ -384,7 +376,6 @@ Deno.test({
     );
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n",
     );
     assertEquals(status.code, 1);

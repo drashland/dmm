@@ -71,7 +71,7 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    const expected = "Gathering facts...\n" +
+    const expected =
       "Reading deps.ts to gather your dependencies...\n" +
       "Checking if your modules can be updated...\n" +
       colours.green(
@@ -127,7 +127,6 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
         colours.green("Everything is already up to date") + "\n",
@@ -174,7 +173,6 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
         colours.green(
@@ -236,7 +234,6 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
         colours.green("Everything is already up to date") + "\n",
@@ -278,7 +275,7 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    const assertedOutput = "Gathering facts...\n" +
+    const assertedOutput =
       "Reading deps.ts to gather your dependencies...\n" +
       "Checking if your modules can be updated...\n" +
       colours.green(`drash was updated from v1.0.0 to ${latestDrashRelease}`) +
@@ -346,7 +343,6 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
         colours.green("Everything is already up to date") + "\n",
@@ -391,7 +387,6 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
         colours.green(
@@ -442,7 +437,6 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n",
     );
     assertEquals(
@@ -490,7 +484,6 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
         colours.green(
@@ -551,7 +544,6 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "Reading deps.ts to gather your dependencies...\n" +
         "Checking if your modules can be updated...\n" +
         colours.green(

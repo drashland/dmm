@@ -24,7 +24,7 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    assertEquals(stdout, "Gathering facts...\n");
+    assertEquals(stdout, "");
     assertEquals(
       stderr,
       colours.red("Specify a single module to get information on. See --help") +
@@ -55,7 +55,6 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "\n" +
         "Information on drash\n" +
         "\n" +
@@ -93,7 +92,6 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
         "\n" +
         "Information on fs\n" +
         "\n" +
@@ -137,7 +135,7 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    assertEquals(stdout, "Gathering facts...\n");
+    assertEquals(stdout, "");
     assertEquals(
       stderr,
       colours.red("Specify a single module to get information on. See --help") +
@@ -172,7 +170,7 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    assertEquals(stdout, "Gathering facts...\n");
+    assertEquals(stdout, "");
     assertEquals(
       stderr,
       colours.red("No module was found with somethinggg") + "\n",
