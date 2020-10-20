@@ -1,6 +1,6 @@
 import { colours } from "./deps.ts";
-import { helpMessage } from "./src/options/help.ts";
-import { versionMessage } from "./src/options/version.ts";
+import { helpMessage } from "./src/commands/help.ts";
+import { versionMessage } from "./src/commands/version.ts";
 import { info } from "./src/commands/info.ts";
 import { check } from "./src/commands/check.ts";
 import { update } from "./src/commands/update.ts";
