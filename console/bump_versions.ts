@@ -7,16 +7,16 @@ bumpVersions([
   {
     filename: "./egg.json",
     replaceTheRegex: /"version": "[0-9\.]+[0-9\.]+[0-9\.]"/,
-    replaceWith: `"version": "${version}"`
+    replaceWith: `"version": "${version}"`,
   },
   {
     filename: "./README.md",
     replaceTheRegex: /dmm@v[0-9\.]+[0-9\.]+[0-9\.]/g,
-    replaceWith: `dmm@v${version}`
+    replaceWith: `dmm@v${version}`,
   },
   {
     filename: "./src/commands/version.ts",
     replaceTheRegex: /version = "[0-9\.]+[0-9\.]+[0-9\.]"/,
-    replaceWith: `version = "${version}"`
-  }
-])
+    replaceWith: `version = "${version}"`,
+  },
+]);
