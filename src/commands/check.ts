@@ -27,7 +27,7 @@ export async function check(dependencies: string[]): Promise<void> {
   // Compare imported and latest version
   logInfo("Comparing versions...");
   let depsCanBeUpdated: boolean = false;
-  let listOfModuleNamesToBeUpdated: string[] = [];
+  const listOfModuleNamesToBeUpdated: string[] = [];
   modules.forEach((module) => {
     if (module.importedVersion !== module.latestRelease) {
       depsCanBeUpdated = true;

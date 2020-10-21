@@ -43,6 +43,7 @@ function removeDependencyFile(dir: string): void {
     const path = "tests/" + dir + "/deps.ts";
     Deno.removeSync(path);
   } catch (err) {
+    // do nothing
   }
 }
 
