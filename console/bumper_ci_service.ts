@@ -32,6 +32,21 @@ if (b.isForPreRelease()) {
       replaceTheRegex: /drash@v[0-9.]+[0-9.]+[0-9]/g,
       replaceWith: "drash@v{{ latestDrashVersion }}",
     },
+    {
+      filename: "./.github/workflows/master.yml",
+      replaceTheRegex: /deno: ["[0-9.]+[0-9.]+[0-9]"]/g,
+      replaceWith: `deno: ["{{ latestDenoVersion }}"]`,
+    },
+    {
+      filename: "./.github/workflows/bumper.yml",
+      replaceTheRegex: /deno: ["[0-9.]+[0-9.]+[0-9]"]/g,
+      replaceWith: `deno: ["{{ latestDenoVersion }}"]`,
+    },
+    {
+      filename: "./.github/workflows/pre_release.yml",
+      replaceTheRegex: /deno: ["[0-9.]+[0-9.]+[0-9]"]/g,
+      replaceWith: `deno: ["{{ latestDenoVersion }}"]`,
+    },
   ]);
   Deno.copyFileSync(
     "./tests/integration/up-to-date-deps/original_deps.ts",
