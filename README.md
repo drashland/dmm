@@ -28,7 +28,6 @@
 * [Documentation](#documentation)
 * [Features](#features)
 * [Quick Start](#quick-start)
-* [Example](#example)
 * [How it Works](#how-it-works)
 * [Mirrors](#mirrors)
 * [Contributing](#contributing)
@@ -60,182 +59,25 @@ As dmm only needs to read and write to your `deps.ts`, as well as requiring netw
 *Install*
 ```
 $ deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts
-$ dmm ...
+$ dmm help
 ```
 
 *Through the URL*
 
 ```
-$ deno run --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts ...
+$ deno run --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts help
 ```
 
 In the examples below, dmm is installed and we will be using it that way to make the commands easier to read.
-        
-# Example
-
-In this example, we are going to run through every step of dmm. We will be checking dependencies, updating them, and getting information about certain ones.
-
-**Step 1 - Info**
-
-Say I want to get information about the fmt module:
-
-```
-$ dmm info fmt
-
-Information on fmt
-
-  - Name: fmt
-  - Description: Cannot retrieve descriptions for std modules
-  - deno.land Link: https://deno.land/std@0.74.0/fmt
-  - GitHub Repository: https://github.com/denoland/deno/tree/master/std/fmt
-  - Import Statement: import * as fmt from "https://deno.land/std@0.74.0/fmt";
-  - Latest Version: 0.74.0
-
-```
-
-**Step 2 - Adding `fmt` as a dependency to use `colors`**
-
-Along with my current dependencies, I decided to import the `colors` sub-module of `fmt` in my `deps.ts` file:
-
-```typescript
-export { Drash } from "https://deno.land/x/drash@v1.0.0/mod.ts"; // out of date
-
-import * as fs from "https://deno.land/std@0.53.0/fs/mod.ts"; // out of date
-
-import * as colors from "https://deno.land/std@0.74.0/fmt/colors.ts"; // up to date
-
-export { fs, colors }
-```
-
-Take notice of the out of date dependencies.
-
-**Step 3 - Check**
-
-Now we want to check if any of our dependencies need updating, but we don't want to update them yet.
-
-```
-$ dmm check
-...
-drash can be updated from v1.0.0 to v1.2.5
-fs can be updated from 0.53.0 to 0.74.0
-...
-```
-
-**Step 4 - Update**
-
-Lets update our dependencies as some are out of date:
-
-```
-$ dmm update
-...
-drash was updated from v1.0.0 to v1.2.5
-fs was updated from 0.53.0 to 0.74.0
-...
-```
-
-Now lets check the `deps.ts` file, and you will notice the versions have been modified:
-
-```typescript
-export { Drash } from "https://deno.land/x/drash@v1.2.5/mod.ts"; // was out of date
-
-import * as fs from "https://deno.land/std@0.74.0/fs/mod.ts"; // was out of date
-
-import * as colors from "https://deno.land/std@0.74.0/fmt/colors.ts";
-
-export { fs, colors }
-```
-
-**Step 5 - Help**
-
-Should you need any more information, use the `--help` option:
-
-```
-A module manager for Deno.
-
-USAGE
-
-    deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts
-    dmm [command]
-
-
-COMMANDS
-
-    check [modules]
-        Checks the specified modules for newer version. Will check all if modules are 
-        omitted.
-
-    update [modules]
-        Updates the specified modules to the newest version. Will update all if modules 
-        are omitted.
-
-    info
-        Shows information about the given module, be it std or 3rd party. The 3rd party 
-        module must be referenced at https://deno.land/x/
-
-    --help
-        Prints the help message
-
-    --version
-        Prints the current dmm version
-
-    help
-        Prints the help message
-
-    version
-        Prints the current dmm version
-
-
-EXAMPLE USAGE
-
-    Install dmm
-        deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts
-
-    Check a single module
-        dmm check fs
-
-    Update a single module
-        dmm update fs
-
-    Get information about a module
-        dmm info http
-```
 
 # How it Works
 
+* dmm reads the `deps.ts` file at the current working directory. It will check for versioned imports/exports and check or update against each one
+
+* dmm currently only supports the deno.land registry (https://deno.land)
+
+* For updating, dmm will fetch the latest version/release for each dependency and update your `deps.ts` if it is newer than the one you use
 dmm will only read modules that reside on [deno.land](https://deno.land), whether they are 3rd party or `std` modules. As long as you are either importing then exporting a module, or only exporting a module, dmm will check that dependency.
-
-* Your dependencies must be versioned. Not versioning your dependencies is bad practice and can lead to many problems in your project, which is why dmm will not support it. For example:
-    ```
-    import { red } from "https://deno.land/std@0.56.0/fmt/colors.ts";
-                                              ^^^^^^^
-    ```
-
-* dmm only supports importing/exporting modules from Deno's registry: [deno.land](https://deno.land), 3rd party or `std`. For example:
-    ```
-    import { red } from "https://deno.land/std@0.56.0/fmt/colors.ts"; // supported
-    import { something } from "https://deno.land/x/something@0v1.0.0/mod.ts"; // supported
-    ```
-
-* dmm will read every `from "https://deno.land/..."` line in your `deps.ts` and using the name and version, will convert the dependencies into objects.
-
-* dmm will then retrieve the rest of the required information for later use for each module:
-    * Latest version - For std and 3rd party, this is pulled using `https://cdn.deno.land`.
-    * GitHub URL - Retrieved through the GitHub API
-    * Description - For 3rd party modules, it is taken from `https://api.deno.land`. There is currently no way to get descriptions for std modules.
-    
-* After this, dmm will run different actions based on the purpose:
-
-    * **check**
-    
-        Will compare the version you are using of a module with the latest one
-        
-    * **update**
-        
-        If the latest version is more recent than the one you use for a given module, dmm will update the version in your `deps.ts` file
-        
-    * **info**
-    
-        Displays information about the given module using information collated at the start of the script
 
 ## Mirrors
 
