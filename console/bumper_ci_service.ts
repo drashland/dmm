@@ -7,17 +7,17 @@ if (b.isForPreRelease()) {
     {
       filename: "./egg.json",
       replaceTheRegex: /"version": "[0-9\.]+[0-9\.]+[0-9\.]"/,
-      replaceWith: `"version": "{{ version }}"`,
+      replaceWith: `"version": "{{ thisModulesLatestVersion }}"`,
     },
     {
       filename: "./README.md",
       replaceTheRegex: /dmm@v[0-9\.]+[0-9\.]+[0-9\.]/g,
-      replaceWith: `dmm@v{{ version }}`,
+      replaceWith: `dmm@v{{ thisModulesLatestVersion }}`,
     },
     {
       filename: "./src/commands/version.ts",
       replaceTheRegex: /version = "[0-9\.]+[0-9\.]+[0-9\.]"/,
-      replaceWith: `version = "{{ version }}"`,
+      replaceWith: `version = "{{ thisModulesLatestVersion }}"`,
     },
   ]);
 } else {
