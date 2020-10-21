@@ -14,10 +14,8 @@ export const helpMessage = createHelpMenu({
       "Updates the specified modules to the newest version. Will update all if modules are omitted.",
     "info":
       "Shows information about the given module, be it std or 3rd party. The 3rd party module must be referenced at https://deno.land/x/",
-    "--help": "Prints the help message",
-    "--version": "Prints the current dmm version",
-    "help": "Prints the help message",
-    "version": "Prints the current dmm version",
+    "help, --help": "Prints the help message",
+    "version, --version": "Prints the current dmm version",
   },
   example_usage: [
     {
