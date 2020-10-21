@@ -1,4 +1,4 @@
-import { colours } from "../../deps.ts";
+import {colours, logError, logInfo} from "../../deps.ts";
 import DenoService from "../services/deno_service.ts";
 
 /**
@@ -9,7 +9,7 @@ import DenoService from "../services/deno_service.ts";
  */
 export async function info(modules: string[]): Promise<void> {
   if (modules.length === 0 || modules.length > 1) {
-    console.error(
+    logError(
       colours.red(
         "Specify a single module to get information on. See --help",
       ),
@@ -26,7 +26,7 @@ export async function info(modules: string[]): Promise<void> {
   const isStd = stdResponse.status === 200;
   const isThirdParty = thirdPartyResponse.status === 200;
   if (!isStd && !isThirdParty) {
-    console.error(
+    logError(
       colours.red("No module was found with " + moduleToGetInfoOn),
     );
     Deno.exit(1);
@@ -51,7 +51,7 @@ export async function info(modules: string[]): Promise<void> {
     denoLandUrl = "https://deno.land/x/" + name + "@" + latestVersion;
   }
   const importLine = "import * as " + name + ' from "' + denoLandUrl + '";';
-  console.info(
+  logInfo(
     "\n" +
       `Information on ${name}\n\n  - Name: ${name}\n  - Description: ${description}\n  - deno.land Link: ${denoLandUrl}\n  - GitHub Repository: ${gitHubUrl}\n  - Import Statement: ${importLine}\n  - Latest Version: ${latestVersion}` +
       "\n",

@@ -1,5 +1,5 @@
 import IModule from "../interfaces/module.ts";
-import { colours } from "../../deps.ts";
+import {colours, logError, logInfo} from "../../deps.ts";
 import DenoService from "../services/deno_service.ts";
 
 export default class ModuleService {
@@ -50,7 +50,7 @@ export default class ModuleService {
     purpose: string,
   ): Promise<IModule[] | boolean> {
     // Solely read the users `deps.ts` file
-    console.info("Reading deps.ts to gather your dependencies...");
+    logInfo("Reading deps.ts to gather your dependencies...");
     const usersWorkingDir: string = Deno.realPathSync(".");
     const depsContent: string = new TextDecoder().decode(
       Deno.readFileSync(usersWorkingDir + "/deps.ts"),
@@ -81,7 +81,7 @@ export default class ModuleService {
         ? importVersionRegexResult[0]
         : "";
       if (!importedVersion) {
-        console.error(colours.red(
+        logError(colours.red(
           "The following line is not versioned. To update, your dependencies must be versioned." +
             "\n" +
             "    " + dep,

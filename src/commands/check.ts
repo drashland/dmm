@@ -1,4 +1,4 @@
-import { colours } from "../../deps.ts";
+import {colours, logError, logInfo} from "../../deps.ts";
 import IModule from "../interfaces/module.ts";
 import ModuleService from "../services/module_service.ts";
 
@@ -17,7 +17,7 @@ export async function check(dependencies: string[]): Promise<void> {
   );
 
   if (modules === false || typeof modules === "boolean") {
-    console.error(
+    logError(
       colours.red("Modules specified do not exist in your dependencies."),
     );
     Deno.exit(1);
@@ -25,14 +25,14 @@ export async function check(dependencies: string[]): Promise<void> {
   }
 
   // Compare imported and latest version
-  console.info("Comparing versions...");
+  logInfo("Comparing versions...");
   let depsCanBeUpdated: boolean = false;
   let listOfModuleNamesToBeUpdated: string[] = [];
   modules.forEach((module) => {
     if (module.importedVersion !== module.latestRelease) {
       depsCanBeUpdated = true;
       listOfModuleNamesToBeUpdated.push(module.name);
-      console.info(
+      logInfo(
         colours.yellow(
           module.name + " can be updated from " + module.importedVersion +
             " to " + module.latestRelease,
@@ -42,11 +42,11 @@ export async function check(dependencies: string[]): Promise<void> {
   });
   // Logging purposes
   if (depsCanBeUpdated) {
-    console.info(
+    logInfo(
       "To update, run: \n    dmm update " +
         listOfModuleNamesToBeUpdated.join(" "),
     );
   } else {
-    console.info(colours.green("Your dependencies are up to date"));
+    logInfo(colours.green("Your dependencies are up to date"));
   }
 }

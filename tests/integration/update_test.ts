@@ -72,9 +72,9 @@ Deno.test({
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
     const expected =
-      "Reading deps.ts to gather your dependencies...\n" +
-      "Checking if your modules can be updated...\n" +
-      colours.green(
+        colours.blue("INFO") + " Reading deps.ts to gather your dependencies...\n" +
+        colours.blue("INFO") + " Checking if your modules can be updated...\n" +
+        colours.blue("INFO") + " " + colours.green(
         `fs was updated from 0.53.0 to ${latestStdRelease}`,
       ) + "\n";
     assertEquals(
@@ -127,9 +127,9 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-        "Reading deps.ts to gather your dependencies...\n" +
-        "Checking if your modules can be updated...\n" +
-        colours.green("Everything is already up to date") + "\n",
+        colours.blue("INFO") + " Reading deps.ts to gather your dependencies...\n" +
+        colours.blue("INFO") + " Checking if your modules can be updated...\n" +
+        colours.blue("INFO") + " " + colours.green("Everything is already up to date") + "\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -173,12 +173,12 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-        "Reading deps.ts to gather your dependencies...\n" +
-        "Checking if your modules can be updated...\n" +
-        colours.green(
+        colours.blue("INFO") + " Reading deps.ts to gather your dependencies...\n" +
+        colours.blue("INFO") + " Checking if your modules can be updated...\n" +
+        colours.blue("INFO") + " " + colours.green(
           `fs was updated from 0.53.0 to ${latestStdRelease}`,
         ) + "\n" +
-        colours.green(
+        colours.blue("INFO") + " " + colours.green(
           `fmt was updated from 0.53.0 to ${latestStdRelease}`,
         ) + "\n",
     );
@@ -234,9 +234,9 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-        "Reading deps.ts to gather your dependencies...\n" +
-        "Checking if your modules can be updated...\n" +
-        colours.green("Everything is already up to date") + "\n",
+        colours.blue("INFO") + " Reading deps.ts to gather your dependencies...\n" +
+        colours.blue("INFO") + " Checking if your modules can be updated...\n" +
+        colours.blue("INFO") + " " + colours.green("Everything is already up to date") + "\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -276,17 +276,17 @@ Deno.test({
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
     const assertedOutput =
-      "Reading deps.ts to gather your dependencies...\n" +
-      "Checking if your modules can be updated...\n" +
-      colours.green(`drash was updated from v1.0.0 to ${latestDrashRelease}`) +
+        colours.blue("INFO") + " Reading deps.ts to gather your dependencies...\n" +
+        colours.blue("INFO") + " Checking if your modules can be updated...\n" +
+        colours.blue("INFO") + " " + colours.green(`drash was updated from v1.0.0 to ${latestDrashRelease}`) +
       "\n" +
-      colours.green(
+        colours.blue("INFO") + " " + colours.green(
         `fs was updated from 0.53.0 to ${latestStdRelease}`,
       ) + "\n" +
-      colours.green(
+        colours.blue("INFO") + " " + colours.green(
         `fmt was updated from 0.53.0 to ${latestStdRelease}`,
       ) + "\n" +
-      colours.green(
+        colours.blue("INFO") + " " + colours.green(
         `uuid was updated from 0.61.0 to ${latestStdRelease}`,
       ) + "\n";
     assertEquals(stdout, assertedOutput);
@@ -343,9 +343,9 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-        "Reading deps.ts to gather your dependencies...\n" +
-        "Checking if your modules can be updated...\n" +
-        colours.green("Everything is already up to date") + "\n",
+        colours.blue("INFO") + " Reading deps.ts to gather your dependencies...\n" +
+        colours.blue("INFO") + " Checking if your modules can be updated...\n" +
+        colours.blue("INFO") + " " + colours.green("Everything is already up to date") + "\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -387,9 +387,9 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-        "Reading deps.ts to gather your dependencies...\n" +
-        "Checking if your modules can be updated...\n" +
-        colours.green(
+        colours.blue("INFO") + " Reading deps.ts to gather your dependencies...\n" +
+        colours.blue("INFO") + " Checking if your modules can be updated...\n" +
+        colours.blue("INFO") + " " + colours.green(
           `drash was updated from v1.0.0 to ${latestDrashRelease}`,
         ) + "\n",
     );
@@ -437,12 +437,13 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-        "Reading deps.ts to gather your dependencies...\n",
+        colours.blue("INFO") + " Reading deps.ts to gather your dependencies...\n" +
+        colours.red("ERROR") + " " + colours.red("Modules specified do not exist in your dependencies.") +
+        "\n"
     );
     assertEquals(
       stderr,
-      colours.red("Modules specified do not exist in your dependencies.") +
-        "\n",
+      ""
     );
     assertEquals(status.code, 1);
     assertEquals(status.success, false);
@@ -484,12 +485,12 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-        "Reading deps.ts to gather your dependencies...\n" +
-        "Checking if your modules can be updated...\n" +
-        colours.green(
+        colours.blue("INFO") + " Reading deps.ts to gather your dependencies...\n" +
+        colours.blue("INFO") + " Checking if your modules can be updated...\n" +
+        colours.blue("INFO") + " " + colours.green(
           `drash was updated from v1.0.0 to ${latestDrashRelease}`,
         ) + "\n" +
-        colours.green(
+        colours.blue("INFO") + " " + colours.green(
           `fmt was updated from 0.53.0 to ${latestStdRelease}`,
         ) + "\n",
     );
@@ -544,9 +545,9 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-        "Reading deps.ts to gather your dependencies...\n" +
-        "Checking if your modules can be updated...\n" +
-        colours.green(
+        colours.blue("INFO") + " Reading deps.ts to gather your dependencies...\n" +
+        colours.blue("INFO") + " Checking if your modules can be updated...\n" +
+        colours.blue("INFO") + " " + colours.green(
           `fs was updated from 0.53.0 to ${latestStdRelease}`,
         ) + "\n",
     );

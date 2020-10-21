@@ -1,4 +1,4 @@
-import { colours } from "../../deps.ts";
+import {colours, logError, logInfo} from "../../deps.ts";
 import IModule from "../interfaces/module.ts";
 import ModuleService from "../services/module_service.ts";
 
@@ -17,7 +17,7 @@ export async function update(dependencies: string[]): Promise<void> {
   );
 
   if (modules === false || typeof modules === "boolean") {
-    console.error(
+    logError(
       colours.red("Modules specified do not exist in your dependencies."),
     );
     Deno.exit(1);
@@ -25,7 +25,7 @@ export async function update(dependencies: string[]): Promise<void> {
   }
 
   // Check for updates and rewrite `deps.ts` if needed
-  console.info("Checking if your modules can be updated...");
+  logInfo("Checking if your modules can be updated...");
   const usersWorkingDir: string = Deno.realPathSync(".");
   let depsWereUpdated = false;
   let depsContent: string = new TextDecoder().decode(
@@ -55,7 +55,7 @@ export async function update(dependencies: string[]): Promise<void> {
         module.name + "@" + module.latestRelease,
       );
     }
-    console.info(
+    logInfo(
       colours.green(
         module.name + " was updated from " + module.importedVersion + " to " +
           module.latestRelease,
@@ -72,6 +72,6 @@ export async function update(dependencies: string[]): Promise<void> {
 
   // And if none were updated, add some more logging
   if (!depsWereUpdated) {
-    console.info(colours.green("Everything is already up to date"));
+    logInfo(colours.green("Everything is already up to date"));
   }
 }
