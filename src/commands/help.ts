@@ -1,7 +1,7 @@
-import { createHelpMenu } from "../../deps.ts";
+import { CliService } from "../../deps.ts";
 import { version } from "./version.ts";
 
-export const helpMessage = createHelpMenu({
+export const helpMessage = CliService.createHelpMenu({
   description: `A module manager for Deno.`,
   usage: [
     `deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v${version}/mod.ts`,

@@ -1,42 +1,30 @@
-import { colours, CommandService, logError } from "./deps.ts";
+import { CliService } from "./deps.ts";
 import { helpMessage } from "./src/commands/help.ts";
 import { versionMessage } from "./src/commands/version.ts";
 import { info } from "./src/commands/info.ts";
 import { check } from "./src/commands/check.ts";
 import { update } from "./src/commands/update.ts";
 
-const args = Deno.args.slice().filter((arg: string, i: number) => {
-  return i !== 0;
-});
+const c = new CliService(Deno.args);
 
-const c = new CommandService(Deno.args);
-
-c.addCommand("--help", async () => {
+c.addCommand(["help", "--help"], async () => {
   console.log(helpMessage);
 });
 
-c.addCommand("--version", () => {
+c.addCommand(["version", "--version"], () => {
   console.log(versionMessage);
 });
 
-c.addCommand("info", async () => {
+c.addCommand("info", async (args: string[]) => {
   await info(args);
-});
+}, { requires_args: true });
 
-c.addCommand("help", () => {
-  console.log(helpMessage);
-});
-
-c.addCommand("update", async () => {
+c.addCommand("update", async (args: string[]) => {
   await update(args);
-});
+}, { requires_args: true });
 
-c.addCommand("version", () => {
-  console.log(versionMessage);
-});
-
-c.addCommand("check", async () => {
+c.addCommand("check", async (args: string[]) => {
   await check(args);
-});
+}, { requires_args: true });
 
-c.executeCommand();
+c.run();

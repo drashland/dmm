@@ -1,4 +1,4 @@
-import { colours, logError, logInfo } from "../../deps.ts";
+import { LoggerService } from "../../deps.ts";
 import DenoService from "../services/deno_service.ts";
 
 /**
@@ -8,14 +8,6 @@ import DenoService from "../services/deno_service.ts";
  * @param modules - List of modules to get info on. Currently, we only support 1, so `modules[0]` will be used
  */
 export async function info(modules: string[]): Promise<void> {
-  if (modules.length === 0 || modules.length > 1) {
-    logError(
-      colours.red(
-        "Specify a single module to get information on. See --help",
-      ),
-    );
-    Deno.exit(1);
-  }
   const moduleToGetInfoOn = modules[0];
   const stdResponse = await fetch(
     "https://github.com/denoland/deno/tree/master/std/" + moduleToGetInfoOn,
@@ -26,9 +18,7 @@ export async function info(modules: string[]): Promise<void> {
   const isStd = stdResponse.status === 200;
   const isThirdParty = thirdPartyResponse.status === 200;
   if (!isStd && !isThirdParty) {
-    logError(
-      colours.red("No module was found with " + moduleToGetInfoOn),
-    );
+    LoggerService.logError("No module was found with " + moduleToGetInfoOn);
     Deno.exit(1);
   }
   const name = moduleToGetInfoOn;
@@ -51,8 +41,7 @@ export async function info(modules: string[]): Promise<void> {
     denoLandUrl = "https://deno.land/x/" + name + "@" + latestVersion;
   }
   const importLine = "import * as " + name + ' from "' + denoLandUrl + '";';
-  logInfo(
-    "\n" +
+  LoggerService.logInfo(
       `Information on ${name}\n\n  - Name: ${name}\n  - Description: ${description}\n  - deno.land Link: ${denoLandUrl}\n  - GitHub Repository: ${gitHubUrl}\n  - Import Statement: ${importLine}\n  - Latest Version: ${latestVersion}` +
       "\n",
   );
