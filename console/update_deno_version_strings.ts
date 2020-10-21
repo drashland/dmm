@@ -23,4 +23,7 @@ bumper([
   },
 ]);
 
-Deno.copyFileSync("./tests/integration/up-to-date-deps/original_deps.ts", "./tests/integration/up-to-date-deps/deps.ts")
+Deno.copyFileSync(
+  "./tests/integration/up-to-date-deps/original_deps.ts",
+  "./tests/integration/up-to-date-deps/deps.ts",
+);
