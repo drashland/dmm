@@ -24,11 +24,17 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    assertEquals(stdout, colours.red("ERROR") + " " + colours.red("Specify a single module to get information on. See --help") +
-        "\n");
+    assertEquals(
+      stdout,
+      colours.red("ERROR") + " " +
+        colours.red(
+          "Specify a single module to get information on. See --help",
+        ) +
+        "\n",
+    );
     assertEquals(
       stderr,
-      ""
+      "",
     );
     assertEquals(status.code, 1);
     assertEquals(status.success, false);
@@ -55,7 +61,7 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-        colours.blue("INFO") + " " + "\n" +
+      colours.blue("INFO") + " " + "\n" +
         "Information on drash\n" +
         "\n" +
         "  - Name: drash\n" +
@@ -92,7 +98,7 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-        colours.blue("INFO") + " " + "\n" +
+      colours.blue("INFO") + " " + "\n" +
         "Information on fs\n" +
         "\n" +
         "  - Name: fs\n" +
@@ -135,11 +141,17 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    assertEquals(stdout, colours.red("ERROR") + " " + colours.red("Specify a single module to get information on. See --help") +
-        "\n");
+    assertEquals(
+      stdout,
+      colours.red("ERROR") + " " +
+        colours.red(
+          "Specify a single module to get information on. See --help",
+        ) +
+        "\n",
+    );
     assertEquals(
       stderr,
-      ""
+      "",
     );
     assertEquals(status.code, 1);
     assertEquals(status.success, false);
@@ -170,7 +182,10 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    assertEquals(stdout, colours.red("ERROR") + " " + colours.red("No module was found with somethinggg") + "\n",
+    assertEquals(
+      stdout,
+      colours.red("ERROR") + " " +
+        colours.red("No module was found with somethinggg") + "\n",
     );
     assertEquals(
       stderr,

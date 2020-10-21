@@ -1,4 +1,4 @@
-import {colours, logError, logInfo} from "../../deps.ts";
+import { colours, logError, logInfo } from "../../deps.ts";
 import DenoService from "../services/deno_service.ts";
 
 /**

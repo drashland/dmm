@@ -1,4 +1,4 @@
-import {colours, logError, logInfo} from "../../deps.ts";
+import { colours, logError, logInfo } from "../../deps.ts";
 import IModule from "../interfaces/module.ts";
 import ModuleService from "../services/module_service.ts";
 

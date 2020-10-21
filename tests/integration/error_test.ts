@@ -16,8 +16,9 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    assertEquals(stdout,
-        "\n" +
+    assertEquals(
+      stdout,
+      "\n" +
         "A module manager for Deno.\n" +
         "\n" +
         "USAGE\n" +
@@ -59,7 +60,7 @@ Deno.test({
         "        dmm update fs\n" +
         "\n" +
         "    Get information about a module\n" +
-        "        dmm info http" + "\n\n"
+        "        dmm info http" + "\n\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -89,8 +90,9 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    assertEquals(stdout,
-        colours.red("ERROR") + " Command `something` not recognized.\n"
+    assertEquals(
+      stdout,
+      colours.red("ERROR") + " Command `something` not recognized.\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
