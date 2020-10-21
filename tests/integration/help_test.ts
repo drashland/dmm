@@ -42,16 +42,10 @@ Deno.test({
         "        Shows information about the given module, be it std or 3rd party. The 3rd party \n" +
         "        module must be referenced at https://deno.land/x/\n" +
         "\n" +
-        "    --help\n" +
+        "    help, --help\n" +
         "        Prints the help message\n" +
         "\n" +
-        "    --version\n" +
-        "        Prints the current dmm version\n" +
-        "\n" +
-        "    help\n" +
-        "        Prints the help message\n" +
-        "\n" +
-        "    version\n" +
+        "    version, --version\n" +
         "        Prints the current dmm version\n" +
         "\n" +
         "\n" +
