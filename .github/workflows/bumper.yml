@@ -21,7 +21,7 @@ jobs:
         run: deno run --allow-net --allow-read --allow-write mod.ts update
 
       - name: Update Dependency Version Strings
-        run: deno run --allow-read --allow-write --allow-net console/update_deno_version_strings.ts
+        run: deno run --allow-read --allow-write --allow-net console/bumper_ci_service.ts
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v2
