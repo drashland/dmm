@@ -1,5 +1,5 @@
 import { assertEquals, colours } from "../../deps.ts";
-import { version } from "../../src/options/version.ts";
+import { version } from "../../src/commands/version.ts";
 import { outOfDateDepsDir, upToDateDepsDir } from "./test_constants.ts";
 
 Deno.test({
