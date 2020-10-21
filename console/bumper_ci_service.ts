@@ -3,7 +3,7 @@ import { BumperService } from "https://raw.githubusercontent.com/drashland/servi
 const b = new BumperService("dmm", Deno.args);
 
 if (b.isForPreRelease()) {
-  bumpVersions(Deno.args, [
+  b.bump([
     {
       filename: "./egg.json",
       replaceTheRegex: /"version": "[0-9\.]+[0-9\.]+[0-9\.]"/,
