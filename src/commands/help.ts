@@ -7,7 +7,7 @@ export const helpMessage = CliService.createHelpMenu({
     `deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v${version}/mod.ts`,
     `dmm [command]`,
   ],
-  commands: {
+  subcommands: {
     "check [modules]":
       "Checks the specified modules for newer version. Will check all if modules are omitted.",
     "update [modules]":

@@ -7,23 +7,23 @@ import { update } from "./src/commands/update.ts";
 
 const c = new CliService(Deno.args);
 
-c.addCommand(["help", "--help"], async () => {
+c.addSubcommand(["help", "--help"], async () => {
   console.log(helpMessage);
 });
 
-c.addCommand(["version", "--version"], () => {
+c.addSubcommand(["version", "--version"], () => {
   console.log(versionMessage);
 });
 
-c.addCommand("info", async (args: string[]) => {
+c.addSubcommand("info", async (args: string[]) => {
   await info(args);
 }, { requires_args: true });
 
-c.addCommand("update", async (args: string[]) => {
+c.addSubcommand("update", async (args: string[]) => {
   await update(args);
 }, { requires_args: true });
 
-c.addCommand("check", async (args: string[]) => {
+c.addSubcommand("check", async (args: string[]) => {
   await check(args);
 }, { requires_args: true });
 
