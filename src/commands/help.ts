@@ -13,7 +13,7 @@ export const helpMessage = CliService.createHelpMenu({
     "update [modules]":
       "Updates the specified modules to the newest version. Will update all if modules are omitted.",
     "info":
-      "Shows information about the given module, be it std or 3rd party. The 3rd party module must be referenced at https://deno.land/x/",
+      "Displays information about the given module, be it std or 3rd party. The 3rd party module must be referenced at https://deno.land/x/",
     "help, --help": "Prints the help message",
     "version, --version": "Prints the current dmm version",
   },
