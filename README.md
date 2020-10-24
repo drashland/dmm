@@ -58,16 +58,18 @@ There are two ways you can use this module: installing it though `deno`, or runn
 As dmm only needs to read and write to your `deps.ts`, as well as requiring network access using Deno's CDN and API, you can restrict the access this module has.
 
 *Install*
+```sh
+deno install --allow-net='cdn.deno.land,api.deno.land,x.nest.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts
 ```
-$ deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts
-$ dmm ...
+```sh
+dmm ...
 ```
 
 *Through the URL*
 
 If you are using this method, be sure to use the latest version of dmm in the command below
-```
-$ deno run --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts ...
+```sh
+deno run --allow-net='cdn.deno.land,api.deno.land,x.nest.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts ...
 ```
 
 In the examples below, dmm is installed and we will be using it that way to make the commands easier to read.
@@ -189,26 +191,26 @@ EXAMPLE USAGE:
 
 # How it Works
 
-dmm will only read modules that reside on [deno.land](https://deno.land), whether they are 3rd party or `std` modules. As long as you are either importing then exporting a module, or only exporting a module, dmm will check that dependency.
+dmm will only read modules that reside on [deno.land](https://deno.land) or [nest.land](https://nest.land), whether they are 3rd party or `std` modules. As long as you are either importing then exporting a module, or only exporting a module, dmm will check that dependency.
 
 * Your dependencies must be versioned. Not versioning your dependencies is bad practice and can lead to many problems in your project, which is why dmm will not support it. For example:
     ```
-    import { red } from "https://deno.land/std@0.56.0/fmt/colors.ts";
+    import { red } from "https://x.nest.land/std@0.56.0/fmt/colors.ts";
                                               ^^^^^^^
     ```
 
-* dmm only supports importing/exporting modules from Deno's registry: [deno.land](https://deno.land), 3rd party or `std`. For example:
+* dmm only supports importing/exporting modules from [deno.land/x](https://deno.land/x), [deno.land/std](https://deno.land/std) and [x.nest.land](https://nest.land), 3rd party or `std`. For example:
     ```
-    import { red } from "https://deno.land/std@0.56.0/fmt/colors.ts"; // supported
+    import { red } from "https://x.nest.land/std@0.56.0/fmt/colors.ts"; // supported
     import { something } from "https://deno.land/x/something@0v1.0.0/mod.ts"; // supported
     ```
 
-* dmm will read every `from "https://deno.land/..."` line in your `deps.ts` and using the name and version, will convert the dependencies into objects.
+* dmm will read every `from "https://deno.land/..."` or `from "https://x.nest.land/..."` line in your `deps.ts` and using the name and version, will convert the dependencies into objects.
 
 * dmm will then retrieve the rest of the required information for later use for each module:
-    * Latest version - For std and 3rd party, this is pulled using `https://cdn.deno.land`.
-    * GitHub URL - Retrieved through the GitHub API
-    * Description - For 3rd party modules, it is taken from `https://api.deno.land`. There is currently no way to get descriptions for std modules.
+    * Latest version - For std and 3rd party, this is pulled using `https://cdn.deno.land` or `https://x.deno.land/api` .
+    * GitHub URL - Fetched from `https://cdn.deno.land` or `https://x.deno.land/api`
+    * Description - For 3rd party modules, it is taken from `https://api.deno.land` or `https://x.deno.land/api`. There is currently no way to get descriptions for std modules.
     
 * After this, dmm will run different actions based on the purpose:
 

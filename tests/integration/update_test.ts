@@ -1,6 +1,7 @@
 // Update a specific dep that can be updated
 import { assertEquals, colours } from "../../deps.ts";
 import DenoService from "../../src/services/deno_service.ts";
+import NestService from "../../src/services/nest_service.ts";
 import {
   outOfDateDepsDir,
   outOfDateDepsFile,
@@ -12,6 +13,9 @@ import {
 
 const latestDrashRelease = await DenoService.getLatestModuleRelease(
   "drash",
+);
+const latestCliffyRelease = await NestService.getLatestModuleRelease(
+  "cliffy",
 );
 const latestStdRelease = await DenoService.getLatestModuleRelease("std");
 
@@ -288,6 +292,12 @@ Deno.test({
       ) + "\n" +
       colours.green(
         `fmt was updated from 0.53.0 to ${latestStdRelease}`,
+      ) + "\n" +
+      colours.green(
+        `cliffy was updated from 0.11.2 to ${latestCliffyRelease}`,
+      ) + "\n" +
+      colours.green(
+        `log was updated from 0.53.0 to ${latestStdRelease}`,
       ) + "\n" +
       colours.green(
         `uuid was updated from 0.61.0 to ${latestStdRelease}`,
