@@ -1,9 +1,13 @@
 import { assertEquals, colours } from "../../deps.ts";
 import DenoService from "../../src/services/deno_service.ts";
+import NestService from "../../src/services/nest_service.ts";
 import { outOfDateDepsDir, upToDateDepsDir } from "./test_constants.ts";
 
 const latestDrashRelease = await DenoService.getLatestModuleRelease(
   "drash",
+);
+const latestCliffyRelease = await NestService.getLatestModuleRelease(
+  "cliffy",
 );
 const latestStdRelease = await DenoService.getLatestModuleRelease("std");
 
@@ -222,10 +226,16 @@ Deno.test({
           `fmt can be updated from 0.53.0 to ${latestStdRelease}`,
         ) + "\n" +
         colours.yellow(
+          `cliffy can be updated from 0.11.2 to ${latestCliffyRelease}`,
+        ) + "\n" +
+        colours.yellow(
+          `log can be updated from 0.53.0 to ${latestStdRelease}`,
+        ) + "\n" +
+        colours.yellow(
           `uuid can be updated from 0.61.0 to ${latestStdRelease}`,
         ) + "\n" +
         "To update, run: \n" +
-        "    dmm update drash fs fmt uuid" +
+        "    dmm update drash fs fmt cliffy log uuid" +
         "\n",
     );
     assertEquals(status.code, 0);

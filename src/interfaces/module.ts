@@ -8,11 +8,12 @@
  * importedVersion
  *     The version imported for the given module
  *
- * denoLandURL
- *     The https://deno.land/x/ URL to the module
+ * moduleURL
+ *     The import URL of the module
  *
- * githubURL
- *     The https://github.com/ URL for the module
+ * resposityURL
+ *     The URL for the code repository for the module. 
+ *     This is always a github.com URL for a deno.land module.
  *
  * latestRelease
  *     The latest release tag for the module
@@ -24,8 +25,8 @@ export default interface IModule {
   std: boolean;
   name: string;
   importedVersion: string;
-  denoLandURL: string;
-  githubURL: string;
+  moduleURL: string;
+  repositoryURL: string;
   latestRelease: string;
   description: string;
 }
