@@ -199,7 +199,7 @@ dmm will only read modules that reside on [deno.land](https://deno.land) or [nes
                                               ^^^^^^^
     ```
 
-* dmm only supports importing/exporting modules from Deno's registry: [deno.land](https://deno.land), 3rd party or `std`. For example:
+* dmm only supports importing/exporting modules from [deno.land/x](https://deno.land/x), [deno.land/std](https://deno.land/std) and [x.nest.land](https://nest.land), 3rd party or `std`. For example:
     ```
     import { red } from "https://x.nest.land/std@0.56.0/fmt/colors.ts"; // supported
     import { something } from "https://deno.land/x/something@0v1.0.0/mod.ts"; // supported
