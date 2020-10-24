@@ -14,9 +14,7 @@ interface nestModule {
   createdAt: string;
 }
 
-
 export default class NestService {
-
   /**
    * Url for Nest.Land's API link
    */
@@ -35,7 +33,9 @@ export default class NestService {
     const res = await fetch(NestService.NEST_API_URL + "package/" + name);
     const json: nestModule = await res.json();
     const latestReleaseWithName = json.latestVersion;
-    const latestRelease = latestReleaseWithName.substr(latestReleaseWithName.indexOf("@") + 1)
+    const latestRelease = latestReleaseWithName.substr(
+      latestReleaseWithName.indexOf("@") + 1,
+    );
     return latestRelease;
   }
 
@@ -51,7 +51,9 @@ export default class NestService {
   public static async getThirdPartyDescription(
     importedModuleName: string,
   ): Promise<string> {
-    const res = await fetch(NestService.NEST_API_URL + "package/" + importedModuleName);
+    const res = await fetch(
+      NestService.NEST_API_URL + "package/" + importedModuleName,
+    );
     const json: nestModule = await res.json();
     const description = json.description;
     return description;
@@ -69,7 +71,9 @@ export default class NestService {
   public static async getThirdPartyRepoURL(
     importedModuleName: string,
   ): Promise<string> {
-    const res = await fetch(NestService.NEST_API_URL + "package/" + importedModuleName);
+    const res = await fetch(
+      NestService.NEST_API_URL + "package/" + importedModuleName,
+    );
     const json: nestModule = await res.json();
     const repositoryURL = json.repository;
     return repositoryURL;

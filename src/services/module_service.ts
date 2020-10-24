@@ -59,18 +59,19 @@ export default class ModuleService {
 
     // Turn lines that import from a url into a nice array
     const listOfDeps: string[] = depsContent.split("\n").filter((line) =>
-      line.indexOf("https://deno.land") !== -1 || line.indexOf("https://x.nest.land") !== -1
+      line.indexOf("https://deno.land") !== -1 ||
+      line.indexOf("https://x.nest.land") !== -1
     );
 
     // Collate data for each module imported
     const modules: Array<IModule> = [];
     for (const dep of listOfDeps) {
-
       const isDeno = dep.indexOf("https://deno.land/") >= 0;
       const isNest = dep.indexOf("https://x.nest.land/") >= 0;
 
       // Get if is std
-      const isStd: boolean = dep.indexOf("https://deno.land/std") >= 0 || dep.indexOf("https://x.nest.land/std") >= 0;
+      const isStd: boolean = dep.indexOf("https://deno.land/std") >= 0 ||
+        dep.indexOf("https://x.nest.land/std") >= 0;
 
       // Get URL
       const moduleURL: string = dep.substring(
@@ -94,14 +95,15 @@ export default class ModuleService {
         Deno.exit(1);
       }
 
-
       const RegistryService = isDeno ? DenoService : NestService;
 
       // Get the module name
       const name: string = isStd
         ? (dep.split("@" + importedVersion + "/")[1]).split("/")[0]
         : dep.substring(
-          dep.lastIndexOf(isDeno ? "https://deno.land/x/" : "https://x.nest.land/") + 20,
+          dep.lastIndexOf(
+            isDeno ? "https://deno.land/x/" : "https://x.nest.land/",
+          ) + 20,
           dep.lastIndexOf("@"),
         );
 
@@ -133,10 +135,8 @@ export default class ModuleService {
           "Descriptions for std modules are not currently supported",
         );
 
-    
-
-       // Save the module
-       modules.push({
+      // Save the module
+      modules.push({
         std: isStd,
         repositoryURL,
         moduleURL,
@@ -145,7 +145,6 @@ export default class ModuleService {
         name,
         description,
       });
-
     }
 
     if (!modules.length) {

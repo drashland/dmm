@@ -87,8 +87,12 @@ export default class DenoService {
     return repository;
   }
 
-  public static async getThirdPartyRepoURL(importedModuleName: string,): Promise<string> {
-    const repoAndOwner = await DenoService.getThirdPartyRepoAndOwner(importedModuleName);
+  public static async getThirdPartyRepoURL(
+    importedModuleName: string,
+  ): Promise<string> {
+    const repoAndOwner = await DenoService.getThirdPartyRepoAndOwner(
+      importedModuleName,
+    );
     return "https://github.com/" + repoAndOwner;
   }
 }
