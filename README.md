@@ -53,13 +53,23 @@ There are two ways you can use this module:
 
 1. You can install it through the `deno` command.
     ```sh
-    $ deno install --allow-net='cdn.deno.land,api.deno.land,x.nest.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts
+    $ deno install \
+      --allow-net='cdn.deno.land,api.deno.land,x.nest.land,raw.githubusercontent.com' \
+      --allow-read='.' \
+      --allow-write='deps.ts' \
+      https://deno.land/x/dmm@v1.1.5/mod.ts
+
     $ dmm help
     ````
 
 2. Run it through a URL.
     ```sh
-    $ deno run --allow-net='cdn.deno.land,api.deno.land,x.nest.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts help
+    $ deno run \
+      --allow-net='cdn.deno.land,api.deno.land,x.nest.land,raw.githubusercontent.com' \
+      --allow-read='.' \
+      --allow-write='deps.ts' \
+      https://deno.land/x/dmm@v1.1.5/mod.ts \
+      help
     ```
 
 # How it Works
