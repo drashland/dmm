@@ -1,4 +1,4 @@
-import { Rhum } from "https://raw.githubusercontent.com/drashland/rhum/rhum-cli/mod.ts";
+import { assertEquals } from "../../../deps.ts";
 import {
   denoVersionFiles,
   moduleVersionFiles,
@@ -14,56 +14,54 @@ const c = new BumperService("dmm", ["--version=1.2.3"]);
 const latestVersions = await b.getLatestVersions();
 const latestVersionDrash = await c.getModulesLatestVersion("drash");
 
-Rhum.testPlan(async () => {
+Deno.test({
+  name: "Bumper CI Service | bumps std versions in deps files correctly",
+  async fn(): Promise<void> {
+    const file = denoVersionFiles[0];
+    file.filename = "./tests/data/pattern_types.txt";
+    const bumped = await b.bump([file], false);
+    assertEquals(bumped[0], data_depsStd);
+  }
+});
 
-  /**
-   * The test cases in this test suite process as follows:
-   *
-   *   1. Take a file.
-   *   2. Switch out the file for the test file. This test file mocks different
-   *      patterns that the regex SHOULD match and replace.
-   *   3. Bump the file.
-   *   4. Assert that everything is as expected.
-   */
-  await Rhum.testSuite(
-    "bumper_ci_service.ts",
-    () => {
-      Rhum.testCase("bumps std versions in deps files correctly", async () => {
-        const file = denoVersionFiles[0];
-        file.filename = "./tests/data/pattern_types.txt";
-        const bumped = await b.bump([file], false);
-        Rhum.asserts.assertEquals(bumped[0], data_depsStd);
-      });
+Deno.test({
+  name: "Bumper CI Service | bumps drash versions in deps files correctly",
+  async fn(): Promise<void> {
+    const file = denoVersionFiles[1];
+    file.filename = "./tests/data/pattern_types.txt";
+    const bumped = await b.bump([file], false);
+    assertEquals(bumped[0], data_depsDrash);
+  }
+});
 
-      Rhum.testCase("bumps drash versions in deps files correctly", async () => {
-        const file = denoVersionFiles[1];
-        file.filename = "./tests/data/pattern_types.txt";
-        const bumped = await b.bump([file], false);
-        Rhum.asserts.assertEquals(bumped[0], data_depsDrash);
-      });
+Deno.test({
+  name: "Bumper CI Service | bumps deno versions in yml files correctly",
+  async fn(): Promise<void> {
+    const file = denoVersionFiles[2];
+    file.filename = "./tests/data/pattern_types.txt";
+    const bumped = await b.bump([file], false);
+    assertEquals(bumped[0], data_denoVersionsYml);
+  }
+});
 
-      Rhum.testCase("bumps deno versions in yml files correctly", async () => {
-        const file = denoVersionFiles[2];
-        file.filename = "./tests/data/pattern_types.txt";
-        const bumped = await b.bump([file], false);
-        Rhum.asserts.assertEquals(bumped[0], data_denoVersionsYml);
-      });
+Deno.test({
+  name: "Bumper CI Service | bumps eggs.json correctly",
+  async fn(): Promise<void> {
+    const file = moduleVersionFiles[0];
+    file.filename = "./tests/data/pattern_types.txt";
+    const bumped = await c.bump([file], false);
+    assertEquals(bumped[0], data_eggJson);
+  }
+});
 
-      Rhum.testCase("bumps egg.json correctly", async () => {
-        const file = moduleVersionFiles[0];
-        file.filename = "./tests/data/pattern_types.txt";
-        const bumped = await c.bump([file], false);
-        Rhum.asserts.assertEquals(bumped[0], data_eggJson);
-      });
-
-      Rhum.testCase("bumps const statements correctly", async () => {
-        const file = moduleVersionFiles[2];
-        file.filename = "./tests/data/pattern_types.txt";
-        const bumped = await c.bump([file], false);
-        Rhum.asserts.assertEquals(bumped[0], data_constStatements);
-      });
-    },
-  );
+Deno.test({
+  name: "Bumper CI Service | bumps const statements correctly",
+  async fn(): Promise<void> {
+    const file = moduleVersionFiles[2];
+    file.filename = "./tests/data/pattern_types.txt";
+    const bumped = await c.bump([file], false);
+    assertEquals(bumped[0], data_constStatements);
+  }
 });
 
 ////////////////////////////////////////////////////////////////////////////////
