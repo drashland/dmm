@@ -42,7 +42,7 @@ export async function info(modules: string[]): Promise<void> {
   }
   const importLine = "import * as " + name + ' from "' + denoLandUrl + '";';
   LoggerService.logInfo(
-      `Information on ${name}\n\n  - Name: ${name}\n  - Description: ${description}\n  - deno.land Link: ${denoLandUrl}\n  - GitHub Repository: ${gitHubUrl}\n  - Import Statement: ${importLine}\n  - Latest Version: ${latestVersion}` +
+    `Information on ${name}\n\n  - Name: ${name}\n  - Description: ${description}\n  - deno.land Link: ${denoLandUrl}\n  - GitHub Repository: ${gitHubUrl}\n  - Import Statement: ${importLine}\n  - Latest Version: ${latestVersion}` +
       "\n",
   );
   Deno.exit();

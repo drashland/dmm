@@ -1,4 +1,4 @@
-import { LoggerService} from "../../deps.ts";
+import { LoggerService } from "../../deps.ts";
 import ModuleService from "../services/module_service.ts";
 
 /**
@@ -16,7 +16,9 @@ export async function update(dependencies: string[]): Promise<void> {
   );
 
   if (modules === false || typeof modules === "boolean") {
-    LoggerService.logError("Modules specified do not exist in your dependencies.");
+    LoggerService.logError(
+      "Modules specified do not exist in your dependencies.",
+    );
     Deno.exit(1);
   }
 
@@ -39,7 +41,9 @@ export async function update(dependencies: string[]): Promise<void> {
       );
       // `v` is not supported for std imports anymore
       if (module.importedVersion.indexOf("v") > -1) {
-        LoggerService.logWarn(`You are importing a version of ${module.name} prefixed with "v". deno.land does not support this and will throw a 403 error.`);
+        LoggerService.logWarn(
+          `You are importing a version of ${module.name} prefixed with "v". deno.land does not support this and will throw a 403 error.`,
+        );
       }
     } else {
       depsContent = depsContent.replace(
@@ -48,8 +52,8 @@ export async function update(dependencies: string[]): Promise<void> {
       );
     }
     LoggerService.logInfo(
-        module.name + " was updated from " + module.importedVersion + " to " +
-          module.latestRelease,
+      module.name + " was updated from " + module.importedVersion + " to " +
+        module.latestRelease,
     );
     depsWereUpdated = true;
   });

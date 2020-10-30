@@ -21,7 +21,7 @@ Deno.test({
     file.filename = "./tests/data/pattern_types.txt";
     const bumped = await b.bump([file], false);
     assertEquals(bumped[0], data_depsStd);
-  }
+  },
 });
 
 Deno.test({
@@ -31,7 +31,7 @@ Deno.test({
     file.filename = "./tests/data/pattern_types.txt";
     const bumped = await b.bump([file], false);
     assertEquals(bumped[0], data_depsDrash);
-  }
+  },
 });
 
 Deno.test({
@@ -41,7 +41,7 @@ Deno.test({
     file.filename = "./tests/data/pattern_types.txt";
     const bumped = await b.bump([file], false);
     assertEquals(bumped[0], data_denoVersionsYml);
-  }
+  },
 });
 
 Deno.test({
@@ -51,7 +51,7 @@ Deno.test({
     file.filename = "./tests/data/pattern_types.txt";
     const bumped = await c.bump([file], false);
     assertEquals(bumped[0], data_eggJson);
-  }
+  },
 });
 
 Deno.test({
@@ -61,7 +61,7 @@ Deno.test({
     file.filename = "./tests/data/pattern_types.txt";
     const bumped = await c.bump([file], false);
     assertEquals(bumped[0], data_constStatements);
-  }
+  },
 });
 
 ////////////////////////////////////////////////////////////////////////////////

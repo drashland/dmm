@@ -1,4 +1,4 @@
-import { LoggerService} from "../../deps.ts";
+import { LoggerService } from "../../deps.ts";
 import ModuleService from "../services/module_service.ts";
 
 /**
@@ -16,7 +16,9 @@ export async function check(dependencies: string[]): Promise<void> {
   );
 
   if (modules === false || typeof modules === "boolean") {
-    LoggerService.logError("Modules specified do not exist in your dependencies.");
+    LoggerService.logError(
+      "Modules specified do not exist in your dependencies.",
+    );
     Deno.exit(1);
   }
 
@@ -29,8 +31,8 @@ export async function check(dependencies: string[]): Promise<void> {
       depsCanBeUpdated = true;
       listOfModuleNamesToBeUpdated.push(module.name);
       LoggerService.logInfo(
-          module.name + " can be updated from " + module.importedVersion +
-            " to " + module.latestRelease,
+        module.name + " can be updated from " + module.importedVersion +
+          " to " + module.latestRelease,
       );
     }
   });
