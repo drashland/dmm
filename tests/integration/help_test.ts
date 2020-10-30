@@ -63,7 +63,7 @@ EXAMPLE USAGE
     Get information about a module
         dmm info http
 
-`
+`,
     );
     assertEquals(status.code, 0);
     assertEquals(status.success, true);
