@@ -92,7 +92,7 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      colours.red("ERROR") + " Command `something` not recognized.\n",
+      colours.red("ERROR") + " Subcommand `something` not recognized.\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
