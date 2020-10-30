@@ -21,10 +21,10 @@ c.addSubcommand("info", async (args: string[]) => {
 
 c.addSubcommand("update", async (args: string[]) => {
   await update(args);
-}, { requires_args: true });
+});
 
 c.addSubcommand("check", async (args: string[]) => {
   await check(args);
-}, { requires_args: true });
+});
 
 c.run();

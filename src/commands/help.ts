@@ -5,15 +5,15 @@ export const helpMessage = CliService.createHelpMenu({
   description: `A module manager for Deno.`,
   usage: [
     `deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v${version}/mod.ts`,
-    `dmm [command]`,
+    `dmm [SUBCOMMAND]`,
   ],
   subcommands: {
     "check [modules]":
       "Checks the specified modules for newer version. Will check all if modules are omitted.",
     "update [modules]":
       "Updates the specified modules to the newest version. Will update all if modules are omitted.",
-    "info":
-      "Displays information about the given module, be it std or 3rd party. The 3rd party module must be referenced at https://deno.land/x/",
+    "info [modules]":
+      "Displays information about the given modules, be it std or 3rd party. The 3rd party module must be referenced at https://deno.land/x/",
     "help, --help": "Prints the help message",
     "version, --version": "Prints the current dmm version",
   },

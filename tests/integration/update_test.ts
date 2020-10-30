@@ -79,9 +79,8 @@ Deno.test({
     const expected = colours.blue("INFO") +
       " Reading deps.ts to gather your dependencies...\n" +
       colours.blue("INFO") + " Checking if your modules can be updated...\n" +
-      colours.blue("INFO") + " " + colours.green(
-        `fs was updated from 0.53.0 to ${latestStdRelease}`,
-      ) + "\n";
+      colours.blue("INFO") +
+      ` fs was updated from 0.53.0 to ${latestStdRelease}\n`;
     assertEquals(
       stdout,
       expected,
@@ -135,8 +134,7 @@ Deno.test({
       colours.blue("INFO") +
         " Reading deps.ts to gather your dependencies...\n" +
         colours.blue("INFO") + " Checking if your modules can be updated...\n" +
-        colours.blue("INFO") + " " +
-        colours.green("Everything is already up to date") + "\n",
+        colours.blue("INFO") + " Everything is already up to date\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -183,12 +181,10 @@ Deno.test({
       colours.blue("INFO") +
         " Reading deps.ts to gather your dependencies...\n" +
         colours.blue("INFO") + " Checking if your modules can be updated...\n" +
-        colours.blue("INFO") + " " + colours.green(
-          `fs was updated from 0.53.0 to ${latestStdRelease}`,
-        ) + "\n" +
-        colours.blue("INFO") + " " + colours.green(
-          `fmt was updated from 0.53.0 to ${latestStdRelease}`,
-        ) + "\n",
+        colours.blue("INFO") +
+        ` fs was updated from 0.53.0 to ${latestStdRelease}\n` +
+        colours.blue("INFO") +
+        ` fmt was updated from 0.53.0 to ${latestStdRelease}\n`,
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -245,8 +241,7 @@ Deno.test({
       colours.blue("INFO") +
         " Reading deps.ts to gather your dependencies...\n" +
         colours.blue("INFO") + " Checking if your modules can be updated...\n" +
-        colours.blue("INFO") + " " +
-        colours.green("Everything is already up to date") + "\n",
+        colours.blue("INFO") + " Everything is already up to date\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -288,18 +283,18 @@ Deno.test({
     const assertedOutput = colours.blue("INFO") +
       " Reading deps.ts to gather your dependencies...\n" +
       colours.blue("INFO") + " Checking if your modules can be updated...\n" +
-      colours.blue("INFO") + " " +
-      colours.green(`drash was updated from v1.0.0 to ${latestDrashRelease}`) +
-      "\n" +
-      colours.blue("INFO") + " " + colours.green(
-        `fs was updated from 0.53.0 to ${latestStdRelease}`,
-      ) + "\n" +
-      colours.blue("INFO") + " " + colours.green(
-        `fmt was updated from 0.53.0 to ${latestStdRelease}`,
-      ) + "\n" +
-      colours.blue("INFO") + " " + colours.green(
-        `uuid was updated from 0.61.0 to ${latestStdRelease}`,
-      ) + "\n";
+      colours.blue("INFO") +
+      ` drash was updated from v1.0.0 to ${latestDrashRelease}\n` +
+      colours.blue("INFO") +
+      ` fs was updated from 0.53.0 to ${latestStdRelease}\n` +
+      colours.blue("INFO") +
+      ` fmt was updated from 0.53.0 to ${latestStdRelease}\n` +
+      colours.blue("INFO") +
+      ` cliffy was updated from 0.11.2 to ${latestCliffyRelease}\n` +
+      colours.blue("INFO") +
+      ` log was updated from 0.53.0 to ${latestStdRelease}\n` +
+      colours.blue("INFO") +
+      ` uuid was updated from 0.61.0 to ${latestStdRelease}\n`;
     assertEquals(stdout, assertedOutput);
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -357,8 +352,7 @@ Deno.test({
       colours.blue("INFO") +
         " Reading deps.ts to gather your dependencies...\n" +
         colours.blue("INFO") + " Checking if your modules can be updated...\n" +
-        colours.blue("INFO") + " " +
-        colours.green("Everything is already up to date") + "\n",
+        colours.blue("INFO") + " Everything is already up to date\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -403,9 +397,8 @@ Deno.test({
       colours.blue("INFO") +
         " Reading deps.ts to gather your dependencies...\n" +
         colours.blue("INFO") + " Checking if your modules can be updated...\n" +
-        colours.blue("INFO") + " " + colours.green(
-          `drash was updated from v1.0.0 to ${latestDrashRelease}`,
-        ) + "\n",
+        colours.blue("INFO") +
+        ` drash was updated from v1.0.0 to ${latestDrashRelease}\n`,
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -453,9 +446,8 @@ Deno.test({
       stdout,
       colours.blue("INFO") +
         " Reading deps.ts to gather your dependencies...\n" +
-        colours.red("ERROR") + " " +
-        colours.red("Modules specified do not exist in your dependencies.") +
-        "\n",
+        colours.red("ERROR") +
+        " Modules specified do not exist in your dependencies.\n",
     );
     assertEquals(
       stderr,
@@ -504,12 +496,10 @@ Deno.test({
       colours.blue("INFO") +
         " Reading deps.ts to gather your dependencies...\n" +
         colours.blue("INFO") + " Checking if your modules can be updated...\n" +
-        colours.blue("INFO") + " " + colours.green(
-          `drash was updated from v1.0.0 to ${latestDrashRelease}`,
-        ) + "\n" +
-        colours.blue("INFO") + " " + colours.green(
-          `fmt was updated from 0.53.0 to ${latestStdRelease}`,
-        ) + "\n",
+        colours.blue("INFO") +
+        ` drash was updated from v1.0.0 to ${latestDrashRelease}\n` +
+        colours.blue("INFO") +
+        ` fmt was updated from 0.53.0 to ${latestStdRelease}\n`,
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -565,9 +555,8 @@ Deno.test({
       colours.blue("INFO") +
         " Reading deps.ts to gather your dependencies...\n" +
         colours.blue("INFO") + " Checking if your modules can be updated...\n" +
-        colours.blue("INFO") + " " + colours.green(
-          `fs was updated from 0.53.0 to ${latestStdRelease}`,
-        ) + "\n",
+        colours.blue("INFO") +
+        ` fs was updated from 0.53.0 to ${latestStdRelease}\n`,
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
