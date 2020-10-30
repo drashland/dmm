@@ -1,15 +1,19 @@
 import { assertEquals, colours } from "../../deps.ts";
 import DenoService from "../../src/services/deno_service.ts";
+import NestService from "../../src/services/nest_service.ts";
 import { outOfDateDepsDir, upToDateDepsDir } from "./test_constants.ts";
 
 const latestDrashRelease = await DenoService.getLatestModuleRelease(
   "drash",
 );
+const latestCliffyRelease = await NestService.getLatestModuleRelease(
+  "cliffy",
+);
 const latestStdRelease = await DenoService.getLatestModuleRelease("std");
 
 // Check a specific dep that can be updated
 Deno.test({
-  name: "Check | Single | Modules to Update Exist",
+  name: "Check | Single | Modules to Update Exist - deno.land/x",
 
   //ignore: true,
   async fn(): Promise<void> {
@@ -53,7 +57,7 @@ Deno.test({
 
 // Check a specific dep that is already up to date
 Deno.test({
-  name: "Check | Single | No Modules to Update",
+  name: "Check | Single | No Modules to Update - deno.land/x",
 
   //ignore: true,
   async fn(): Promise<void> {
@@ -84,6 +88,90 @@ Deno.test({
         " Reading deps.ts to gather your dependencies...\n" +
         colours.blue("INFO") + " Comparing versions...\n" +
         colours.blue("INFO") + " " +
+        colours.green("Your dependencies are up to date") + "\n",
+    );
+    assertEquals(status.code, 0);
+    assertEquals(status.success, true);
+  },
+});
+
+// Check a specific dep that can be updated
+Deno.test({
+  name: "Check | Single | Modules to Update Exist - nest.land",
+
+  //ignore: true,
+  async fn(): Promise<void> {
+    const p = await Deno.run({
+      cmd: [
+        "deno",
+        "run",
+        "--allow-net",
+        "--allow-read",
+        "../../../mod.ts",
+        "check",
+        "cliffy",
+      ],
+      cwd: outOfDateDepsDir,
+      stdout: "piped",
+      stderr: "piped",
+    });
+    const status = await p.status();
+    const output = await p.output();
+    await p.close();
+    const stdout = new TextDecoder("utf-8").decode(output);
+    const error = await p.stderrOutput();
+    const stderr = new TextDecoder("utf-8").decode(error);
+    assertEquals(stderr, "");
+    assertEquals(
+      stdout,
+      "Gathering facts...\n" +
+        "Reading deps.ts to gather your dependencies...\n" +
+        "Comparing versions...\n" +
+        colours.yellow(
+          `cliffy can be updated from 0.11.2 to ${latestCliffyRelease}`,
+        ) +
+        "\n" +
+        "To update, run: \n" +
+        "    dmm update cliffy" +
+        "\n",
+    );
+    assertEquals(status.code, 0);
+    assertEquals(status.success, true);
+  },
+});
+
+// Check a specific dep that is already up to date
+Deno.test({
+  name: "Check | Single | No Modules to Update - nest.land",
+
+  //ignore: true,
+  async fn(): Promise<void> {
+    const p = await Deno.run({
+      cmd: [
+        "deno",
+        "run",
+        "--allow-net",
+        "--allow-read",
+        "../../../mod.ts",
+        "check",
+        "cliffy",
+      ],
+      cwd: upToDateDepsDir,
+      stdout: "piped",
+      stderr: "piped",
+    });
+    const status = await p.status();
+    p.close();
+    const output = await p.output();
+    const stdout = new TextDecoder("utf-8").decode(output);
+    const error = await p.stderrOutput();
+    const stderr = new TextDecoder("utf-8").decode(error);
+    assertEquals(stderr, "");
+    assertEquals(
+      stdout,
+      "Gathering facts...\n" +
+        "Reading deps.ts to gather your dependencies...\n" +
+        "Comparing versions...\n" +
         colours.green("Your dependencies are up to date") + "\n",
     );
     assertEquals(status.code, 0);

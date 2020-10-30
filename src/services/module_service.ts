@@ -1,6 +1,7 @@
 import IModule from "../interfaces/module.ts";
 import { colours, LoggerService } from "../../deps.ts";
 import DenoService from "../services/deno_service.ts";
+import NestService from "../services/nest_service.ts";
 
 export default class ModuleService {
   /**
@@ -58,18 +59,23 @@ export default class ModuleService {
 
     // Turn lines that import from a url into a nice array
     const listOfDeps: string[] = depsContent.split("\n").filter((line) =>
-      line.indexOf("https://deno.land") !== -1
+      line.indexOf("https://deno.land") !== -1 ||
+      line.indexOf("https://x.nest.land") !== -1
     );
 
     // Collate data for each module imported
     const modules: Array<IModule> = [];
     for (const dep of listOfDeps) {
-      // Get if is std
-      const std: boolean = dep.indexOf("https://deno.land/std") >= 0;
+      const isDeno = dep.indexOf("https://deno.land/") >= 0;
+      const isNest = dep.indexOf("https://x.nest.land/") >= 0;
 
-      // Get deno land URL
-      const denoLandURL: string = dep.substring(
-        dep.lastIndexOf("https://deno.land/"),
+      // Get if is std
+      const isStd: boolean = dep.indexOf("https://deno.land/std") >= 0 ||
+        dep.indexOf("https://x.nest.land/std") >= 0;
+
+      // Get URL
+      const moduleURL: string = dep.substring(
+        dep.lastIndexOf(isDeno ? "https://deno.land/" : "https://x.nest.land/"),
         dep.lastIndexOf(".ts") + 3, // to include the `.ts`
       );
 
@@ -89,11 +95,15 @@ export default class ModuleService {
         Deno.exit(1);
       }
 
+      const RegistryService = isDeno ? DenoService : NestService;
+
       // Get the module name
-      const name: string = std === true
+      const name: string = isStd
         ? (dep.split("@" + importedVersion + "/")[1]).split("/")[0]
         : dep.substring(
-          dep.lastIndexOf("/x/") + 3,
+          dep.lastIndexOf(
+            isDeno ? "https://deno.land/x/" : "https://x.nest.land/",
+          ) + 20,
           dep.lastIndexOf("@"),
         );
 
@@ -102,35 +112,34 @@ export default class ModuleService {
         continue;
       }
 
-      // Get the github url
-      const githubURL: string = std === true
+      // Get the repository url (always Github for deno.land but could be something else for nest.land)
+      const repositoryURL: string = isStd
         ? "https://github.com/denoland/deno/tree/master/std/" + name
-        : "https://github.com/" +
-          await DenoService.getThirdPartyRepoAndOwner(name);
+        : await RegistryService.getThirdPartyRepoURL(name);
 
       // Get the latest release - make sure the string is the same format as imported version eg using a "v"
-      const latestRelease: string = std === true
+      const latestRelease: string = isStd
         ? ModuleService.standardiseVersion(
           importedVersion,
-          await DenoService.getLatestModuleRelease("std"),
+          await RegistryService.getLatestModuleRelease("std"),
         )
         : ModuleService.standardiseVersion(
           importedVersion,
-          await DenoService.getLatestModuleRelease(name),
+          await RegistryService.getLatestModuleRelease(name),
         );
 
       // Get the description
-      const description: string = std === false
-        ? await DenoService.getThirdPartyDescription(name)
+      const description: string = !isStd
+        ? await RegistryService.getThirdPartyDescription(name)
         : colours.red(
           "Descriptions for std modules are not currently supported",
         );
 
       // Save the module
       modules.push({
-        std,
-        githubURL,
-        denoLandURL,
+        std: isStd,
+        repositoryURL,
+        moduleURL,
         latestRelease,
         importedVersion,
         name,

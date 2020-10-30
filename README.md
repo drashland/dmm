@@ -57,8 +57,8 @@ There are two ways you can use this module: installing it though `deno`, or runn
 As dmm only needs to read and write to your `deps.ts`, as well as requiring network access using Deno's CDN and API, you can restrict the access this module has.
 
 *Install*
-```
-$ deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts
+```sh
+$ deno install --allow-net='cdn.deno.land,api.deno.land,x.nest.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts
 $ dmm help
 ```
 
