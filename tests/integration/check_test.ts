@@ -126,7 +126,7 @@ Deno.test({
         " Reading deps.ts to gather your dependencies...\n" +
         colours.blue("INFO") + " Comparing versions...\n" +
         colours.blue("INFO") +
-        ` cliffy can be updated from 0.14.3 to ${latestCliffyRelease}\n` +
+        ` cliffy can be updated from 0.11.2 to ${latestCliffyRelease}\n` +
         colours.blue("INFO") + " To update, run: \n" +
         "    dmm update cliffy\n",
     );
@@ -296,13 +296,15 @@ Deno.test({
         colours.blue("INFO") +
         ` fs can be updated from 0.53.0 to ${latestStdRelease}\n` +
         colours.blue("INFO") +
-        ` cliffy can be updated from 0.14.3 to ${latestCliffyRelease}\n` +
+        ` fmt can be updated from 0.53.0 to ${latestStdRelease}\n` +
+        colours.blue("INFO") +
+        ` cliffy can be updated from 0.11.2 to ${latestCliffyRelease}\n` +
         colours.blue("INFO") +
         ` log can be updated from 0.53.0 to ${latestStdRelease}\n` +
         colours.blue("INFO") +
         ` uuid can be updated from 0.61.0 to ${latestStdRelease}\n` +
         colours.blue("INFO") + " To update, run: \n" +
-        "    dmm update drash fs cliffy log uuid" +
+        "    dmm update drash fs fmt cliffy log uuid" +
         "\n",
     );
     assertEquals(status.code, 0);
