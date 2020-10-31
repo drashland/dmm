@@ -1,5 +1,4 @@
-import { colours } from "../../deps.ts";
-import IModule from "../interfaces/module.ts";
+import { LoggerService } from "../../deps.ts";
 import ModuleService from "../services/module_service.ts";
 
 /**
@@ -17,15 +16,14 @@ export async function update(dependencies: string[]): Promise<void> {
   );
 
   if (modules === false || typeof modules === "boolean") {
-    console.error(
-      colours.red("Modules specified do not exist in your dependencies."),
+    LoggerService.logError(
+      "Modules specified do not exist in your dependencies.",
     );
     Deno.exit(1);
-    return;
   }
 
   // Check for updates and rewrite `deps.ts` if needed
-  console.info("Checking if your modules can be updated...");
+  LoggerService.logInfo("Checking if your modules can be updated...");
   const usersWorkingDir: string = Deno.realPathSync(".");
   let depsWereUpdated = false;
   let depsContent: string = new TextDecoder().decode(
@@ -43,10 +41,8 @@ export async function update(dependencies: string[]): Promise<void> {
       );
       // `v` is not supported for std imports anymore
       if (module.importedVersion.indexOf("v") > -1) {
-        console.warn(
-          colours.yellow(
-            `You are importing a version of ${module.name} prefixed with "v". deno.land does not support this and will throw a 403 error.`,
-          ),
+        LoggerService.logWarn(
+          `You are importing a version of ${module.name} prefixed with "v". deno.land does not support this and will throw a 403 error.`,
         );
       }
     } else {
@@ -55,11 +51,9 @@ export async function update(dependencies: string[]): Promise<void> {
         module.name + "@" + module.latestRelease,
       );
     }
-    console.info(
-      colours.green(
-        module.name + " was updated from " + module.importedVersion + " to " +
-          module.latestRelease,
-      ),
+    LoggerService.logInfo(
+      module.name + " was updated from " + module.importedVersion + " to " +
+        module.latestRelease,
     );
     depsWereUpdated = true;
   });
@@ -72,6 +66,6 @@ export async function update(dependencies: string[]): Promise<void> {
 
   // And if none were updated, add some more logging
   if (!depsWereUpdated) {
-    console.info(colours.green("Everything is already up to date"));
+    LoggerService.logInfo("Everything is already up to date");
   }
 }

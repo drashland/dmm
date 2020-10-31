@@ -24,11 +24,13 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    assertEquals(stdout, "Gathering facts...\n");
+    assertEquals(
+      stdout,
+      colours.red("ERROR") + " Subcommand `info` requires arguments.\n",
+    );
     assertEquals(
       stderr,
-      colours.red("Specify a single module to get information on. See --help") +
-        "\n",
+      "",
     );
     assertEquals(status.code, 1);
     assertEquals(status.success, false);
@@ -55,10 +57,7 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
-        "\n" +
-        "Information on drash\n" +
-        "\n" +
+      colours.blue("INFO") + " Information on drash\n\n" +
         "  - Name: drash\n" +
         "  - Description: A REST microframework for Deno's HTTP server with zero dependencies.\n" +
         `  - deno.land Link: https://deno.land/x/drash@${latestDrashRelease}\n` +
@@ -93,10 +92,7 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      "Gathering facts...\n" +
-        "\n" +
-        "Information on fs\n" +
-        "\n" +
+      colours.blue("INFO") + " Information on fs\n\n" +
         "  - Name: fs\n" +
         "  - Description: Cannot retrieve descriptions for std modules\n" +
         `  - deno.land Link: https://deno.land/std@${latestStdRelease}/fs\n` +
@@ -137,14 +133,34 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    assertEquals(stdout, "Gathering facts...\n");
+    assertEquals(
+      stdout,
+      `${colours.blue("INFO")} Information on fs
+
+  - Name: fs
+  - Description: Cannot retrieve descriptions for std modules
+  - deno.land Link: https://deno.land/std@0.75.0/fs
+  - GitHub Repository: https://github.com/denoland/deno/tree/master/std/fs
+  - Import Statement: import * as fs from "https://deno.land/std@0.75.0/fs";
+  - Latest Version: 0.75.0
+
+${colours.blue("INFO")} Information on drash
+
+  - Name: drash
+  - Description: A REST microframework for Deno's HTTP server with zero dependencies.
+  - deno.land Link: https://deno.land/x/drash@v1.2.5
+  - GitHub Repository: https://github.com/drashland/deno-drash
+  - Import Statement: import * as drash from "https://deno.land/x/drash@v1.2.5";
+  - Latest Version: v1.2.5
+
+`,
+    );
     assertEquals(
       stderr,
-      colours.red("Specify a single module to get information on. See --help") +
-        "\n",
+      "",
     );
-    assertEquals(status.code, 1);
-    assertEquals(status.success, false);
+    assertEquals(status.code, 0);
+    assertEquals(status.success, true);
   },
 });
 
@@ -172,10 +188,13 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    assertEquals(stdout, "Gathering facts...\n");
+    assertEquals(
+      stdout,
+      colours.red("ERROR") + " No module was found with somethinggg\n",
+    );
     assertEquals(
       stderr,
-      colours.red("No module was found with somethinggg") + "\n",
+      "",
     );
     assertEquals(status.code, 1);
     assertEquals(status.success, false);
