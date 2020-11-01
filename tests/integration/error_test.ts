@@ -16,10 +16,56 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    assertEquals(stdout, "");
-    assertEquals(stderr, colours.red("Invalid arguments. See --help") + "\n");
-    assertEquals(status.code, 1);
-    assertEquals(status.success, false);
+    assertEquals(
+      stdout,
+      `
+A module manager for Deno.
+
+USAGE
+
+    deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts
+    dmm [SUBCOMMAND]
+
+SUBCOMMANDS
+
+    check [modules]
+        Checks the specified modules for newer version. Will check all if modules are 
+        omitted.
+
+    update [modules]
+        Updates the specified modules to the newest version. Will update all if modules 
+        are omitted.
+
+    info [modules]
+        Displays information about the given modules, be it std or 3rd party. The 3rd 
+        party module must be referenced at https://deno.land/x/
+
+    help, --help
+        Prints the help message
+
+    version, --version
+        Prints the current dmm version
+
+
+EXAMPLE USAGE
+
+    Install dmm
+        deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.1.5/mod.ts
+
+    Check a single module
+        dmm check fs
+
+    Update a single module
+        dmm update fs
+
+    Get information about a module
+        dmm info http
+
+`,
+    );
+    assertEquals(stderr, "");
+    assertEquals(status.code, 0);
+    assertEquals(status.success, true);
   },
 });
 
@@ -45,13 +91,12 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    assertEquals(stdout, "Gathering facts...\n");
     assertEquals(
-      stderr,
-      colours.red("Specify either `check`, `info` or `update`. See --help") +
-        "\n",
+      stdout,
+      colours.red("ERROR") + " Subcommand `something` not recognized.\n",
     );
-    assertEquals(status.code, 1);
-    assertEquals(status.success, false);
+    assertEquals(stderr, "");
+    assertEquals(status.code, 0);
+    assertEquals(status.success, true);
   },
 });
