@@ -21,11 +21,13 @@
 
 `dmm` (pronounced "dim") is a Deno module manager. It can update your `deps.ts` file, check if any of your dependencies are out of date, and give you information about any module in the Deno world. Managing your dependencies hasn't been easier.
 
-# Contents
+# Table of Contents
 
+* [Documentation](#documentation)
 * [Features](#features)
 * [Quick Start](#quick-start)
 * [How it Works](#how-it-works)
+* [Mirrors](#mirrors)
 * [Contributing](#contributing)
 * [License](#license)
 
