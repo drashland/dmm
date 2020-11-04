@@ -72,7 +72,7 @@ There are two ways you can use this module:
       help
     ```
 
-# How it Works
+# How It Works
 
 dmm reads the `deps.ts` file at the current working directory -- checking versioned `import` and `export` statements and checking to see if they can be updated. If any dependency can be updated, it lets you know which ones can be updated; and if you want to update them, dmm will rewrite your `deps.ts` file so that your dependencies reflect their latest versions.
 
