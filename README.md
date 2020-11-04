@@ -21,7 +21,7 @@
 
 `dmm` (pronounced "dim") is a Deno module manager. It can update your `deps.ts` file, check if any of your dependencies are out of date, and give you information about any module in the Deno world. Managing your dependencies hasn't been easier.
 
-# Contents
+# Table of Contents
 
 * [Documentation](#documentation)
 * [Features](#features)
@@ -72,9 +72,11 @@ There are two ways you can use this module:
       help
     ```
 
-# How it Works
+# How It Works
 
 dmm reads the `deps.ts` file at the current working directory -- checking versioned `import` and `export` statements and checking to see if they can be updated. If any dependency can be updated, it lets you know which ones can be updated; and if you want to update them, dmm will rewrite your `deps.ts` file so that your dependencies reflect their latest versions.
+
+_Note: nest.land may not reflect the latest Deno Standard Modules version immediately after Deno releases a new version. Please keep this in mind when importing your modules via nest.land._
 
 ## Mirrors
 
