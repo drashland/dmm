@@ -76,6 +76,8 @@ There are two ways you can use this module:
 
 dmm reads the `deps.ts` file at the current working directory -- checking versioned `import` and `export` statements and checking to see if they can be updated. If any dependency can be updated, it lets you know which ones can be updated; and if you want to update them, dmm will rewrite your `deps.ts` file so that your dependencies reflect their latest versions.
 
+_Note: nest.land may not reflect the latest Deno Standard Modules version immediately after Deno releases a new version. Please keep this in mind when importing your modules via nest.land._
+
 ## Mirrors
 
 * https://nest.land/package/dmm
