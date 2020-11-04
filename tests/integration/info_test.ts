@@ -139,10 +139,10 @@ Deno.test({
 
   - Name: fs
   - Description: Cannot retrieve descriptions for std modules
-  - deno.land Link: https://deno.land/std@0.75.0/fs
+  - deno.land Link: https://deno.land/std@0.76.0/fs
   - GitHub Repository: https://github.com/denoland/deno/tree/master/std/fs
-  - Import Statement: import * as fs from "https://deno.land/std@0.75.0/fs";
-  - Latest Version: 0.75.0
+  - Import Statement: import * as fs from "https://deno.land/std@0.76.0/fs";
+  - Latest Version: 0.76.0
 
 ${colours.blue("INFO")} Information on drash
 
