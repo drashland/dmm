@@ -57,7 +57,7 @@ There are two ways you can use this module:
       --allow-net='cdn.deno.land,api.deno.land,x.nest.land,raw.githubusercontent.com' \
       --allow-read='.' \
       --allow-write='deps.ts' \
-      https://deno.land/x/dmm@v1.1.5/mod.ts
+      https://deno.land/x/dmm@v1.2.0/mod.ts
 
     $ dmm help
     ````
@@ -68,7 +68,7 @@ There are two ways you can use this module:
       --allow-net='cdn.deno.land,api.deno.land,x.nest.land,raw.githubusercontent.com' \
       --allow-read='.' \
       --allow-write='deps.ts' \
-      https://deno.land/x/dmm@v1.1.5/mod.ts \
+      https://deno.land/x/dmm@v1.2.0/mod.ts \
       help
     ```
 
