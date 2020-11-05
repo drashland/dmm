@@ -26,23 +26,23 @@ export const preReleaseFiles = [
   {
     filename: "./tests/integration/error_test.ts",
     replaceTheRegex: regexes.urls,
-    replaceWith: "dmm@v{{ thisModulesLatestVersion }}"
+    replaceWith: "dmm@v{{ thisModulesLatestVersion }}",
   },
   {
     filename: "./tests/integration/help_test.ts",
     replaceTheRegex: regexes.urls,
-    replaceWith: "dmm@v{{ thisModulesLatestVersion }}"
+    replaceWith: "dmm@v{{ thisModulesLatestVersion }}",
   },
   {
     filename: "./tests/integration/info_test.ts",
     replaceTheRegex: regexes.urls,
-    replaceWith: "dmm@v{{ thisModulesLatestVersion }}"
+    replaceWith: "dmm@v{{ thisModulesLatestVersion }}",
   },
   {
     filename: "./tests/integration/info_test.ts",
     replaceTheRegex: regexes.deps_drash,
-    replaceWith: "drash@v{{ latestDrashVersion }}"
-  }
+    replaceWith: "drash@v{{ latestDrashVersion }}",
+  },
 ];
 
 export const bumperFiles = [
@@ -76,6 +76,6 @@ export const bumperFiles = [
   {
     filename: "./tests/integration/info_test.ts",
     replaceTheRegex: regexes.deps_drash,
-    replaceWith: "drash@v{{ latestDrashVersion }}"
-  }
+    replaceWith: "drash@v{{ latestDrashVersion }}",
+  },
 ];
