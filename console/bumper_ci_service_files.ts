@@ -7,7 +7,7 @@ export const regexes = {
   yml_deno: /deno: \[".+"\]/g,
 };
 
-export const moduleVersionFiles = [
+export const preReleaseFiles = [
   {
     filename: "./egg.json",
     replaceTheRegex: regexes.egg_json,
@@ -23,9 +23,29 @@ export const moduleVersionFiles = [
     replaceTheRegex: regexes.const_statements,
     replaceWith: `version = "{{ thisModulesLatestVersion }}"`,
   },
+  {
+    filename: "./tests/integration/error_test.ts",
+    replaceTheRegex: regexes.urls,
+    replaceWith: "dmm@v{{ thisModulesLatestVersion }}"
+  },
+  {
+    filename: "./tests/integration/help_test.ts",
+    replaceTheRegex: regexes.urls,
+    replaceWith: "dmm@v{{ thisModulesLatestVersion }}"
+  },
+  {
+    filename: "./tests/integration/info_test.ts",
+    replaceTheRegex: regexes.urls,
+    replaceWith: "dmm@v{{ thisModulesLatestVersion }}"
+  },
+  {
+    filename: "./tests/integration/info_test.ts",
+    replaceTheRegex: regexes.deps_drash,
+    replaceWith: "drash@v{{ latestDrashVersion }}"
+  }
 ];
 
-export const denoVersionFiles = [
+export const bumperFiles = [
   {
     filename: "./tests/integration/up-to-date-deps/original_deps.ts",
     replaceTheRegex: regexes.deps_std,
@@ -53,4 +73,9 @@ export const denoVersionFiles = [
     replaceTheRegex: regexes.yml_deno,
     replaceWith: `deno: ["{{ latestDenoVersion }}"]`,
   },
+  {
+    filename: "./tests/integration/info_test.ts",
+    replaceTheRegex: regexes.deps_drash,
+    replaceWith: "drash@v{{ latestDrashVersion }}"
+  }
 ];

@@ -1,9 +1,9 @@
 {
   "name": "dmm",
   "description": "Lightweight Deno Module Manager",
+  "homepage": "https://github.com/drashland/dmm",
   "version": "1.2.0",
   "stable": true,
-  "repository": "https://github.com/drashland/dmm",
   "files": [
     "./mod.ts",
     "./deps.ts",
@@ -11,5 +11,12 @@
     "./README.md",
     "./logo.png",
     "LICENSE"
-  ]
+  ],
+  "unstable": false,
+  "entry": "./mod.ts",
+  "check": true,
+  "checkAll": false,
+  "checkTests": false,
+  "ignore": [],
+  "unlisted": false
 }
