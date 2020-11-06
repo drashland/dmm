@@ -1,7 +1,7 @@
 import { assertEquals } from "../../../deps.ts";
 import {
-  denoVersionFiles,
-  moduleVersionFiles,
+  bumperFiles,
+  preReleaseFiles,
 } from "../../../console/bumper_ci_service_files.ts";
 import { BumperService } from "../../../deps.ts";
 
@@ -17,7 +17,7 @@ const latestVersionDrash = await c.getModulesLatestVersion("drash");
 Deno.test({
   name: "Bumper CI Service | bumps std versions in deps files correctly",
   async fn(): Promise<void> {
-    const file = denoVersionFiles[0];
+    const file = bumperFiles[0];
     file.filename = "./tests/data/pattern_types.txt";
     const bumped = await b.bump([file], false);
     assertEquals(bumped[0], data_depsStd);
@@ -27,7 +27,7 @@ Deno.test({
 Deno.test({
   name: "Bumper CI Service | bumps drash versions in deps files correctly",
   async fn(): Promise<void> {
-    const file = denoVersionFiles[1];
+    const file = bumperFiles[1];
     file.filename = "./tests/data/pattern_types.txt";
     const bumped = await b.bump([file], false);
     assertEquals(bumped[0], data_depsDrash);
@@ -37,7 +37,7 @@ Deno.test({
 Deno.test({
   name: "Bumper CI Service | bumps deno versions in yml files correctly",
   async fn(): Promise<void> {
-    const file = denoVersionFiles[2];
+    const file = bumperFiles[2];
     file.filename = "./tests/data/pattern_types.txt";
     const bumped = await b.bump([file], false);
     assertEquals(bumped[0], data_denoVersionsYml);
@@ -47,7 +47,7 @@ Deno.test({
 Deno.test({
   name: "Bumper CI Service | bumps eggs.json correctly",
   async fn(): Promise<void> {
-    const file = moduleVersionFiles[0];
+    const file = preReleaseFiles[0];
     file.filename = "./tests/data/pattern_types.txt";
     const bumped = await c.bump([file], false);
     assertEquals(bumped[0], data_eggJson);
@@ -57,7 +57,7 @@ Deno.test({
 Deno.test({
   name: "Bumper CI Service | bumps const statements correctly",
   async fn(): Promise<void> {
-    const file = moduleVersionFiles[2];
+    const file = preReleaseFiles[2];
     file.filename = "./tests/data/pattern_types.txt";
     const bumped = await c.bump([file], false);
     assertEquals(bumped[0], data_constStatements);
