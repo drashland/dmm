@@ -148,10 +148,10 @@ ${colours.blue("INFO")} Information on drash
 
   - Name: drash
   - Description: A REST microframework for Deno's HTTP server with zero dependencies.
-  - deno.land Link: https://deno.land/x/drash@v1.2.5
+  - deno.land Link: https://deno.land/x/drash@${latestDrashRelease}
   - GitHub Repository: https://github.com/drashland/deno-drash
-  - Import Statement: import * as drash from "https://deno.land/x/drash@v1.2.5";
-  - Latest Version: v1.2.5
+  - Import Statement: import * as drash from "https://deno.land/x/drash@${latestDrashRelease}";
+  - Latest Version: ${latestDrashRelease}
 
 `,
     );

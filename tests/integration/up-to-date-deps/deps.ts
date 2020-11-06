@@ -1,4 +1,4 @@
-import { Drash } from "https://deno.land/x/drash@v1.2.5/mod.ts"; // up to date
+import { Drash } from "https://deno.land/x/drash@v1.3.0/mod.ts"; // up to date
 
 import * as fs from "https://deno.land/std@0.76.0/fs/mod.ts"; // up to date
 
