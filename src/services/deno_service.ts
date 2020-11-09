@@ -66,23 +66,6 @@ export default class DenoService {
     return description;
   }
 
-  /**
-   * Fetches the owner and repository name, for the given module
-   *
-   *     await getThirdPartyRepoAndOwner("drash"); // "drashland/deno-drash"
-   *
-   * @param importedModuleName - The imported module in which we want to get the repository for on github
-   *
-   * @returns The owner and repo name, eg "<owner>/<repo>"
-   */
-  public static async getThirdPartyRepoAndOwner(
-    importedModuleName: string,
-  ): Promise<string> {
-    const meta = await DenoService.getModuleMeta(importedModuleName);
-    const repository = meta.upload_options.repository;
-    return repository;
-  }
-
   public static async getThirdPartyRepoURL(
     importedModuleName: string,
   ): Promise<string> {
