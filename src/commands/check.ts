@@ -10,12 +10,16 @@ import ModuleService from "../services/module_service.ts";
  */
 export async function check(dependencies: string[]): Promise<void> {
   // Create objects for each dep, with its name and version
-  const modules = await ModuleService.constructModulesDataFromDeps(
-    dependencies,
-    "check",
-  );
+  const allModules = await ModuleService.constructModulesDataFromDeps();
+  const selectedModules = allModules.filter(module => {
+    if (dependencies.length) { // only return selected modules of selecting is set
+      return dependencies.indexOf(module.name) > -1
+    } else {
+      return true
+    }
+  })
 
-  if (modules === false || typeof modules === "boolean") {
+  if (selectedModules.length === 0) {
     LoggerService.logError(
       "Modules specified do not exist in your dependencies.",
     );
@@ -26,7 +30,7 @@ export async function check(dependencies: string[]): Promise<void> {
   LoggerService.logInfo("Comparing versions...");
   let depsCanBeUpdated: boolean = false;
   const listOfModuleNamesToBeUpdated: string[] = [];
-  modules.forEach((module) => {
+  selectedModules.forEach((module) => {
     if (module.importedVersion !== module.latestRelease) {
       depsCanBeUpdated = true;
       listOfModuleNamesToBeUpdated.push(module.name);

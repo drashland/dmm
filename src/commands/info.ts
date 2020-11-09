@@ -25,25 +25,24 @@ export async function info(modules: string[]): Promise<void> {
     const name = moduleToGetInfoOn;
     let description;
     let denoLandUrl;
-    let gitHubUrl;
+    let repositoryUrl;
     let latestVersion;
     if (isStd) {
       latestVersion = await DenoService.getLatestModuleRelease("std");
       description = "Cannot retrieve descriptions for std modules";
       denoLandUrl = "https://deno.land/std@" + latestVersion + "/" +
         name;
-      gitHubUrl = "https://github.com/denoland/deno/tree/master/std/" + name;
+      repositoryUrl = "https://github.com/denoland/deno/tree/master/std/" + name;
     }
     if (isThirdParty) {
       description = await DenoService.getThirdPartyDescription(name);
-      gitHubUrl = "https://github.com/" +
-        await DenoService.getThirdPartyRepoAndOwner(name);
+      repositoryUrl = await DenoService.getThirdPartyRepoURL(name)
       latestVersion = await DenoService.getLatestModuleRelease(name);
       denoLandUrl = "https://deno.land/x/" + name + "@" + latestVersion;
     }
     const importLine = "import * as " + name + ' from "' + denoLandUrl + '";';
     LoggerService.logInfo(
-      `Information on ${name}\n\n  - Name: ${name}\n  - Description: ${description}\n  - deno.land Link: ${denoLandUrl}\n  - GitHub Repository: ${gitHubUrl}\n  - Import Statement: ${importLine}\n  - Latest Version: ${latestVersion}` +
+      `Information on ${name}\n\n  - Name: ${name}\n  - Description: ${description}\n  - deno.land Link: ${denoLandUrl}\n  - Repository: ${repositoryUrl}\n  - Import Statement: ${importLine}\n  - Latest Version: ${latestVersion}` +
         "\n",
     );
   }

@@ -75,7 +75,7 @@ export default class NestService {
       NestService.NEST_API_URL + "package/" + importedModuleName,
     );
     const json: nestModule = await res.json();
-    const repositoryURL = json.repository;
-    return repositoryURL;
+    const repositoryUrl = json.repository;
+    return repositoryUrl;
   }
 }
