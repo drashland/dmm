@@ -3,8 +3,8 @@ import { colours, LoggerService } from "../../deps.ts";
 import DenoService from "../services/deno_service.ts";
 import NestService from "../services/nest_service.ts";
 
-const supportedUrls = ["https://deno.land/", "https://x.nest.land"]
-const importVersionRegex = /(v)?[0-9\.]+[0-9\.]+[0-9]/g
+const supportedUrls = ["https://deno.land/", "https://x.nest.land"];
+const importVersionRegex = /(v)?[0-9\.]+[0-9\.]+[0-9]/g;
 
 export default class ModuleService {
   /**
@@ -56,106 +56,69 @@ export default class ModuleService {
 
     // Only select lines we support eg versioning and an actual import line
     const listOfDeps: string[] = depsContent.split("\n").filter((line) => {
-      const regexMatch = line.match(importVersionRegex)
-      const usesVersioning = regexMatch && regexMatch.length > 0
-      let hasSupportedUrl = false
-      supportedUrls.forEach(supportedUrl => {
+      const regexMatch = line.match(importVersionRegex);
+      const usesVersioning = regexMatch && regexMatch.length > 0;
+      let hasSupportedUrl = false;
+      supportedUrls.forEach((supportedUrl) => {
         if (line.indexOf(supportedUrl) > -1) {
-          hasSupportedUrl = true
+          hasSupportedUrl = true;
         }
-      })
-      const supported = hasSupportedUrl && usesVersioning === true
-      return supported
-    })
+      });
+      const supported = hasSupportedUrl && usesVersioning === true;
+      return supported;
+    });
 
     // Collate data for each module imported
     const allModules: Array<IModule> = [];
     for (const dep of listOfDeps) {
-
       if (dep.indexOf("https://x.nest.land/") > -1) {
-        const data = await ModuleService.constructDataForNestImport(dep)
-        allModules.push(data)
+        const data = await ModuleService.constructDataForNestImport(dep);
+        allModules.push(data);
       }
 
       if (dep.indexOf("https://deno.land/") > -1) {
-        const data = await ModuleService.constructDataForDenoImport(dep)
-        allModules.push(data)
+        const data = await ModuleService.constructDataForDenoImport(dep);
+        allModules.push(data);
       }
     }
 
     return allModules;
   }
 
-  private static getImportedVersionFromImportLine (importLine: string): string {
+  private static getImportedVersionFromImportLine(importLine: string): string {
     const importVersionRegexResult = importLine.match(importVersionRegex);
     const importedVersion: string = importVersionRegexResult !== null &&
-    importVersionRegexResult.length > 0
-        ? importVersionRegexResult[0]
-        : "";
-    return importedVersion
+        importVersionRegexResult.length > 0
+      ? importVersionRegexResult[0]
+      : "";
+    return importedVersion;
   }
 
-  private static async constructDataForNestImport (importLine: string): Promise<IModule> {
-    const isStd = importLine.indexOf("/std") > -1
+  private static async constructDataForNestImport(
+    importLine: string,
+  ): Promise<IModule> {
+    const isStd = importLine.indexOf("/std") > -1;
     const importUrl: string = importLine.substring(
-        importLine.indexOf("https://"),
-        importLine.indexOf(".ts") + 3, // to include the `.ts`
+      importLine.indexOf("https://"),
+      importLine.indexOf(".ts") + 3, // to include the `.ts`
     );
-    const importedVersion = ModuleService.getImportedVersionFromImportLine(importLine)
-    let name = ""
-    if (isStd) {
-      const nameAndFile = importLine.split("@" + importedVersion + "/")[1]
-      name = nameAndFile.split("/")[0]
-    } else {
-      const nameAndVersionAndFile = importLine.split("https://x.nest.land/")[1]
-      name = nameAndVersionAndFile.split("@")[0]
-    }
-    const repositoryUrl = await NestService.getThirdPartyRepoURL(name)
-    const latestRelease = ModuleService.standardiseVersion(
-        importedVersion,
-        await NestService.getLatestModuleRelease(name)
-    )
-    const description = await NestService.getThirdPartyDescription(name)
-    return {
-      description,
-      latestRelease,
-      repositoryUrl,
-      name,
-      std: isStd,
-      importedVersion,
-      importUrl
-    }
-  }
-
-  private static async constructDataForDenoImport (importLine: string): Promise<IModule> {
-    const isStd = importLine.indexOf("/std") > -1
-    const importUrl: string = importLine.substring(
-        importLine.indexOf("https://"),
-        importLine.indexOf(".ts") + 3, // to include the `.ts`
+    const importedVersion = ModuleService.getImportedVersionFromImportLine(
+      importLine,
     );
-    const importedVersion = ModuleService.getImportedVersionFromImportLine(importLine)
     let name = "";
     if (isStd) {
-      const nameAndFile = importLine.split("@" + importedVersion + "/")[1]
-      name = nameAndFile.split("/")[0]
+      const nameAndFile = importLine.split("@" + importedVersion + "/")[1];
+      name = nameAndFile.split("/")[0];
     } else {
-      const nameAndVersionAndFile = importLine.split("https://deno.land/x/")[1]
-      name = nameAndVersionAndFile.split("@")[0]
+      const nameAndVersionAndFile = importLine.split("https://x.nest.land/")[1];
+      name = nameAndVersionAndFile.split("@")[0];
     }
-    const repositoryUrl: string = isStd
-        ? "https://github.com/denoland/deno/tree/master/std/" + name
-        : await DenoService.getThirdPartyRepoURL(name);
-    // Get the latest release - make sure the string is the same format as imported version eg using a "v"
+    const repositoryUrl = await NestService.getThirdPartyRepoURL(name);
     const latestRelease = ModuleService.standardiseVersion(
-        importedVersion,
-        await DenoService.getLatestModuleRelease(isStd ? "std" : name),
-    )
-    // Get the description
-    const description: string = !isStd
-        ? await DenoService.getThirdPartyDescription(name)
-        : colours.red(
-            "Descriptions for std modules are not currently supported",
-        );
+      importedVersion,
+      await NestService.getLatestModuleRelease(name),
+    );
+    const description = await NestService.getThirdPartyDescription(name);
     return {
       description,
       latestRelease,
@@ -163,7 +126,51 @@ export default class ModuleService {
       name,
       std: isStd,
       importedVersion,
-      importUrl
+      importUrl,
+    };
+  }
+
+  private static async constructDataForDenoImport(
+    importLine: string,
+  ): Promise<IModule> {
+    const isStd = importLine.indexOf("/std") > -1;
+    const importUrl: string = importLine.substring(
+      importLine.indexOf("https://"),
+      importLine.indexOf(".ts") + 3, // to include the `.ts`
+    );
+    const importedVersion = ModuleService.getImportedVersionFromImportLine(
+      importLine,
+    );
+    let name = "";
+    if (isStd) {
+      const nameAndFile = importLine.split("@" + importedVersion + "/")[1];
+      name = nameAndFile.split("/")[0];
+    } else {
+      const nameAndVersionAndFile = importLine.split("https://deno.land/x/")[1];
+      name = nameAndVersionAndFile.split("@")[0];
     }
+    const repositoryUrl: string = isStd
+      ? "https://github.com/denoland/deno/tree/master/std/" + name
+      : await DenoService.getThirdPartyRepoURL(name);
+    // Get the latest release - make sure the string is the same format as imported version eg using a "v"
+    const latestRelease = ModuleService.standardiseVersion(
+      importedVersion,
+      await DenoService.getLatestModuleRelease(isStd ? "std" : name),
+    );
+    // Get the description
+    const description: string = !isStd
+      ? await DenoService.getThirdPartyDescription(name)
+      : colours.red(
+        "Descriptions for std modules are not currently supported",
+      );
+    return {
+      description,
+      latestRelease,
+      repositoryUrl,
+      name,
+      std: isStd,
+      importedVersion,
+      importUrl,
+    };
   }
 }

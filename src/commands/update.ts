@@ -11,13 +11,13 @@ import ModuleService from "../services/module_service.ts";
 export async function update(dependencies: string[]): Promise<void> {
   // Create objects for each dep, with its name and version
   const allModules = await ModuleService.constructModulesDataFromDeps();
-  const modules = allModules.filter(module => {
+  const modules = allModules.filter((module) => {
     if (dependencies.length) { // only return selected modules of selecting is set
-      return dependencies.indexOf(module.name) > -1
+      return dependencies.indexOf(module.name) > -1;
     } else {
-      return true
+      return true;
     }
-  })
+  });
 
   if (modules.length === 0) {
     LoggerService.logError(

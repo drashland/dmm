@@ -1,9 +1,9 @@
 type ModuleMeta = {
   upload_options: {
-    repository: string, // eg "drashland/drash"
-    type: string // eg "github"
-  }
-}
+    repository: string; // eg "drashland/drash"
+    type: string; // eg "github"
+  };
+};
 
 export default class DenoService {
   /**
@@ -78,7 +78,7 @@ export default class DenoService {
   public static async getThirdPartyRepoAndOwner(
     importedModuleName: string,
   ): Promise<string> {
-    const meta = await DenoService.getModuleMeta(importedModuleName)
+    const meta = await DenoService.getModuleMeta(importedModuleName);
     const repository = meta.upload_options.repository;
     return repository;
   }
@@ -87,25 +87,26 @@ export default class DenoService {
     importedModuleName: string,
   ): Promise<string> {
     const meta = await DenoService.getModuleMeta(importedModuleName);
-    const repoURL = `https://${meta.upload_options.type}.com/${meta.upload_options.repository}`;
-    return repoURL
+    const repoURL =
+      `https://${meta.upload_options.type}.com/${meta.upload_options.repository}`;
+    return repoURL;
   }
 
-  private static async getModuleMeta (moduleName: string): Promise<ModuleMeta> {
+  private static async getModuleMeta(moduleName: string): Promise<ModuleMeta> {
     const latestRelease = await DenoService.getLatestModuleRelease(
-        moduleName,
+      moduleName,
     );
     const res = await fetch(
-        DenoService.DENO_CDN_URL + moduleName + "/versions/" +
+      DenoService.DENO_CDN_URL + moduleName + "/versions/" +
         latestRelease + "/meta/meta.json",
     );
     // there's more data but we only care about the stuff below
     const json: {
       upload_options: {
         repository: string;
-        type: string
+        type: string;
       };
     } = await res.json();
-    return json
+    return json;
   }
 }

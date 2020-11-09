@@ -32,11 +32,12 @@ export async function info(modules: string[]): Promise<void> {
       description = "Cannot retrieve descriptions for std modules";
       denoLandUrl = "https://deno.land/std@" + latestVersion + "/" +
         name;
-      repositoryUrl = "https://github.com/denoland/deno/tree/master/std/" + name;
+      repositoryUrl = "https://github.com/denoland/deno/tree/master/std/" +
+        name;
     }
     if (isThirdParty) {
       description = await DenoService.getThirdPartyDescription(name);
-      repositoryUrl = await DenoService.getThirdPartyRepoURL(name)
+      repositoryUrl = await DenoService.getThirdPartyRepoURL(name);
       latestVersion = await DenoService.getLatestModuleRelease(name);
       denoLandUrl = "https://deno.land/x/" + name + "@" + latestVersion;
     }
