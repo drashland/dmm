@@ -1,3 +1,10 @@
+type ModuleMeta = {
+  upload_options: {
+    repository: string; // eg "drashland/drash"
+    type: string; // eg "github"
+  };
+};
+
 export default class DenoService {
   /**
    * Url for Deno's CDN link
@@ -59,40 +66,30 @@ export default class DenoService {
     return description;
   }
 
-  /**
-   * Fetches the owner and repository name, for the given module
-   *
-   *     await getThirdPartyRepoAndOwner("drash"); // "drashland/deno-drash"
-   *
-   * @param importedModuleName - The imported module in which we want to get the repository for on github
-   *
-   * @returns The owner and repo name, eg "<owner>/<repo>"
-   */
-  public static async getThirdPartyRepoAndOwner(
-    importedModuleName: string,
-  ): Promise<string> {
-    const latestRelease = await DenoService.getLatestModuleRelease(
-      importedModuleName,
-    );
-    const res = await fetch(
-      DenoService.DENO_CDN_URL + importedModuleName + "/versions/" +
-        latestRelease + "/meta/meta.json",
-    );
-    const json: {
-      upload_options: {
-        repository: string;
-      };
-    } = await res.json();
-    const repository = json.upload_options.repository;
-    return repository;
-  }
-
   public static async getThirdPartyRepoURL(
     importedModuleName: string,
   ): Promise<string> {
-    const repoAndOwner = await DenoService.getThirdPartyRepoAndOwner(
-      importedModuleName,
+    const meta = await DenoService.getModuleMeta(importedModuleName);
+    const repoURL =
+      `https://${meta.upload_options.type}.com/${meta.upload_options.repository}`;
+    return repoURL;
+  }
+
+  private static async getModuleMeta(moduleName: string): Promise<ModuleMeta> {
+    const latestRelease = await DenoService.getLatestModuleRelease(
+      moduleName,
     );
-    return "https://github.com/" + repoAndOwner;
+    const res = await fetch(
+      DenoService.DENO_CDN_URL + moduleName + "/versions/" +
+        latestRelease + "/meta/meta.json",
+    );
+    // there's more data but we only care about the stuff below
+    const json: {
+      upload_options: {
+        repository: string;
+        type: string;
+      };
+    } = await res.json();
+    return json;
   }
 }

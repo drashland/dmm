@@ -61,7 +61,7 @@ Deno.test({
         "  - Name: drash\n" +
         "  - Description: A REST microframework for Deno's HTTP server with zero dependencies.\n" +
         `  - deno.land Link: https://deno.land/x/drash@${latestDrashRelease}\n` +
-        "  - GitHub Repository: https://github.com/drashland/deno-drash\n" +
+        "  - Repository: https://github.com/drashland/deno-drash\n" +
         `  - Import Statement: import * as drash from \"https://deno.land/x/drash@${latestDrashRelease}\";\n` +
         `  - Latest Version: ${latestDrashRelease}\n` +
         "\n",
@@ -96,7 +96,7 @@ Deno.test({
         "  - Name: fs\n" +
         "  - Description: Cannot retrieve descriptions for std modules\n" +
         `  - deno.land Link: https://deno.land/std@${latestStdRelease}/fs\n` +
-        "  - GitHub Repository: https://github.com/denoland/deno/tree/master/std/fs\n" +
+        "  - Repository: https://github.com/denoland/deno/tree/master/std/fs\n" +
         `  - Import Statement: import * as fs from \"https://deno.land/std@${latestStdRelease}/fs\";\n` +
         `  - Latest Version: ${latestStdRelease}\n` +
         "\n",
@@ -139,17 +139,17 @@ Deno.test({
 
   - Name: fs
   - Description: Cannot retrieve descriptions for std modules
-  - deno.land Link: https://deno.land/std@0.76.0/fs
-  - GitHub Repository: https://github.com/denoland/deno/tree/master/std/fs
-  - Import Statement: import * as fs from "https://deno.land/std@0.76.0/fs";
-  - Latest Version: 0.76.0
+  - deno.land Link: https://deno.land/std@${latestStdRelease}/fs
+  - Repository: https://github.com/denoland/deno/tree/master/std/fs
+  - Import Statement: import * as fs from "https://deno.land/std@${latestStdRelease}/fs";
+  - Latest Version: ${latestStdRelease}
 
 ${colours.blue("INFO")} Information on drash
 
   - Name: drash
   - Description: A REST microframework for Deno's HTTP server with zero dependencies.
   - deno.land Link: https://deno.land/x/drash@${latestDrashRelease}
-  - GitHub Repository: https://github.com/drashland/deno-drash
+  - Repository: https://github.com/drashland/deno-drash
   - Import Statement: import * as drash from "https://deno.land/x/drash@${latestDrashRelease}";
   - Latest Version: ${latestDrashRelease}
 

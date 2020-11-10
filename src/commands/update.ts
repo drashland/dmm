@@ -10,12 +10,16 @@ import ModuleService from "../services/module_service.ts";
  */
 export async function update(dependencies: string[]): Promise<void> {
   // Create objects for each dep, with its name and version
-  const modules = await ModuleService.constructModulesDataFromDeps(
-    dependencies,
-    "update",
-  );
+  const allModules = await ModuleService.constructModulesDataFromDeps();
+  const modules = allModules.filter((module) => {
+    if (dependencies.length) { // only return selected modules of selecting is set
+      return dependencies.indexOf(module.name) > -1;
+    } else {
+      return true;
+    }
+  });
 
-  if (modules === false || typeof modules === "boolean") {
+  if (modules.length === 0) {
     LoggerService.logError(
       "Modules specified do not exist in your dependencies.",
     );
@@ -29,6 +33,8 @@ export async function update(dependencies: string[]): Promise<void> {
   let depsContent: string = new TextDecoder().decode(
     Deno.readFileSync(usersWorkingDir + "/deps.ts"),
   ); // no need for a try/catch. The user needs a deps.ts file
+
+  // Update the file content
   modules.forEach((module) => {
     // only re-write modules that need to be updated
     if (module.importedVersion === module.latestRelease) {
@@ -39,12 +45,6 @@ export async function update(dependencies: string[]): Promise<void> {
         "std@" + module.importedVersion + "/" + module.name,
         "std@" + module.latestRelease + "/" + module.name,
       );
-      // `v` is not supported for std imports anymore
-      if (module.importedVersion.indexOf("v") > -1) {
-        LoggerService.logWarn(
-          `You are importing a version of ${module.name} prefixed with "v". deno.land does not support this and will throw a 403 error.`,
-        );
-      }
     } else {
       depsContent = depsContent.replace(
         module.name + "@" + module.importedVersion,
