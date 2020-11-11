@@ -23,11 +23,11 @@ export default class GitHubService {
    * @returns The latest version.
    */
   public static async getLatestModuleRelease(
-      githubUrl: string
+    githubUrl: string,
   ): Promise<string> {
     const res = await fetch(githubUrl + "/releases/latest");
-    const url = res.url
-    const splitUrl = url.split("/")
+    const url = res.url;
+    const splitUrl = url.split("/");
     const latestVersion = splitUrl[splitUrl.length - 1];
     return latestVersion;
   }
@@ -43,11 +43,11 @@ export default class GitHubService {
    * @returns The description
    */
   public static async getThirdPartyDescription(
-      repository: string,
-      name: string
+    repository: string,
+    name: string,
   ): Promise<string> {
     const res = await fetch(
-        "https://api.github.com/repos/" + repository + "/" + name,
+      "https://api.github.com/repos/" + repository + "/" + name,
     );
     const json = await res.json();
     const description = json.description;

@@ -5,7 +5,7 @@ export const regexes = {
   egg_json: /"version": ".+"/,
   urls: /dmm@v[0-9\.]+[0-9\.]+[0-9\.]/g,
   yml_deno: /deno: \[".+"\]/g,
-  dmm_raw_github: /dmm\/v[0-9\.]+[0-9\.]+[0-9\.]/g
+  dmm_raw_github: /dmm\/v[0-9\.]+[0-9\.]+[0-9\.]/g,
 };
 
 export const preReleaseFiles = [

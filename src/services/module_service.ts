@@ -4,7 +4,11 @@ import DenoService from "../services/deno_service.ts";
 import NestService from "../services/nest_service.ts";
 import GitHubService from "../services/github_service.ts";
 
-const supportedUrls = ["https://deno.land/", "https://x.nest.land", "https://raw.githubusercontent.com"];
+const supportedUrls = [
+  "https://deno.land/",
+  "https://x.nest.land",
+  "https://raw.githubusercontent.com",
+];
 const importVersionRegex = /(v)?[0-9\.]+[0-9\.]+[0-9]/g;
 
 export default class ModuleService {
@@ -83,8 +87,8 @@ export default class ModuleService {
       }
 
       if (dep.indexOf("https://raw.githubusercontent.com") > -1) {
-        const data = await ModuleService.constructDataForGithubImport(dep)
-        allModules.push(data)
+        const data = await ModuleService.constructDataForGithubImport(dep);
+        allModules.push(data);
       }
     }
 
@@ -100,25 +104,32 @@ export default class ModuleService {
     return importedVersion;
   }
 
-  private static async constructDataForGithubImport(importLine: string): Promise<IModule> {
+  private static async constructDataForGithubImport(
+    importLine: string,
+  ): Promise<IModule> {
     const isStd = false;
     const importUrl: string = importLine.substring(
-        importLine.indexOf("https://"),
-        importLine.indexOf(".ts") + 3, // to include the `.ts`
+      importLine.indexOf("https://"),
+      importLine.indexOf(".ts") + 3, // to include the `.ts`
     );
     const importedVersion = ModuleService.getImportedVersionFromImportLine(
-        importLine,
+      importLine,
     );
     let name = "";
-    const repoNameVersionAndFile = importLine.split("https://raw.githubusercontent.com/")[1];
-    name = repoNameVersionAndFile.split("/")[1]
-    const repositoryUrl = importUrl.replace("raw.githubusercontent", "github").split("/v")[0];
+    const repoNameVersionAndFile =
+      importLine.split("https://raw.githubusercontent.com/")[1];
+    name = repoNameVersionAndFile.split("/")[1];
+    const repositoryUrl =
+      importUrl.replace("raw.githubusercontent", "github").split("/v")[0];
     const latestRelease = ModuleService.standardiseVersion(
-        importedVersion,
-        await GitHubService.getLatestModuleRelease(repositoryUrl),
+      importedVersion,
+      await GitHubService.getLatestModuleRelease(repositoryUrl),
     );
-    const repository = repoNameVersionAndFile.split("/")[0]
-    const description = await GitHubService.getThirdPartyDescription(repository, name);
+    const repository = repoNameVersionAndFile.split("/")[0];
+    const description = await GitHubService.getThirdPartyDescription(
+      repository,
+      name,
+    );
     return {
       description,
       latestRelease,
