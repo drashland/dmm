@@ -304,7 +304,7 @@ Deno.test({
         colours.blue("INFO") +
         ` uuid can be updated from 0.61.0 to ${latestStdRelease}\n` +
         colours.blue("INFO") + " To update, run: \n" +
-        "    dmm update drash fs fmt cliffy log uuid" +
+        "    dmm update drash fs fmt cliffy log uuid" + // TODO A
         "\n",
     );
     assertEquals(status.code, 0);

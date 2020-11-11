@@ -5,6 +5,7 @@ export const regexes = {
   egg_json: /"version": ".+"/,
   urls: /dmm@v[0-9\.]+[0-9\.]+[0-9\.]/g,
   yml_deno: /deno: \[".+"\]/g,
+  dmm_raw_github: /dmm\/v[0-9\.]+[0-9\.]+[0-9\.]/g
 };
 
 export const preReleaseFiles = [
@@ -43,6 +44,11 @@ export const preReleaseFiles = [
     replaceTheRegex: regexes.deps_drash,
     replaceWith: "drash@v{{ latestDrashVersion }}",
   },
+  {
+    filename: "./tests/integration/up-to-date-deps/original_deps.ts",
+    replaceTheRegex: regexes.dmm_raw_github,
+    replaceWith: "dmm/v{{ thisModulesLatestVersion }}",
+  },
 ];
 
 export const bumperFiles = [
@@ -77,5 +83,10 @@ export const bumperFiles = [
     filename: "./tests/integration/info_test.ts",
     replaceTheRegex: regexes.deps_drash,
     replaceWith: "drash@v{{ latestDrashVersion }}",
+  },
+  {
+    filename: "./tests/integration/up-to-date-deps/deps.ts",
+    replaceTheRegex: regexes.dmm_raw_github,
+    replaceWith: "dmm/v{{ thisModulesLatestVersion }}",
   },
 ];

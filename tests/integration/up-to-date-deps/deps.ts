@@ -11,3 +11,5 @@ import * as log from "https://deno.land/std@0.77.0/log/mod.ts"; //up to date
 export { v4 } from "https://deno.land/std@0.77.0/uuid/mod.ts"; //up to date
 
 export { Cliffy, colors, Drash, fs, log };
+
+export { Something } from "https://raw.githubusercontent.com/drashland/dmm/v1.2.0/mod.ts"

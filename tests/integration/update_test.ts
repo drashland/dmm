@@ -294,7 +294,7 @@ Deno.test({
       colours.blue("INFO") +
       ` log was updated from 0.53.0 to ${latestStdRelease}\n` +
       colours.blue("INFO") +
-      ` uuid was updated from 0.61.0 to ${latestStdRelease}\n`;
+      ` uuid was updated from 0.61.0 to ${latestStdRelease}\n`; // TODO add dmm here
     assertEquals(stdout, assertedOutput);
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
