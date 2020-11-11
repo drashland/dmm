@@ -12,7 +12,7 @@ jobs:
       - run: |
           export PATH="/home/runner/.deno/bin:$PATH"
           eggs link ${{ secrets.CI_NESTLAND_API_KEY }}
-          eggs publish --no-check-tests
+          eggs publish --no-check-tests --yes
 
   socials:
     runs-on: ubuntu-latest

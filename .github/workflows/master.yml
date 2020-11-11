@@ -28,7 +28,8 @@ jobs:
 
       - name: Ensure Permissions Work
         run: |
-          deno run --allow-read='.' --allow-write='deps.ts' --allow-net='cdn.deno.land,api.deno.land' mod.ts update
+          cd tests/integration/out-of-date-deps
+          deno run --allow-read='.' --allow-write='deps.ts' --allow-net='cdn.deno.land,api.deno.land,raw.githubusercontent.com' mod.ts update
   linting:
     strategy:
       matrix:
