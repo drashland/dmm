@@ -12,4 +12,4 @@ export { v4 } from "https://deno.land/std@0.61.0/uuid/mod.ts"; //out of date
 
 export { Cliffy, colors, Drash, fs, log };
 
-export { Something } from "https://raw.githubusercontent.com/drashland/dmm/v1.0.0/mod.ts"
+export { Something } from "https://raw.githubusercontent.com/drashland/dmm/v1.0.0/mod.ts";
