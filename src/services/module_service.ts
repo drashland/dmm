@@ -5,7 +5,7 @@ import NestService from "../services/nest_service.ts";
 import GitHubService from "../services/github_service.ts";
 
 const supportedUrls = [
-  "https://deno.land/",
+  "https://deno.land",
   "https://x.nest.land",
   "https://raw.githubusercontent.com",
 ];

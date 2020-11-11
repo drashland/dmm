@@ -16,7 +16,7 @@ interface nestModule {
 
 export default class GitHubService {
   /**
-   * Fetches the latest release of a a github repository
+   * Fetches the latest release of a github repository
    *
    * @param githubUrl - Url of the github repository, eg https://github.com/drashland/dmm
    *
