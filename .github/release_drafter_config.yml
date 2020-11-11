@@ -35,7 +35,7 @@ template: |
 
   * Import this latest release by using the following in your project(s):
     ```
-    $ deno install --allow-net='x.nest.land,cdn.deno.land,api.deno.land,raw.githubusercontent.com,github.com' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v$RESOLVED_VERSION/mod.ts
+    $ deno install --allow-net='x.nest.land,cdn.deno.land,api.deno.land,raw.githubusercontent.com,github.com,api.github.com' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v$RESOLVED_VERSION/mod.ts
     ```
 
   __Updates__
