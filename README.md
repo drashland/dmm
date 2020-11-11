@@ -54,7 +54,7 @@ There are two ways you can use this module:
 1. You can install it through the `deno` command.
     ```sh
     $ deno install \
-      --allow-net='cdn.deno.land,api.deno.land,x.nest.land,raw.githubusercontent.com' \
+      --allow-net='cdn.deno.land,api.deno.land,x.nest.land,raw.githubusercontent.com,github.com' \
       --allow-read='.' \
       --allow-write='deps.ts' \
       https://deno.land/x/dmm@v1.2.0/mod.ts
@@ -65,7 +65,7 @@ There are two ways you can use this module:
 2. Run it through a URL.
     ```sh
     $ deno run \
-      --allow-net='cdn.deno.land,api.deno.land,x.nest.land,raw.githubusercontent.com' \
+      --allow-net='cdn.deno.land,api.deno.land,x.nest.land,raw.githubusercontent.com,github.com' \
       --allow-read='.' \
       --allow-write='deps.ts' \
       https://deno.land/x/dmm@v1.2.0/mod.ts \

@@ -4,7 +4,7 @@ import { version } from "./version.ts";
 export const helpMessage = CliService.createHelpMenu({
   description: `A module manager for Deno.`,
   usage: [
-    `deno install --allow-net='x.nest.land,cdn.deno.land,api.deno.land,raw.githubusercontent.com' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v${version}/mod.ts`,
+    `deno install --allow-net='x.nest.land,cdn.deno.land,api.deno.land,raw.githubusercontent.com,github.com' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v${version}/mod.ts`,
     `dmm [SUBCOMMAND]`,
   ],
   subcommands: {
@@ -21,7 +21,7 @@ export const helpMessage = CliService.createHelpMenu({
     {
       description: "Install dmm",
       examples: [
-        `deno install --allow-net='x.nest.land,cdn.deno.land,api.deno.land,raw.githubusercontent.com' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v${version}/mod.ts`,
+        `deno install --allow-net='x.nest.land,cdn.deno.land,api.deno.land,raw.githubusercontent.com,github.com' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v${version}/mod.ts`,
       ],
     },
     {
