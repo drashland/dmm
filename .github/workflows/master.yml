@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        deno: ["1.5.2"]
+        deno: ["1.5.3"]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -28,11 +28,12 @@ jobs:
 
       - name: Ensure Permissions Work
         run: |
-          deno run --allow-read='.' --allow-write='deps.ts' --allow-net='cdn.deno.land,api.deno.land' mod.ts update
+          cd tests/integration/out-of-date-deps
+          deno run --allow-read='.' --allow-write='deps.ts' --allow-net='x.nest.land,cdn.deno.land,api.deno.land,raw.githubusercontent.com,github.com,api.github.com' ../../../mod.ts update
   linting:
     strategy:
       matrix:
-        deno: ["1.5.2"]
+        deno: ["1.5.3"]
     # Doesn't need to be checked in all OS
     runs-on: ubuntu-latest
 

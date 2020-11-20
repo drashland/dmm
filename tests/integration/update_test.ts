@@ -10,6 +10,7 @@ import {
   upToDateDepsFile,
   upToDateOriginalDepsFile,
 } from "./test_constants.ts";
+import { version } from "../../src/commands/version.ts";
 
 const latestDrashRelease = await DenoService.getLatestModuleRelease(
   "drash",
@@ -294,7 +295,9 @@ Deno.test({
       colours.blue("INFO") +
       ` log was updated from 0.53.0 to ${latestStdRelease}\n` +
       colours.blue("INFO") +
-      ` uuid was updated from 0.61.0 to ${latestStdRelease}\n`;
+      ` uuid was updated from 0.61.0 to ${latestStdRelease}\n` +
+      colours.blue("INFO") +
+      ` dmm was updated from v1.0.0 to v${version}\n`;
     assertEquals(stdout, assertedOutput);
     assertEquals(stderr, "");
     assertEquals(status.code, 0);

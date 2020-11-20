@@ -25,7 +25,7 @@ A module manager for Deno.
 
 USAGE
 
-    deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.2.0/mod.ts
+    deno install --allow-net='x.nest.land,cdn.deno.land,api.deno.land,raw.githubusercontent.com,github.com,api.github.com' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.2.0/mod.ts
     dmm [SUBCOMMAND]
 
 SUBCOMMANDS
@@ -52,7 +52,7 @@ SUBCOMMANDS
 EXAMPLE USAGE
 
     Install dmm
-        deno install --allow-net='cdn.deno.land,api.deno.land' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.2.0/mod.ts
+        deno install --allow-net='x.nest.land,cdn.deno.land,api.deno.land,raw.githubusercontent.com,github.com,api.github.com' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v1.2.0/mod.ts
 
     Check a single module
         dmm check fs

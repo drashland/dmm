@@ -2,8 +2,13 @@ import IModule from "../interfaces/module.ts";
 import { colours, LoggerService } from "../../deps.ts";
 import DenoService from "../services/deno_service.ts";
 import NestService from "../services/nest_service.ts";
+import GitHubService from "../services/github_service.ts";
 
-const supportedUrls = ["https://deno.land/", "https://x.nest.land"];
+const supportedUrls = [
+  "https://deno.land",
+  "https://x.nest.land",
+  "https://raw.githubusercontent.com",
+];
 const importVersionRegex = /(v)?[0-9\.]+[0-9\.]+[0-9]/g;
 
 export default class ModuleService {
@@ -80,6 +85,11 @@ export default class ModuleService {
         const data = await ModuleService.constructDataForDenoImport(dep);
         allModules.push(data);
       }
+
+      if (dep.indexOf("https://raw.githubusercontent.com") > -1) {
+        const data = await ModuleService.constructDataForGithubImport(dep);
+        allModules.push(data);
+      }
     }
 
     return allModules;
@@ -92,6 +102,42 @@ export default class ModuleService {
       ? importVersionRegexResult[0]
       : "";
     return importedVersion;
+  }
+
+  private static async constructDataForGithubImport(
+    importLine: string,
+  ): Promise<IModule> {
+    const isStd = false;
+    const importUrl: string = importLine.substring(
+      importLine.indexOf("https://"),
+      importLine.indexOf(".ts") + 3, // to include the `.ts`
+    );
+    const importedVersion = ModuleService.getImportedVersionFromImportLine(
+      importLine,
+    );
+    const repoNameVersionAndFile =
+      importLine.split("https://raw.githubusercontent.com/")[1];
+    const name = repoNameVersionAndFile.split("/")[1];
+    const repositoryUrl =
+      importUrl.replace("raw.githubusercontent", "github").split("/v")[0];
+    const latestRelease = ModuleService.standardiseVersion(
+      importedVersion,
+      await GitHubService.getLatestModuleRelease(repositoryUrl),
+    );
+    const repository = repoNameVersionAndFile.split("/")[0];
+    const description = await GitHubService.getThirdPartyDescription(
+      repository,
+      name,
+    );
+    return {
+      description,
+      latestRelease,
+      repositoryUrl,
+      name,
+      std: isStd,
+      importedVersion,
+      importUrl,
+    };
   }
 
   private static async constructDataForNestImport(
