@@ -1,3 +1,5 @@
+import { version } from "../src/commands/version.ts";
+
 export const regexes = {
   const_statements: /version = ".+"/g,
   deps_drash: /drash@v[0-9.]+[0-9.]+[0-9]/g,
@@ -77,6 +79,6 @@ export const bumperFiles = [
   {
     filename: "./tests/integration/up-to-date-deps/deps.ts",
     replaceTheRegex: regexes.dmm_raw_github,
-    replaceWith: "dmm/v{{ thisModulesLatestVersion }}",
+    replaceWith: `dmm/v${version}`,
   },
 ];

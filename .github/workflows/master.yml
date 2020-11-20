@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        deno: ["1.5.2"]
+        deno: ["1.5.3"]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -33,7 +33,7 @@ jobs:
   linting:
     strategy:
       matrix:
-        deno: ["1.5.2"]
+        deno: ["1.5.3"]
     # Doesn't need to be checked in all OS
     runs-on: ubuntu-latest
 
