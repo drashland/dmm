@@ -115,10 +115,9 @@ export default class ModuleService {
     const importedVersion = ModuleService.getImportedVersionFromImportLine(
       importLine,
     );
-    let name = "";
     const repoNameVersionAndFile =
       importLine.split("https://raw.githubusercontent.com/")[1];
-    name = repoNameVersionAndFile.split("/")[1];
+    const name = repoNameVersionAndFile.split("/")[1];
     const repositoryUrl =
       importUrl.replace("raw.githubusercontent", "github").split("/v")[0];
     const latestRelease = ModuleService.standardiseVersion(
