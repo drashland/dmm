@@ -305,7 +305,7 @@ Deno.test({
         colours.blue("INFO") +
         ` uuid can be updated from 0.61.0 to ${latestStdRelease}\n` +
         colours.blue("INFO") +
-        ` wocket can be updated from v0.4.0 to v${latestWocketRelease}\n` +
+        ` wocket can be updated from v0.4.0 to ${latestWocketRelease}\n` +
         colours.blue("INFO") + " To update, run: \n" +
         "    dmm update drash fs fmt cliffy log uuid wocket" +
         "\n",

@@ -11,6 +11,7 @@ import {
   upToDateOriginalDepsFile,
 } from "./test_constants.ts";
 import { version } from "../../src/commands/version.ts";
+import GitHubService from "../../src/services/github_service.ts";
 
 const latestDrashRelease = await DenoService.getLatestModuleRelease(
   "drash",
@@ -19,6 +20,8 @@ const latestCliffyRelease = await NestService.getLatestModuleRelease(
   "cliffy",
 );
 const latestStdRelease = await DenoService.getLatestModuleRelease("std");
+
+const latestWocketRelease = await GitHubService.getLatestModuleRelease("https://github.com/drashland/wocket")
 
 /**
  * @param dir eg "out-of-date-deps"
@@ -297,7 +300,7 @@ Deno.test({
       colours.blue("INFO") +
       ` uuid was updated from 0.61.0 to ${latestStdRelease}\n` +
       colours.blue("INFO") +
-      ` dmm was updated from v1.0.0 to v${version}\n`;
+      ` wocket was updated from v0.4.0 to ${latestWocketRelease}\n`;
     assertEquals(stdout, assertedOutput);
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
