@@ -1,6 +1,6 @@
 import { assertEquals, colours } from "../../deps.ts";
 import { outOfDateDepsDir, upToDateDepsDir } from "./test_constants.ts";
-import {expectedHelpMessage} from "../data/expected_help_message.ts";
+import { expectedHelpMessage } from "../data/expected_help_message.ts";
 
 Deno.test({
   name: "No Purpose",

@@ -1,7 +1,7 @@
 import { assertEquals, colours } from "../../deps.ts";
 import { version } from "../../src/commands/version.ts";
 import { outOfDateDepsDir, upToDateDepsDir } from "./test_constants.ts";
-import {expectedHelpMessage} from "../data/expected_help_message.ts";
+import { expectedHelpMessage } from "../data/expected_help_message.ts";
 
 Deno.test({
   name: "Help",

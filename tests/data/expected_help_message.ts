@@ -1,4 +1,4 @@
-import {version} from "../../src/commands/version.ts";
+import { version } from "../../src/commands/version.ts";
 
 export const expectedHelpMessage = `
 A module manager for Deno.
@@ -43,4 +43,4 @@ EXAMPLE USAGE
     Get information about a module
         dmm info http
 
-`
+`;
