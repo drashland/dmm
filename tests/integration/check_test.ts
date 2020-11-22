@@ -2,7 +2,7 @@ import { assertEquals, colours } from "../../deps.ts";
 import DenoService from "../../src/services/deno_service.ts";
 import NestService from "../../src/services/nest_service.ts";
 import { outOfDateDepsDir, upToDateDepsDir } from "./test_constants.ts";
-import { version } from "../../src/commands/version.ts";
+import GitHubService from "../../src/services/github_service.ts";
 
 const latestDrashRelease = await DenoService.getLatestModuleRelease(
   "drash",
@@ -11,7 +11,7 @@ const latestCliffyRelease = await NestService.getLatestModuleRelease(
   "cliffy",
 );
 const latestStdRelease = await DenoService.getLatestModuleRelease("std");
-
+const latestWocketRelease = await GitHubService.getLatestModuleRelease("https://github.com/drashland/wocket")
 // Check a specific dep that can be updated
 Deno.test({
   name: "Check | Single | Modules to Update Exist - deno.land/x",
@@ -305,9 +305,9 @@ Deno.test({
         colours.blue("INFO") +
         ` uuid can be updated from 0.61.0 to ${latestStdRelease}\n` +
         colours.blue("INFO") +
-        ` dmm can be updated from v1.0.0 to v${version}\n` +
+        ` wocket can be updated from v0.4.0 to v${latestWocketRelease}\n` +
         colours.blue("INFO") + " To update, run: \n" +
-        "    dmm update drash fs fmt cliffy log uuid dmm" +
+        "    dmm update drash fs fmt cliffy log uuid wocket" +
         "\n",
     );
     assertEquals(status.code, 0);
