@@ -21,7 +21,9 @@ const latestCliffyRelease = await NestService.getLatestModuleRelease(
 );
 const latestStdRelease = await DenoService.getLatestModuleRelease("std");
 
-const latestWocketRelease = await GitHubService.getLatestModuleRelease("https://github.com/drashland/wocket")
+const latestWocketRelease = await GitHubService.getLatestModuleRelease(
+  "https://github.com/drashland/wocket",
+);
 
 /**
  * @param dir eg "out-of-date-deps"

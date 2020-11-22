@@ -11,7 +11,9 @@ const latestCliffyRelease = await NestService.getLatestModuleRelease(
   "cliffy",
 );
 const latestStdRelease = await DenoService.getLatestModuleRelease("std");
-const latestWocketRelease = await GitHubService.getLatestModuleRelease("https://github.com/drashland/wocket")
+const latestWocketRelease = await GitHubService.getLatestModuleRelease(
+  "https://github.com/drashland/wocket",
+);
 // Check a specific dep that can be updated
 Deno.test({
   name: "Check | Single | Modules to Update Exist - deno.land/x",
