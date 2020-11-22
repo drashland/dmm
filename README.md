@@ -19,7 +19,7 @@
 
 ---
 
-`dmm` (pronounced "dim") is a Deno module manager. It can update your `deps.ts` file, check if any of your dependencies are out of date, and give you information about any module in the Deno world. Managing your dependencies hasn't been easier.
+`dmm` is a Deno module manager. It can update your `deps.ts` file, check if any of your dependencies are out of date, and give you information about any module in the Deno world. Managing your dependencies hasn't been easier.
 
 # Table of Contents
 
@@ -49,28 +49,7 @@
 
 # Quick Start
 
-There are two ways you can use this module:
-
-1. You can install it through the `deno` command.
-    ```sh
-    $ deno install \
-      --allow-net='cdn.deno.land,api.deno.land,x.nest.land,raw.githubusercontent.com,github.com,api.github.com' \
-      --allow-read='.' \
-      --allow-write='deps.ts' \
-      https://deno.land/x/dmm@v1.3.0/mod.ts
-
-    $ dmm help
-    ````
-
-2. Run it through a URL.
-    ```sh
-    $ deno run \
-      --allow-net='cdn.deno.land,api.deno.land,x.nest.land,raw.githubusercontent.com,github.com,api.github.com' \
-      --allow-read='.' \
-      --allow-write='deps.ts' \
-      https://deno.land/x/dmm@v1.3.0/mod.ts \
-      help
-    ```
+Get started [here](https://drash.land/dmm/#/#quickstart) with a basic example.
 
 # How It Works
 
