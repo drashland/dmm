@@ -1,5 +1,5 @@
 import IModule from "../interfaces/module.ts";
-import { colours, LoggerService } from "../../deps.ts";
+import { colours, ConsoleLogger } from "../../deps.ts";
 import DenoService from "../services/deno_service.ts";
 import NestService from "../services/nest_service.ts";
 import GitHubService from "../services/github_service.ts";
@@ -53,7 +53,7 @@ export default class ModuleService {
    */
   public static async constructModulesDataFromDeps(): Promise<IModule[]> {
     // Solely read the users `deps.ts` file
-    LoggerService.logInfo("Reading deps.ts to gather your dependencies...");
+    ConsoleLogger.info("Reading deps.ts to gather your dependencies...");
     const usersWorkingDir: string = Deno.realPathSync(".");
     const depsContent: string = new TextDecoder().decode(
       Deno.readFileSync(usersWorkingDir + "/deps.ts"),

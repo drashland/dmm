@@ -1,4 +1,4 @@
-import { LoggerService } from "../../deps.ts";
+import { ConsoleLogger } from "../../deps.ts";
 import ModuleService from "../services/module_service.ts";
 
 /**
@@ -20,21 +20,21 @@ export async function check(dependencies: string[]): Promise<void> {
   });
 
   if (selectedModules.length === 0) {
-    LoggerService.logError(
+    ConsoleLogger.error(
       "Modules specified do not exist in your dependencies.",
     );
     Deno.exit(1);
   }
 
   // Compare imported and latest version
-  LoggerService.logInfo("Comparing versions...");
+  ConsoleLogger.info("Comparing versions...");
   let depsCanBeUpdated: boolean = false;
   const listOfModuleNamesToBeUpdated: string[] = [];
   selectedModules.forEach((module) => {
     if (module.importedVersion !== module.latestRelease) {
       depsCanBeUpdated = true;
       listOfModuleNamesToBeUpdated.push(module.name);
-      LoggerService.logInfo(
+      ConsoleLogger.info(
         module.name + " can be updated from " + module.importedVersion +
           " to " + module.latestRelease,
       );
@@ -42,11 +42,11 @@ export async function check(dependencies: string[]): Promise<void> {
   });
   // Logging purposes
   if (depsCanBeUpdated) {
-    LoggerService.logInfo(
+    ConsoleLogger.info(
       "To update, run: \n    dmm update " +
         listOfModuleNamesToBeUpdated.join(" "),
     );
   } else {
-    LoggerService.logInfo("Your dependencies are up to date");
+    ConsoleLogger.info("Your dependencies are up to date");
   }
 }

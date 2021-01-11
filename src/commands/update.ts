@@ -1,4 +1,4 @@
-import { LoggerService } from "../../deps.ts";
+import { ConsoleLogger } from "../../deps.ts";
 import ModuleService from "../services/module_service.ts";
 
 /**
@@ -20,14 +20,14 @@ export async function update(dependencies: string[]): Promise<void> {
   });
 
   if (modules.length === 0) {
-    LoggerService.logError(
+    ConsoleLogger.error(
       "Modules specified do not exist in your dependencies.",
     );
     Deno.exit(1);
   }
 
   // Check for updates and rewrite `deps.ts` if needed
-  LoggerService.logInfo("Checking if your modules can be updated...");
+  ConsoleLogger.info("Checking if your modules can be updated...");
   const usersWorkingDir: string = Deno.realPathSync(".");
   let depsWereUpdated = false;
   let depsContent: string = new TextDecoder().decode(
@@ -51,7 +51,7 @@ export async function update(dependencies: string[]): Promise<void> {
         module.name + "@" + module.latestRelease,
       );
     }
-    LoggerService.logInfo(
+    ConsoleLogger.info(
       module.name + " was updated from " + module.importedVersion + " to " +
         module.latestRelease,
     );
@@ -66,6 +66,6 @@ export async function update(dependencies: string[]): Promise<void> {
 
   // And if none were updated, add some more logging
   if (!depsWereUpdated) {
-    LoggerService.logInfo("Everything is already up to date");
+    ConsoleLogger.info("Everything is already up to date");
   }
 }
