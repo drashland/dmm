@@ -46,10 +46,12 @@ export async function update(dependencies: string[]): Promise<void> {
         "std@" + module.latestRelease + "/" + module.name,
       );
     } else {
-      depsContent = depsContent.replace(
-        module.name + "@" + module.importedVersion,
-        module.name + "@" + module.latestRelease,
+      let newImportUrl = module.importUrl;
+      newImportUrl = newImportUrl.replace(
+        module.importedVersion,
+        module.latestRelease,
       );
+      depsContent = depsContent.replace(module.importUrl, newImportUrl);
     }
     LoggerService.logInfo(
       module.name + " was updated from " + module.importedVersion + " to " +
