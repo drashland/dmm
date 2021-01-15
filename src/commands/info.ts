@@ -1,4 +1,4 @@
-import { LoggerService } from "../../deps.ts";
+import { ConsoleLogger } from "../../deps.ts";
 import DenoService from "../services/deno_service.ts";
 
 /**
@@ -19,7 +19,7 @@ export async function info(modules: string[]): Promise<void> {
     const isStd = stdResponse.status === 200;
     const isThirdParty = thirdPartyResponse.status === 200;
     if (!isStd && !isThirdParty) {
-      LoggerService.logError("No module was found with " + moduleToGetInfoOn);
+      ConsoleLogger.error("No module was found with " + moduleToGetInfoOn);
       Deno.exit(1);
     }
     const name = moduleToGetInfoOn;
@@ -42,7 +42,7 @@ export async function info(modules: string[]): Promise<void> {
       denoLandUrl = "https://deno.land/x/" + name + "@" + latestVersion;
     }
     const importLine = "import * as " + name + ' from "' + denoLandUrl + '";';
-    LoggerService.logInfo(
+    ConsoleLogger.info(
       `Information on ${name}\n\n  - Name: ${name}\n  - Description: ${description}\n  - deno.land Link: ${denoLandUrl}\n  - Repository: ${repositoryUrl}\n  - Import Statement: ${importLine}\n  - Latest Version: ${latestVersion}` +
         "\n",
     );
