@@ -25,7 +25,7 @@ in the Deno world. Managing your dependencies hasn't been easier.
 
 ### Features
 
-- Zero dependencies
+- Zero 3rd party dependencies
 - Easy and simple to use
 - Checks dependencies for newer versions
 - Will update your dependencies for you
