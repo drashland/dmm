@@ -59,7 +59,7 @@ Deno.test({
       stdout,
       colours.blue("INFO") + " Information on drash\n\n" +
         "  - Name: drash\n" +
-        "  - Description: A REST microframework for Deno's HTTP server with zero dependencies.\n" +
+        "  - Description: A REST microframework for Deno's HTTP server with zero 3rd party dependencies.\n" +
         `  - deno.land Link: https://deno.land/x/drash@${latestDrashRelease}\n` +
         "  - Repository: https://github.com/drashland/deno-drash\n" +
         `  - Import Statement: import * as drash from \"https://deno.land/x/drash@${latestDrashRelease}\";\n` +
@@ -96,7 +96,7 @@ Deno.test({
         "  - Name: fs\n" +
         "  - Description: Cannot retrieve descriptions for std modules\n" +
         `  - deno.land Link: https://deno.land/std@${latestStdRelease}/fs\n` +
-        "  - Repository: https://github.com/denoland/deno/tree/master/std/fs\n" +
+        "  - Repository: https://github.com/denoland/deno_std/tree/master/fs\n" +
         `  - Import Statement: import * as fs from \"https://deno.land/std@${latestStdRelease}/fs\";\n` +
         `  - Latest Version: ${latestStdRelease}\n` +
         "\n",
@@ -140,14 +140,14 @@ Deno.test({
   - Name: fs
   - Description: Cannot retrieve descriptions for std modules
   - deno.land Link: https://deno.land/std@${latestStdRelease}/fs
-  - Repository: https://github.com/denoland/deno/tree/master/std/fs
+  - Repository: https://github.com/denoland/deno_std/tree/master/fs
   - Import Statement: import * as fs from "https://deno.land/std@${latestStdRelease}/fs";
   - Latest Version: ${latestStdRelease}
 
 ${colours.blue("INFO")} Information on drash
 
   - Name: drash
-  - Description: A REST microframework for Deno's HTTP server with zero dependencies.
+  - Description: A REST microframework for Deno's HTTP server with zero 3rd party dependencies.
   - deno.land Link: https://deno.land/x/drash@${latestDrashRelease}
   - Repository: https://github.com/drashland/deno-drash
   - Import Statement: import * as drash from "https://deno.land/x/drash@${latestDrashRelease}";
