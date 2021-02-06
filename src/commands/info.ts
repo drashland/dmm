@@ -11,7 +11,7 @@ export async function info(modules: string[]): Promise<void> {
   for (const index in modules) {
     const moduleToGetInfoOn: string = modules[index];
     const stdResponse = await fetch(
-      "https://github.com/denoland/deno/tree/master/std/" + moduleToGetInfoOn,
+      "https://github.com/denoland/deno_std/tree/master/" + moduleToGetInfoOn,
     );
     const thirdPartyResponse = await fetch(
       DenoService.DENO_CDN_URL + moduleToGetInfoOn + "/meta/versions.json",
@@ -32,7 +32,7 @@ export async function info(modules: string[]): Promise<void> {
       description = "Cannot retrieve descriptions for std modules";
       denoLandUrl = "https://deno.land/std@" + latestVersion + "/" +
         name;
-      repositoryUrl = "https://github.com/denoland/deno/tree/master/std/" +
+      repositoryUrl = "https://github.com/denoland/deno_std/tree/master/" +
         name;
     }
     if (isThirdParty) {
