@@ -31,11 +31,15 @@ template: |
   * Requires Deno v<DENO_VERSION> or higher
   * Uses Deno std@<STD_VERSION>
 
-  __Importing__
+  __Installing__
 
-  * Import this latest release by using the following in your project(s):
+  * Install dmm as a command:
     ```
     $ deno install --allow-net='x.nest.land,cdn.deno.land,api.deno.land,raw.githubusercontent.com,github.com,api.github.com' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v$RESOLVED_VERSION/mod.ts
+    ```
+  * Run the `dmm` command:
+    ```
+    $ dmm
     ```
 
   __Updates__
