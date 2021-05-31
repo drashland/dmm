@@ -1,5 +1,6 @@
 import { assertEquals } from "../../deps.ts";
 import { upToDateDepsDir } from "./test_constants.ts";
+import { version } from "../../src/commands/version.ts";
 
 Deno.test({
   name: "Version",
@@ -23,9 +24,8 @@ Deno.test({
     const reg =
       /^((([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)$/;
     const splittedStdout = stdout.split(" ");
-    assertEquals(splittedStdout.length, 2);
-    assertEquals(splittedStdout[0], "dmm");
-    assertEquals(reg.test(splittedStdout[1]), true);
+    console.log(stdout);
+    assertEquals(stdout, `Deno Module Manager v${version}`);
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
     assertEquals(status.success, true);

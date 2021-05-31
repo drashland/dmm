@@ -51,10 +51,11 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      colours.red("ERROR") + " Subcommand `something` not recognized.\n",
+      colours.red("ERROR") +
+        ' Unknown input "something" specified.\n\nAVAILABLE OPTIONS\n\n    -h, --help\n    -v, --version\n\nAVAILABLE SUBCOMMANDS\n\n    update\n    info\n    check\n\n',
     );
     assertEquals(stderr, "");
-    assertEquals(status.code, 0);
-    assertEquals(status.success, true);
+    assertEquals(status.code, 1);
+    assertEquals(status.success, false);
   },
 });

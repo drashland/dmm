@@ -12,7 +12,7 @@
  *     The import URL of the module
  *
  * repositoryUrl
- *     The URL for the code repository for the module. 
+ *     The URL for the code repository for the module.
  *     This is always a github.com URL for a deno.land module.
  *
  * latestRelease

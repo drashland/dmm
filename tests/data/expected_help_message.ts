@@ -1,46 +1,24 @@
 import { version } from "../../src/commands/version.ts";
 
-export const expectedHelpMessage = `
-A module manager for Deno.
+export const expectedHelpMessage =
+  `Deno Module Manager - Lightweight Deno module manager
 
 USAGE
 
-    deno install --allow-net='x.nest.land,cdn.deno.land,api.deno.land,raw.githubusercontent.com,github.com,api.github.com' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v${version}/mod.ts
-    dmm [SUBCOMMAND]
+    dmm [option | [[subcommand] [args] [deno flags] [options]]]
+
+OPTIONS
+
+    -h, --help    Show this menu.
+    -v, --version Show this CLI's version.
 
 SUBCOMMANDS
 
-    check [modules]
-        Checks the specified modules for newer version. Will check all if modules are 
-        omitted.
-
-    update [modules]
-        Updates the specified modules to the newest version. Will update all if modules 
-        are omitted.
-
-    info [modules]
-        Displays information about the given modules, be it std or 3rd party. The 3rd 
-        party module must be referenced at https://deno.land/x/
-
-    help, --help
-        Prints the help message
-
-    version, --version
-        Prints the current dmm version
-
-
-EXAMPLE USAGE
-
-    Install dmm
-        deno install --allow-net='x.nest.land,cdn.deno.land,api.deno.land,raw.githubusercontent.com,github.com,api.github.com' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v${version}/mod.ts
-
-    Check a single module
-        dmm check fs
-
-    Update a single module
-        dmm update fs
-
-    Get information about a module
-        dmm info http
+    update
+        Update all dependencies in the \`deps.ts\` file in your CWD, or specify certain modules to update or a location to a dependency file.
+    info
+        Get information about any number of given dependencies.
+    check
+        Check if the given dependencies you hold are outdated. Will check all if modules are omitted. Ex: dmm info; dmm info drash fs
 
 `;

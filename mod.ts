@@ -1,30 +1,19 @@
-import { CliService } from "./deps.ts";
-import { helpMessage } from "./src/commands/help.ts";
-import { versionMessage } from "./src/commands/version.ts";
-import { info } from "./src/commands/info.ts";
-import { check } from "./src/commands/check.ts";
-import { update } from "./src/commands/update.ts";
+import { Line } from "./deps.ts";
+import { version } from "./src/commands/version.ts";
+import { UpdateSubcommand } from "./src/commands/update.ts";
+import { InfoSubcommand } from "./src/commands/info.ts";
+import { CheckSubcommand } from "./src/commands/check.ts";
 
-const c = new CliService(Deno.args);
-
-c.addSubcommand(["help", "--help"], async () => {
-  console.log(helpMessage);
-});
-
-c.addSubcommand(["version", "--version"], () => {
-  console.log(versionMessage);
-});
-
-c.addSubcommand("info", async (args: string[]) => {
-  await info(args);
-}, { requires_args: true });
-
-c.addSubcommand("update", async (args: string[]) => {
-  await update(args);
-});
-
-c.addSubcommand("check", async (args: string[]) => {
-  await check(args);
+const c = new Line({
+  command: "dmm",
+  name: "Deno Module Manager",
+  description: "Lightweight Deno module manager",
+  version: `v${version}`,
+  subcommands: [
+    UpdateSubcommand,
+    InfoSubcommand,
+    CheckSubcommand,
+  ],
 });
 
 c.run();
