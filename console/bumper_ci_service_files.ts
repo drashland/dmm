@@ -8,6 +8,12 @@ export const regexes = {
   dmm_raw_github: /dmm\/v[0-9\.]+[0-9\.]+[0-9\.]/g,
 };
 
+interface IFile {
+  filename: string,
+  replaceTheRegex: RegExp,
+  replaceWith: string
+}
+
 export const preReleaseFiles = [
   {
     filename: "./egg.json",
@@ -21,4 +27,4 @@ export const preReleaseFiles = [
   },
 ];
 
-export const bumperFiles = [];
+export const bumperFiles: IFile[] = [];

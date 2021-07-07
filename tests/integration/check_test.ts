@@ -43,12 +43,12 @@ Deno.test({
     assertEquals(stderr, "");
     assertEquals(
       stdout,
-      colours.blue("INFO") +
+      colours.green("[INFO]") +
         " Reading deps.ts to gather your dependencies...\n" +
-        colours.blue("INFO") + " Comparing versions...\n" +
-        colours.blue("INFO") +
+        colours.green("[INFO]") + " Comparing versions...\n" +
+        colours.green("[INFO]") +
         ` fs can be updated from 0.53.0 to ${latestStdRelease}` + "\n" +
-        colours.blue("INFO") + " To update, run: \n" +
+        colours.green("[INFO]") + " To update, run: \n" +
         "    dmm update fs" +
         "\n",
     );
@@ -86,10 +86,10 @@ Deno.test({
     assertEquals(stderr, "");
     assertEquals(
       stdout,
-      colours.blue("INFO") +
+      colours.green("[INFO]") +
         " Reading deps.ts to gather your dependencies...\n" +
-        colours.blue("INFO") + " Comparing versions...\n" +
-        colours.blue("INFO") + " Your dependencies are up to date" + "\n",
+        colours.green("[INFO]") + " Comparing versions...\n" +
+        colours.green("[INFO]") + " Your dependencies are up to date" + "\n",
     );
     assertEquals(status.code, 0);
     assertEquals(status.success, true);
@@ -125,12 +125,12 @@ Deno.test({
     assertEquals(stderr, "");
     assertEquals(
       stdout,
-      colours.blue("INFO") +
+      colours.green("[INFO]") +
         " Reading deps.ts to gather your dependencies...\n" +
-        colours.blue("INFO") + " Comparing versions...\n" +
-        colours.blue("INFO") +
+        colours.green("[INFO]") + " Comparing versions...\n" +
+        colours.green("[INFO]") +
         ` cliffy can be updated from 0.11.2 to ${latestCliffyRelease}\n` +
-        colours.blue("INFO") + " To update, run: \n" +
+        colours.green("[INFO]") + " To update, run: \n" +
         "    dmm update cliffy\n",
     );
     assertEquals(status.code, 0);
@@ -167,10 +167,10 @@ Deno.test({
     assertEquals(stderr, "");
     assertEquals(
       stdout,
-      colours.blue("INFO") +
+      colours.green("[INFO]") +
         " Reading deps.ts to gather your dependencies...\n" +
-        colours.blue("INFO") + " Comparing versions...\n" +
-        colours.blue("INFO") + " Your dependencies are up to date" + "\n",
+        colours.green("[INFO]") + " Comparing versions...\n" +
+        colours.green("[INFO]") + " Your dependencies are up to date" + "\n",
     );
     assertEquals(status.code, 0);
     assertEquals(status.success, true);
@@ -207,14 +207,14 @@ Deno.test({
     assertEquals(stderr, "");
     assertEquals(
       stdout,
-      colours.blue("INFO") +
+      colours.green("[INFO]") +
         " Reading deps.ts to gather your dependencies...\n" +
-        colours.blue("INFO") + " Comparing versions...\n" +
-        colours.blue("INFO") +
+        colours.green("[INFO]") + " Comparing versions...\n" +
+        colours.green("[INFO]") +
         ` drash can be updated from v1.0.0 to ${latestDrashRelease}\n` +
-        colours.blue("INFO") +
+        colours.green("[INFO]") +
         ` fs can be updated from 0.53.0 to ${latestStdRelease}\n` +
-        colours.blue("INFO") + " To update, run: \n" +
+        colours.green("[INFO]") + " To update, run: \n" +
         "    dmm update drash fs" +
         "\n",
     );
@@ -253,10 +253,10 @@ Deno.test({
     assertEquals(stderr, "");
     assertEquals(
       stdout,
-      colours.blue("INFO") +
+      colours.green("[INFO]") +
         " Reading deps.ts to gather your dependencies...\n" +
-        colours.blue("INFO") + " Comparing versions...\n" +
-        colours.blue("INFO") + " Your dependencies are up to date\n",
+        colours.green("[INFO]") + " Comparing versions...\n" +
+        colours.green("[INFO]") + " Your dependencies are up to date\n",
     );
     assertEquals(status.code, 0);
     assertEquals(status.success, true);
@@ -291,24 +291,24 @@ Deno.test({
     assertEquals(stderr, "");
     assertEquals(
       stdout,
-      colours.blue("INFO") +
+      colours.green("[INFO]") +
         " Reading deps.ts to gather your dependencies...\n" +
-        colours.blue("INFO") + " Comparing versions...\n" +
-        colours.blue("INFO") +
+        colours.green("[INFO]") + " Comparing versions...\n" +
+        colours.green("[INFO]") +
         ` drash can be updated from v1.0.0 to ${latestDrashRelease}\n` +
-        colours.blue("INFO") +
+        colours.green("[INFO]") +
         ` fs can be updated from 0.53.0 to ${latestStdRelease}\n` +
-        colours.blue("INFO") +
+        colours.green("[INFO]") +
         ` fmt can be updated from 0.53.0 to ${latestStdRelease}\n` +
-        colours.blue("INFO") +
+        colours.green("[INFO]") +
         ` cliffy can be updated from 0.11.2 to ${latestCliffyRelease}\n` +
-        colours.blue("INFO") +
+        colours.green("[INFO]") +
         ` log can be updated from 0.53.0 to ${latestStdRelease}\n` +
-        colours.blue("INFO") +
+        colours.green("[INFO]") +
         ` uuid can be updated from 0.61.0 to ${latestStdRelease}\n` +
-        colours.blue("INFO") +
+        colours.green("[INFO]") +
         ` wocket can be updated from v0.4.0 to ${latestWocketRelease}\n` +
-        colours.blue("INFO") + " To update, run: \n" +
+        colours.green("[INFO]") + " To update, run: \n" +
         "    dmm update drash fs fmt cliffy log uuid wocket" +
         "\n",
     );
@@ -345,10 +345,10 @@ Deno.test({
     assertEquals(stderr, "");
     assertEquals(
       stdout,
-      colours.blue("INFO") +
+      colours.green("[INFO]") +
         " Reading deps.ts to gather your dependencies...\n" +
-        colours.blue("INFO") + " Comparing versions...\n" +
-        colours.blue("INFO") + " Your dependencies are up to date\n",
+        colours.green("[INFO]") + " Comparing versions...\n" +
+        colours.green("[INFO]") + " Your dependencies are up to date\n",
     );
     assertEquals(status.code, 0);
     assertEquals(status.success, true);
@@ -383,7 +383,7 @@ Deno.test({
     assertEquals(new TextDecoder().decode(stderr), "");
     assertEquals(
       stdout,
-      colours.blue("INFO") +
+      colours.green("[INFO]") +
         " Reading deps.ts to gather your dependencies...\n" +
         colours.red("ERROR") +
         " Modules specified do not exist in your dependencies.\n",
@@ -420,7 +420,7 @@ Deno.test({
     assertEquals(new TextDecoder().decode(stderr), "");
     assertEquals(
       stdout,
-      colours.blue("INFO") +
+      colours.green("[INFO]") +
         " Reading deps.ts to gather your dependencies...\n" +
         colours.red("ERROR") +
         " Modules specified do not exist in your dependencies.\n",
@@ -461,7 +461,7 @@ Deno.test({
     );
     assertEquals(
       stdout,
-      colours.blue("INFO") +
+      colours.green("[INFO]") +
         " Reading deps.ts to gather your dependencies...\n" +
         colours.red("ERROR") +
         " Modules specified do not exist in your dependencies.\n",
