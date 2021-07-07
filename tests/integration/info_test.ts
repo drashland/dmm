@@ -57,7 +57,7 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      colours.blue("INFO") + " Information on drash\n\n" +
+      colours.green("[INFO]") + " Information on drash\n\n" +
         "  - Name: drash\n" +
         "  - Description: A REST microframework for Deno's HTTP server with zero 3rd party dependencies.\n" +
         `  - deno.land Link: https://deno.land/x/drash@${latestDrashRelease}\n` +
@@ -92,7 +92,7 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      colours.blue("INFO") + " Information on fs\n\n" +
+      colours.green("[INFO]") + " Information on fs\n\n" +
         "  - Name: fs\n" +
         "  - Description: Cannot retrieve descriptions for std modules\n" +
         `  - deno.land Link: https://deno.land/std@${latestStdRelease}/fs\n` +
@@ -135,7 +135,7 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      `${colours.blue("INFO")} Information on fs
+      `${colours.green("[INFO]")} Information on fs
 
   - Name: fs
   - Description: Cannot retrieve descriptions for std modules
@@ -144,7 +144,7 @@ Deno.test({
   - Import Statement: import * as fs from "https://deno.land/std@${latestStdRelease}/fs";
   - Latest Version: ${latestStdRelease}
 
-${colours.blue("INFO")} Information on drash
+${colours.green("[INFO]")} Information on drash
 
   - Name: drash
   - Description: A REST microframework for Deno's HTTP server with zero 3rd party dependencies.
