@@ -1,4 +1,5 @@
 type ModuleMeta = {
+  // deno-lint-ignore camelcase
   upload_options: {
     repository: string; // eg "drashland/drash"
     type: string; // eg "github"

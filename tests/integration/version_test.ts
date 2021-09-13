@@ -21,9 +21,6 @@ Deno.test({
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
     // reference: https://regexr.com/39s32
-    const reg =
-      /^((([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)$/;
-    const splittedStdout = stdout.split(" ");
     console.log(stdout);
     assertEquals(stdout, `Deno Module Manager v${version}`);
     assertEquals(stderr, "");

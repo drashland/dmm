@@ -1,5 +1,5 @@
 import { assertEquals, colours } from "../../deps.ts";
-import { outOfDateDepsDir, upToDateDepsDir } from "./test_constants.ts";
+import { upToDateDepsDir } from "./test_constants.ts";
 import { expectedHelpMessage } from "../data/expected_help_message.ts";
 
 Deno.test({
@@ -51,7 +51,7 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      colours.red("ERROR") +
+      colours.red("[ERROR]") +
         ' Unknown input "something" specified.\n\nAVAILABLE OPTIONS\n\n    -h, --help\n    -v, --version\n\nAVAILABLE SUBCOMMANDS\n\n    update\n    info\n    check\n\n',
     );
     assertEquals(stderr, "");

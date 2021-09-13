@@ -26,7 +26,7 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      colours.red("ERROR") + " Subcommand `info` requires arguments.\n",
+      colours.red("[ERROR]") + " Subcommand `info` requires arguments.\n",
     );
     assertEquals(
       stderr,
@@ -190,7 +190,7 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      colours.red("ERROR") + " No module was found with somethinggg\n",
+      colours.red("[ERROR]") + " No module was found with somethinggg\n",
     );
     assertEquals(
       stderr,

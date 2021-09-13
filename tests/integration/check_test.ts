@@ -385,7 +385,7 @@ Deno.test({
       stdout,
       colours.green("[INFO]") +
         " Reading deps.ts to gather your dependencies...\n" +
-        colours.red("ERROR") +
+        colours.red("[ERROR]") +
         " Modules specified do not exist in your dependencies.\n",
     );
     assertEquals(status.code, 1);
@@ -422,7 +422,7 @@ Deno.test({
       stdout,
       colours.green("[INFO]") +
         " Reading deps.ts to gather your dependencies...\n" +
-        colours.red("ERROR") +
+        colours.red("[ERROR]") +
         " Modules specified do not exist in your dependencies.\n",
     );
     assertEquals(status.code, 1);
@@ -463,7 +463,7 @@ Deno.test({
       stdout,
       colours.green("[INFO]") +
         " Reading deps.ts to gather your dependencies...\n" +
-        colours.red("ERROR") +
+        colours.red("[ERROR]") +
         " Modules specified do not exist in your dependencies.\n",
     );
     assertEquals(status.code, 1);

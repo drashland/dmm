@@ -20,7 +20,7 @@ Deno.test({
     const file = bumperFiles[0];
     file.filename = "./tests/data/pattern_types.txt";
     const bumped = await b.bump([file], false);
-    assertEquals(bumped[0], data_depsStd);
+    assertEquals(bumped[0], dataDepsStd);
   },
 });
 
@@ -30,7 +30,7 @@ Deno.test({
     const file = bumperFiles[1];
     file.filename = "./tests/data/pattern_types.txt";
     const bumped = await b.bump([file], false);
-    assertEquals(bumped[0], data_depsDrash);
+    assertEquals(bumped[0], dataDepsDrash);
   },
 });
 
@@ -40,7 +40,7 @@ Deno.test({
     const file = bumperFiles[2];
     file.filename = "./tests/data/pattern_types.txt";
     const bumped = await b.bump([file], false);
-    assertEquals(bumped[0], data_denoVersionsYml);
+    assertEquals(bumped[0], dataDenoVersionsYml);
   },
 });
 
@@ -50,7 +50,7 @@ Deno.test({
     const file = preReleaseFiles[0];
     file.filename = "./tests/data/pattern_types.txt";
     const bumped = await c.bump([file], false);
-    assertEquals(bumped[0], data_eggJson);
+    assertEquals(bumped[0], dataEggJson);
   },
 });
 
@@ -60,7 +60,7 @@ Deno.test({
     const file = preReleaseFiles[2];
     file.filename = "./tests/data/pattern_types.txt";
     const bumped = await c.bump([file], false);
-    assertEquals(bumped[0], data_constStatements);
+    assertEquals(bumped[0], dataConstStatements);
   },
 });
 
@@ -68,7 +68,7 @@ Deno.test({
 // DATA PROVIDERS //////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-const data_depsStd = `workflow files
+const dataDepsStd = `workflow files
 
 deno: ["0.0.0"]
 deno: ["0.0.0"]
@@ -103,7 +103,7 @@ import * as colors from "https://deno.land/std@${latestVersions.deno_std}/fmt/co
 export { v4 } from "https://deno.land/std@${latestVersions.deno_std}/uuid/mod.ts"; // up to date
 `;
 
-const data_depsDrash = `workflow files
+const dataDepsDrash = `workflow files
 
 deno: ["0.0.0"]
 deno: ["0.0.0"]
@@ -138,7 +138,7 @@ import * as colors from "https://deno.land/std@0.0.0/fmt/colors.ts"; // up to da
 export { v4 } from "https://deno.land/std@0.0.0/uuid/mod.ts"; // up to date
 `;
 
-const data_denoVersionsYml = `workflow files
+const dataDenoVersionsYml = `workflow files
 
 deno: ["${latestVersions.deno}"]
 deno: ["${latestVersions.deno}"]
@@ -173,7 +173,7 @@ import * as colors from "https://deno.land/std@0.0.0/fmt/colors.ts"; // up to da
 export { v4 } from "https://deno.land/std@0.0.0/uuid/mod.ts"; // up to date
 `;
 
-const data_constStatements = `workflow files
+const dataConstStatements = `workflow files
 
 deno: ["0.0.0"]
 deno: ["0.0.0"]
@@ -208,7 +208,7 @@ import * as colors from "https://deno.land/std@0.0.0/fmt/colors.ts"; // up to da
 export { v4 } from "https://deno.land/std@0.0.0/uuid/mod.ts"; // up to date
 `;
 
-const data_eggJson = `workflow files
+const dataEggJson = `workflow files
 
 deno: ["0.0.0"]
 deno: ["0.0.0"]
