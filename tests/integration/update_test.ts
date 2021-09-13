@@ -603,10 +603,11 @@ Deno.test({
     console.log(stderr);
     assertEquals(
       stdout,
-      colours.blue("[INFO]") +
+      colours.green("[INFO]") +
         " Reading deps.ts to gather your dependencies...\n" +
-        colours.blue("[INFO]") + " Checking if your modules can be updated...\n" +
-        colours.blue("[INFO]") +
+        colours.green("[INFO]") +
+        " Checking if your modules can be updated...\n" +
+        colours.green("[INFO]") +
         ` fs was updated from 0.53.0 to ${latestStdRelease}\n`,
     );
     assertEquals(stderr, "");
