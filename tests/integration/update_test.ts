@@ -584,3 +584,58 @@ Deno.test({
     defaultDepsBackToOriginal("out-of-date-deps");
   },
 });
+
+Deno.test({
+  name:
+    "Update | all | Will update all dependencies when a file option is given",
+  async fn(): Promise<void> {
+    defaultDepsBackToOriginal("out-of-date-deps");
+    const p = await Deno.run({
+      cmd: [
+        "deno",
+        "run",
+        "--allow-net",
+        "--allow-read",
+        "--allow-write",
+        "../../../mod.ts",
+        "update",
+        "../out-of-date-deps/deps.ts",
+        "fs",
+      ],
+      cwd: upToDateDepsDir,
+      stdout: "piped",
+      stderr: "piped",
+    });
+    const status = await p.status();
+    const output = await p.output();
+    await p.close();
+    const stdout = new TextDecoder("utf-8").decode(output);
+    const error = await p.stderrOutput();
+    const stderr = new TextDecoder("utf-8").decode(error);
+    console.log(stderr);
+    assertEquals(
+      stdout,
+      colours.blue("INFO") +
+        " Reading deps.ts to gather your dependencies...\n" +
+        colours.blue("INFO") + " Checking if your modules can be updated...\n" +
+        colours.blue("INFO") +
+        ` fs was updated from 0.53.0 to ${latestStdRelease}\n`,
+    );
+    assertEquals(stderr, "");
+    assertEquals(status.code, 0);
+    assertEquals(status.success, true);
+    const originalDepContent = new TextDecoder("utf-8").decode(
+      Deno.readFileSync(outOfDateOriginalDepsFile),
+    );
+    const newDepContent = new TextDecoder("utf-8").decode(
+      Deno.readFileSync(outOfDateDepsFile),
+    );
+    assertEquals(newDepContent !== originalDepContent, true);
+    assertEquals(
+      newDepContent.indexOf(`std@${latestStdRelease}/fs`) !==
+        -1,
+      true,
+    );
+    defaultDepsBackToOriginal("out-of-date-deps");
+  },
+});

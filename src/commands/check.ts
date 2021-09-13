@@ -1,52 +1,55 @@
-import { ConsoleLogger } from "../../deps.ts";
 import ModuleService from "../services/module_service.ts";
 
-/**
- * Reads the dependency file(s) and checks if dependencies are out of date
- *     - If `dependencies` passed in, it will only  check those deps inside the dep file
- *     - If `dependencies` is empty, checks all
- *
- * @param dependencies - A list of dependencies (module names) to check
- */
-export async function check(dependencies: string[]): Promise<void> {
-  // Create objects for each dep, with its name and version
-  const allModules = await ModuleService.constructModulesDataFromDeps();
-  const selectedModules = allModules.filter((module) => {
-    if (dependencies.length) { // only return selected modules of selecting is set
-      return dependencies.indexOf(module.name) > -1;
-    } else {
-      return true;
-    }
-  });
+import { ConsoleLogger, Subcommand } from "../../deps.ts";
 
-  if (selectedModules.length === 0) {
-    ConsoleLogger.error(
-      "Modules specified do not exist in your dependencies.",
+export class CheckSubcommand extends Subcommand {
+  public signature = "check [...modules]";
+  public description =
+    "Check if the given dependencies you hold are outdated. Will check all if modules are omitted. Ex: dmm info; dmm info drash fs";
+
+  public async handle() {
+    const dependencies = Deno.args.filter((arg) => arg.indexOf("check") === -1);
+    // Create objects for each dep, with its name and version
+    const allModules = await ModuleService.constructModulesDataFromDeps(
+      "deps.ts",
     );
-    Deno.exit(1);
-  }
+    const selectedModules = allModules.filter((module) => {
+      if (dependencies.length) { // only return selected modules of selecting is set
+        return dependencies.indexOf(module.name) > -1;
+      } else {
+        return true;
+      }
+    });
 
-  // Compare imported and latest version
-  ConsoleLogger.info("Comparing versions...");
-  let depsCanBeUpdated: boolean = false;
-  const listOfModuleNamesToBeUpdated: string[] = [];
-  selectedModules.forEach((module) => {
-    if (module.importedVersion !== module.latestRelease) {
-      depsCanBeUpdated = true;
-      listOfModuleNamesToBeUpdated.push(module.name);
-      ConsoleLogger.info(
-        module.name + " can be updated from " + module.importedVersion +
-          " to " + module.latestRelease,
+    if (selectedModules.length === 0) {
+      ConsoleLogger.error(
+        "Modules specified do not exist in your dependencies.",
       );
+      Deno.exit(1);
     }
-  });
-  // Logging purposes
-  if (depsCanBeUpdated) {
-    ConsoleLogger.info(
-      "To update, run: \n    dmm update " +
-        listOfModuleNamesToBeUpdated.join(" "),
-    );
-  } else {
-    ConsoleLogger.info("Your dependencies are up to date");
+
+    // Compare imported and latest version
+    ConsoleLogger.info("Comparing versions...");
+    let depsCanBeUpdated: boolean = false;
+    const listOfModuleNamesToBeUpdated: string[] = [];
+    selectedModules.forEach((module) => {
+      if (module.importedVersion !== module.latestRelease) {
+        depsCanBeUpdated = true;
+        listOfModuleNamesToBeUpdated.push(module.name);
+        ConsoleLogger.info(
+          module.name + " can be updated from " + module.importedVersion +
+            " to " + module.latestRelease,
+        );
+      }
+    });
+    // Logging purposes
+    if (depsCanBeUpdated) {
+      ConsoleLogger.info(
+        "To update, run: \n    dmm update " +
+          listOfModuleNamesToBeUpdated.join(" "),
+      );
+    } else {
+      ConsoleLogger.info("Your dependencies are up to date");
+    }
   }
 }

@@ -49,14 +49,18 @@ export default class ModuleService {
    *     2. Adds a the github url to each object using Deno's database.json and the modules name
    *     3. Adds the latest version to each object using the github url
    *
+   * @param depsLocation - The location to the dependency file to read. Eg: "deps.ts" or "src/my_deps.ts"
+   *
    * @returns An array of objects, with each object containing information about each module
    */
-  public static async constructModulesDataFromDeps(): Promise<IModule[]> {
+  public static async constructModulesDataFromDeps(
+    depsLocation: string,
+  ): Promise<IModule[]> {
     // Solely read the users `deps.ts` file
     ConsoleLogger.info("Reading deps.ts to gather your dependencies...");
     const usersWorkingDir: string = Deno.realPathSync(".");
     const depsContent: string = new TextDecoder().decode(
-      Deno.readFileSync(usersWorkingDir + "/deps.ts"),
+      Deno.readFileSync(usersWorkingDir + "/" + depsLocation),
     ); // no need for a try/catch. The user needs a deps.ts file
 
     // Only select lines we support eg versioning and an actual import line
