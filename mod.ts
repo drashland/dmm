@@ -1,8 +1,6 @@
 import { Line } from "./deps.ts";
 import { version } from "./src/commands/version.ts";
 import { UpdateSubcommand } from "./src/commands/update.ts";
-import { InfoSubcommand } from "./src/commands/info.ts";
-import { CheckSubcommand } from "./src/commands/check.ts";
 
 const c = new Line({
   command: "dmm",
@@ -11,8 +9,6 @@ const c = new Line({
   version: `v${version}`,
   subcommands: [
     UpdateSubcommand,
-    InfoSubcommand,
-    CheckSubcommand,
   ],
 });
 
