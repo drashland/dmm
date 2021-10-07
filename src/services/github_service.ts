@@ -26,6 +26,7 @@ export default class GitHubService {
     githubUrl: string,
   ): Promise<string> {
     const res = await fetch(githubUrl + "/releases/latest");
+    await res.arrayBuffer()
     const url = res.url;
     const splitUrl = url.split("/");
     const latestVersion = splitUrl[splitUrl.length - 1];

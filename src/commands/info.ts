@@ -18,9 +18,11 @@ export class InfoSubcommand extends Subcommand {
       const stdResponse = await fetch(
         "https://github.com/denoland/deno_std/tree/master/" + moduleToGetInfoOn,
       );
+      await stdResponse.arrayBuffer()
       const thirdPartyResponse = await fetch(
         DenoService.DENO_CDN_URL + moduleToGetInfoOn + "/meta/versions.json",
       ); // Only used so we can check if the module exists
+      await thirdPartyResponse.arrayBuffer()
       const isStd = stdResponse.status === 200;
       const isThirdParty = thirdPartyResponse.status === 200;
       if (!isStd && !isThirdParty) {
