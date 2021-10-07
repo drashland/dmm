@@ -20,7 +20,6 @@ Deno.test({
     ); // regex to strip line break
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    // reference: https://regexr.com/39s32
     console.log(stdout);
     assertEquals(stdout, `Deno Module Manager v${version}`);
     assertEquals(stderr, "");

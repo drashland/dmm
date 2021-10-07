@@ -39,3 +39,6 @@ jobs:
         
       - name: Check Code FMT
         run: deno fmt --check
+
+      - name: Check Code Lint
+        run: deno lint
