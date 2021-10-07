@@ -30,7 +30,7 @@ export class CheckSubcommand extends Subcommand {
 
     // Compare imported and latest version
     ConsoleLogger.info("Comparing versions...");
-    let depsCanBeUpdated: boolean = false;
+    let depsCanBeUpdated = false;
     const listOfModuleNamesToBeUpdated: string[] = [];
     selectedModules.forEach((module) => {
       if (module.importedVersion !== module.latestRelease) {

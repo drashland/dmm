@@ -1,5 +1,3 @@
-import { version } from "../../src/commands/version.ts";
-
 export const expectedHelpMessage =
   `Deno Module Manager - Lightweight Deno module manager
 

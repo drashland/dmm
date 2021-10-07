@@ -68,6 +68,7 @@ Deno.test({
 // DATA PROVIDERS //////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+// deno-lint-ignore camelcase
 const data_depsStd = `workflow files
 
 deno: ["0.0.0"]
@@ -103,6 +104,7 @@ import * as colors from "https://deno.land/std@${latestVersions.deno_std}/fmt/co
 export { v4 } from "https://deno.land/std@${latestVersions.deno_std}/uuid/mod.ts"; // up to date
 `;
 
+// deno-lint-ignore camelcase
 const data_depsDrash = `workflow files
 
 deno: ["0.0.0"]
@@ -138,6 +140,7 @@ import * as colors from "https://deno.land/std@0.0.0/fmt/colors.ts"; // up to da
 export { v4 } from "https://deno.land/std@0.0.0/uuid/mod.ts"; // up to date
 `;
 
+// deno-lint-ignore camelcase
 const data_denoVersionsYml = `workflow files
 
 deno: ["${latestVersions.deno}"]
@@ -173,6 +176,7 @@ import * as colors from "https://deno.land/std@0.0.0/fmt/colors.ts"; // up to da
 export { v4 } from "https://deno.land/std@0.0.0/uuid/mod.ts"; // up to date
 `;
 
+// deno-lint-ignore camelcase
 const data_constStatements = `workflow files
 
 deno: ["0.0.0"]
@@ -208,6 +212,7 @@ import * as colors from "https://deno.land/std@0.0.0/fmt/colors.ts"; // up to da
 export { v4 } from "https://deno.land/std@0.0.0/uuid/mod.ts"; // up to date
 `;
 
+// deno-lint-ignore camelcase
 const data_eggJson = `workflow files
 
 deno: ["0.0.0"]

@@ -10,7 +10,6 @@ import {
   upToDateDepsFile,
   upToDateOriginalDepsFile,
 } from "./test_constants.ts";
-import { version } from "../../src/commands/version.ts";
 import GitHubService from "../../src/services/github_service.ts";
 
 const latestDrashRelease = await DenoService.getLatestModuleRelease(
@@ -35,26 +34,6 @@ function defaultDepsBackToOriginal(dir: string): void {
     Deno.readFileSync(pathToOriginal),
   );
   Deno.writeFileSync(pathToMain, new TextEncoder().encode(originalContent));
-}
-
-/**
- * @param dir eg "out-of-date-deps"
- */
-function emptyDependencyFile(dir: string): void {
-  const path = "tests/" + dir + "/deps.ts";
-  Deno.writeFileSync(path, new TextEncoder().encode(""));
-}
-
-/**
- * @param dir eg "out-of-date-deps" --> "tests/out-of-date-deps/deps.ts
- */
-function removeDependencyFile(dir: string): void {
-  try {
-    const path = "tests/" + dir + "/deps.ts";
-    Deno.removeSync(path);
-  } catch (err) {
-    // do nothing
-  }
 }
 
 Deno.test({
