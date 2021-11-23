@@ -59,9 +59,9 @@ Deno.test({
       stdout,
       colours.blue("INFO") + " Information on drash\n\n" +
         "  - Name: drash\n" +
-        "  - Description: A REST microframework for Deno's HTTP server with zero 3rd party dependencies\n" +
+        "  - Description: A microframework for Deno's HTTP server with zero third-party dependencies\n" +
         `  - deno.land Link: https://deno.land/x/drash@${latestDrashRelease}\n` +
-        "  - Repository: https://github.com/drashland/deno-drash\n" +
+        "  - Repository: https://github.com/drashland/drash\n" +
         `  - Import Statement: import * as drash from \"https://deno.land/x/drash@${latestDrashRelease}\";\n` +
         `  - Latest Version: ${latestDrashRelease}\n` +
         "\n",
@@ -147,9 +147,9 @@ Deno.test({
 ${colours.blue("INFO")} Information on drash
 
   - Name: drash
-  - Description: A REST microframework for Deno's HTTP server with zero 3rd party dependencies
+  - Description: A microframework for Deno's HTTP server with zero third-party dependencies
   - deno.land Link: https://deno.land/x/drash@${latestDrashRelease}
-  - Repository: https://github.com/drashland/deno-drash
+  - Repository: https://github.com/drashland/drash
   - Import Statement: import * as drash from "https://deno.land/x/drash@${latestDrashRelease}";
   - Latest Version: ${latestDrashRelease}
 
