@@ -30,10 +30,7 @@ const latestWocketRelease = await GitHubService.getLatestModuleRelease(
 function defaultDepsBackToOriginal(dir: string): void {
   const pathToOriginal = "tests/integration/" + dir + "/original_deps.ts";
   const pathToMain = "tests/integration/" + dir + "/deps.ts";
-  const originalContent = new TextDecoder().decode(
-    Deno.readFileSync(pathToOriginal),
-  );
-  Deno.writeFileSync(pathToMain, new TextEncoder().encode(originalContent));
+  Deno.copyFileSync(pathToOriginal, pathToMain);
 }
 
 Deno.test({
