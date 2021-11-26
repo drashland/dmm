@@ -1,6 +1,5 @@
 import { assertEquals } from "../../../deps.ts";
 import {
-  bumperFiles,
   preReleaseFiles,
 } from "../../../console/bumper_ci_service_files.ts";
 import { BumperService } from "../../../deps.ts";
@@ -13,36 +12,6 @@ const c = new BumperService("dmm", ["--version=1.2.3"]);
 
 const latestVersions = await b.getLatestVersions();
 const latestVersionDrash = await c.getModulesLatestVersion("drash");
-
-Deno.test({
-  name: "Bumper CI Service | bumps std versions in deps files correctly",
-  async fn(): Promise<void> {
-    const file = bumperFiles[0];
-    file.filename = "./tests/data/pattern_types.txt";
-    const bumped = await b.bump([file], false);
-    assertEquals(bumped[0], data_depsStd);
-  },
-});
-
-Deno.test({
-  name: "Bumper CI Service | bumps drash versions in deps files correctly",
-  async fn(): Promise<void> {
-    const file = bumperFiles[1];
-    file.filename = "./tests/data/pattern_types.txt";
-    const bumped = await b.bump([file], false);
-    assertEquals(bumped[0], data_depsDrash);
-  },
-});
-
-Deno.test({
-  name: "Bumper CI Service | bumps deno versions in yml files correctly",
-  async fn(): Promise<void> {
-    const file = bumperFiles[2];
-    file.filename = "./tests/data/pattern_types.txt";
-    const bumped = await b.bump([file], false);
-    assertEquals(bumped[0], data_denoVersionsYml);
-  },
-});
 
 Deno.test({
   name: "Bumper CI Service | bumps eggs.json correctly",
