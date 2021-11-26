@@ -16,7 +16,7 @@ export const regexes = {
 
 export const preReleaseFiles: {
   filename: string;
-  replaceTheRegex: RegExp,
+  replaceTheRegex: RegExp;
   replaceWith: string;
 }[] = [
   {
