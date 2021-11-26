@@ -20,7 +20,7 @@ interface IFile {
   replaceWith: string;
 }
 
-export const preReleaseFiles = [
+export const preReleaseFiles: IFile[] = [
   {
     filename: "./egg.json",
     replaceTheRegex: regexes.egg_json,
@@ -32,5 +32,3 @@ export const preReleaseFiles = [
     replaceWith: `version = "{{ thisModulesLatestVersion }}"`,
   },
 ];
-
-export const bumperFiles: IFile[] = [];
