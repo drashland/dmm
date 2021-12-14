@@ -1,29 +1,21 @@
-import { ConsoleLogger, Subcommand } from "../../deps.ts";
+import { ConsoleLogger, Line } from "../../deps.ts";
 import ModuleService from "../services/module_service.ts";
 
-export class UpdateSubcommand extends Subcommand {
-  public signature = "update [deps_location] [module]";
+export class UpdateSubcommand extends Line.Subcommand {
+  public signature = "update [deps_location]";
   public description =
-    "Update all dependencies in the `deps.ts` file in your CWD, or specify certain modules to update or a location to a dependency file.";
+    "Update all dependencies in the `deps.ts` file in your CWD, or specify a location to a dependency file.";
+  public arguments = {
+    "deps_location": "Path to your dependency file. Optional.",
+  };
 
   public async handle() {
-    const depsLocation = Deno.args.find((arg) => arg.indexOf(".ts") > -1) ??
-      "deps.ts";
-    const dependencies = Deno.args.filter((arg) =>
-      arg.indexOf(".ts") === -1 && arg.indexOf("update") === -1
-    ); // Line doesnt allow us to get a n number of args whereby they can be optional
+    const depsLocation = this.argument("deps_location") ?? "deps.ts";
+    // Line doesnt allow us to get a n number of args whereby they can be optional
     // Create objects for each dep, with its name and version
-    const allModules = await ModuleService.constructModulesDataFromDeps(
+    const modules = await ModuleService.constructModulesDataFromDeps(
       depsLocation,
     );
-    const modules = allModules.filter((module) => {
-      if (dependencies.length) { // only return selected modules of selecting is set
-        return dependencies.indexOf(module.name) > -1;
-      } else {
-        return true;
-      }
-    });
-
     if (modules.length === 0) {
       ConsoleLogger.error(
         "Modules specified do not exist in your dependencies.",

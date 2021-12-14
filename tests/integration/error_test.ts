@@ -51,8 +51,8 @@ Deno.test({
     const stderr = new TextDecoder("utf-8").decode(error);
     assertEquals(
       stdout,
-      colours.red("ERROR") +
-        ' Unknown input "something" specified.\n\nAVAILABLE OPTIONS\n\n    -h, --help\n    -v, --version\n\nAVAILABLE SUBCOMMANDS\n\n    update\n\n',
+      colours.red("[ERROR] ") +
+        'Command \'dmm\' used incorrectly. Error(s) found:\n\n  * Unknown argument(s) provided: something.\n\nUSAGE\n\n    dmm [option]\n    dmm [subcommand]\n\n    Run `dmm --help` for more information.\n',
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 1);
