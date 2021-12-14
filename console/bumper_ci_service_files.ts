@@ -14,11 +14,13 @@ export const regexes = {
   dmm_raw_github: /dmm\/v[0-9\.]+[0-9\.]+[0-9\.]/g,
 };
 
-export const preReleaseFiles: {
+interface IFile {
   filename: string;
   replaceTheRegex: RegExp;
   replaceWith: string;
-}[] = [
+}
+
+export const preReleaseFiles: IFile[] = [
   {
     filename: "./egg.json",
     replaceTheRegex: regexes.egg_json,
