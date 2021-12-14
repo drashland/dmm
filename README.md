@@ -19,17 +19,14 @@
 
 ---
 
-`dmm` is a Deno module manager. It can update your `deps.ts` file, check if any
-of your dependencies are out of date, and give you information about any module
-in the Deno world. Managing your dependencies hasn't been easier.
+`dmm` is a simple CLI tool to bump your dependencies from your `deps.ts` to
+their latest versions.
 
 ### Features
 
 - Zero 3rd party dependencies
 - Easy and simple to use
-- Checks dependencies for newer versions
 - Will update your dependencies for you
-- Gives information on modules
 - Accounts for 3rd party and Deno Standard modules
 - Installation is optional
 - No variants of `node_modules` and `package.json`

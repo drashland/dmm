@@ -14,9 +14,5 @@ SUBCOMMANDS
 
     update
         Update all dependencies in the \`deps.ts\` file in your CWD, or specify certain modules to update or a location to a dependency file.
-    info
-        Get information about any number of given dependencies.
-    check
-        Check if the given dependencies you hold are outdated. Will check all if modules are omitted. Ex: dmm info; dmm info drash fs
 
 `;

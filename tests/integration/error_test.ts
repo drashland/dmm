@@ -52,7 +52,7 @@ Deno.test({
     assertEquals(
       stdout,
       colours.red("ERROR") +
-        ' Unknown input "something" specified.\n\nAVAILABLE OPTIONS\n\n    -h, --help\n    -v, --version\n\nAVAILABLE SUBCOMMANDS\n\n    update\n    info\n    check\n\n',
+        ' Unknown input "something" specified.\n\nAVAILABLE OPTIONS\n\n    -h, --help\n    -v, --version\n\nAVAILABLE SUBCOMMANDS\n\n    update\n\n',
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 1);
