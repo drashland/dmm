@@ -14,7 +14,11 @@ export const regexes = {
   dmm_raw_github: /dmm\/v[0-9\.]+[0-9\.]+[0-9\.]/g,
 };
 
-export const preReleaseFiles = [
+export const preReleaseFiles: {
+  filename: string;
+  replaceTheRegex: RegExp;
+  replaceWith: string;
+}[] = [
   {
     filename: "./egg.json",
     replaceTheRegex: regexes.egg_json,
@@ -26,5 +30,3 @@ export const preReleaseFiles = [
     replaceWith: `version = "{{ thisModulesLatestVersion }}"`,
   },
 ];
-
-export const bumperFiles = [];
