@@ -3,16 +3,19 @@ export const expectedHelpMessage =
 
 USAGE
 
-    dmm [option | [[subcommand] [args] [deno flags] [options]]]
-
-OPTIONS
-
-    -h, --help    Show this menu.
-    -v, --version Show this CLI's version.
+    dmm [option]
+    dmm [subcommand]
 
 SUBCOMMANDS
 
     update
-        Update all dependencies in the \`deps.ts\` file in your CWD, or specify certain modules to update or a location to a dependency file.
+        Update all dependencies in the \`deps.ts\` file in your CWD, or specify a location to a dependency file.
+
+OPTIONS
+
+    -h, --help
+        Show this menu.
+    -v, --version
+        Show this CLI's version.
 
 `;
