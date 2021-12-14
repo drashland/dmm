@@ -52,7 +52,7 @@ Deno.test({
     assertEquals(
       stdout,
       colours.red("[ERROR] ") +
-        'Command \'dmm\' used incorrectly. Error(s) found:\n\n  * Unknown argument(s) provided: something.\n\nUSAGE\n\n    dmm [option]\n    dmm [subcommand]\n\n    Run `dmm --help` for more information.\n',
+        "Command 'dmm' used incorrectly. Error(s) found:\n\n  * Unknown argument(s) provided: something.\n\nUSAGE\n\n    dmm [option]\n    dmm [subcommand]\n\n    Run `dmm --help` for more information.\n",
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 1);

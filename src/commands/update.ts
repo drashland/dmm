@@ -2,15 +2,16 @@ import { ConsoleLogger, Line } from "../../deps.ts";
 import ModuleService from "../services/module_service.ts";
 
 export class UpdateSubcommand extends Line.Subcommand {
-  public signature = "update [deps_location]";
+  public signature = "update";
   public description =
     "Update all dependencies in the `deps.ts` file in your CWD, or specify a location to a dependency file.";
-  public arguments = {
-    "deps_location": "Path to your dependency file. Optional.",
+  public options = {
+    "-F [value], --deps-file [value]":
+      "Path to your dependency file. Optional.",
   };
 
   public async handle() {
-    const depsLocation = this.argument("deps_location") ?? "deps.ts";
+    const depsLocation = this.option("--deps-file")?.toString() ?? "deps.ts";
     // Line doesnt allow us to get a n number of args whereby they can be optional
     // Create objects for each dep, with its name and version
     const modules = await ModuleService.constructModulesDataFromDeps(

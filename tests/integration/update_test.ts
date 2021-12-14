@@ -148,8 +148,6 @@ Deno.test({
   },
 });
 
-
-
 Deno.test({
   name:
     "Update | all | Will update all dependencies when a file option is given",
@@ -164,6 +162,7 @@ Deno.test({
         "--allow-write",
         "../../../mod.ts",
         "update",
+        "--deps-file",
         "../out-of-date-deps/deps.ts",
       ],
       cwd: upToDateDepsDir,
@@ -184,7 +183,19 @@ Deno.test({
         colours.green("[INFO]") +
         " Checking if your modules can be updated...\n" +
         colours.green("[INFO]") +
-        ` fs was updated from 0.53.0 to ${latestStdRelease}\n`,
+        ` drash was updated from v1.0.0 to ${latestDrashRelease}\n` +
+        colours.green("[INFO]") +
+        ` fs was updated from 0.53.0 to ${latestStdRelease}\n` +
+        colours.green("[INFO]") +
+        ` fmt was updated from 0.53.0 to ${latestStdRelease}\n` +
+        colours.green("[INFO]") +
+        ` cliffy was updated from 0.11.2 to ${latestCliffyRelease}\n` +
+        colours.green("[INFO]") +
+        ` log was updated from 0.53.0 to ${latestStdRelease}\n` +
+        colours.green("[INFO]") +
+        ` uuid was updated from 0.61.0 to ${latestStdRelease}\n` +
+        colours.green("[INFO]") +
+        ` wocket was updated from v0.4.0 to ${latestWocketRelease}\n`,
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
