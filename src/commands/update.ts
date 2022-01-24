@@ -26,10 +26,9 @@ export class UpdateSubcommand extends Line.Subcommand {
 
     // Check for updates and rewrite `deps.ts` if needed
     ConsoleLogger.info("Checking if your modules can be updated...");
-    const usersWorkingDir: string = Deno.realPathSync(".");
     let depsWereUpdated = false;
     let depsContent: string = new TextDecoder().decode(
-      Deno.readFileSync(usersWorkingDir + "/" + depsLocation),
+      Deno.readFileSync("./" + depsLocation),
     ); // no need for a try/catch. The user needs a deps.ts file
 
     // Update the file content
@@ -60,7 +59,7 @@ export class UpdateSubcommand extends Line.Subcommand {
 
     // Re-write the file
     Deno.writeFileSync(
-      usersWorkingDir + "/" + depsLocation,
+      "./" + depsLocation,
       new TextEncoder().encode(depsContent),
     );
 

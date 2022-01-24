@@ -58,9 +58,8 @@ export default class ModuleService {
   ): Promise<IModule[]> {
     // Solely read the users `deps.ts` file
     ConsoleLogger.info("Reading deps.ts to gather your dependencies...");
-    const usersWorkingDir: string = Deno.realPathSync(".");
     const depsContent: string = new TextDecoder().decode(
-      Deno.readFileSync(usersWorkingDir + "/" + depsLocation),
+      Deno.readFileSync("./" + depsLocation),
     ); // no need for a try/catch. The user needs a deps.ts file
 
     // Only select lines we support eg versioning and an actual import line
