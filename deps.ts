@@ -3,5 +3,5 @@ export * as Line from "https://deno.land/x/line@v1.0.0/mod.ts";
 import { ConsoleLogger } from "https://deno.land/x/unilogger@v1.0.4/mod.ts";
 const consoleLogger = new ConsoleLogger({});
 export { consoleLogger as ConsoleLogger };
-export { assertEquals } from "https://deno.land/std@0.127.0/testing/asserts.ts";
-export * as colours from "https://deno.land/std@0.127.0/fmt/colors.ts";
+export { assertEquals } from "https://deno.land/std@0.128.0/testing/asserts.ts";
+export * as colours from "https://deno.land/std@0.128.0/fmt/colors.ts";
