@@ -12,14 +12,17 @@ export class UpdateSubcommand extends Line.Subcommand {
 
   public async handle() {
     const depsLocation = this.option("--deps-file")?.toString() ?? "deps.ts";
+    let depsContent = new TextDecoder().decode(
+      Deno.readFileSync("./" + depsLocation),
+    ); // no need for a try/catch. The user needs a deps.ts file
     // Line doesnt allow us to get a n number of args whereby they can be optional
     // Create objects for each dep, with its name and version
     const modules = await ModuleService.constructModulesDataFromDeps(
-      depsLocation,
+      depsContent,
     );
     if (modules.length === 0) {
       ConsoleLogger.error(
-        "Modules specified do not exist in your dependencies.",
+        "No valid versionable modules exist in your dependency file.",
       );
       Deno.exit(1);
     }
@@ -27,9 +30,6 @@ export class UpdateSubcommand extends Line.Subcommand {
     // Check for updates and rewrite `deps.ts` if needed
     ConsoleLogger.info("Checking if your modules can be updated...");
     let depsWereUpdated = false;
-    let depsContent: string = new TextDecoder().decode(
-      Deno.readFileSync("./" + depsLocation),
-    ); // no need for a try/catch. The user needs a deps.ts file
 
     // Update the file content
     modules.forEach((module) => {
