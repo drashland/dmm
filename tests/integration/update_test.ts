@@ -154,8 +154,7 @@ Deno.test({
 });
 
 Deno.test({
-  name:
-    "Should update when a custom dependency file path is given",
+  name: "Should update when a custom dependency file path is given",
   async fn(): Promise<void> {
     defaultDepsBackToOriginal("out-of-date-deps");
     const p = await Deno.run({
