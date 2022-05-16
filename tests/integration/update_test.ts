@@ -18,6 +18,9 @@ const latestDrashRelease = await DenoService.getLatestModuleRelease(
 const latestCliffyRelease = await NestService.getLatestModuleRelease(
   "cliffy",
 );
+const latestDiscordDenoRelease = await DenoService.getLatestModuleRelease(
+  "discordeno",
+);
 const latestStdRelease = await DenoService.getLatestModuleRelease("std");
 
 const latestWocketRelease = await GitHubService.getLatestModuleRelease(
@@ -74,7 +77,9 @@ Deno.test({
       colours.green("[INFO]") +
       ` uuid was updated from 0.61.0 to ${latestStdRelease}\n` +
       colours.green("[INFO]") +
-      ` wocket was updated from v0.4.0 to ${latestWocketRelease}\n`;
+      ` wocket was updated from v0.4.0 to ${latestWocketRelease}\n` +
+      colours.green("[INFO]") +
+      ` discordeno was updated from 13.0.0-rc34 to ${latestDiscordDenoRelease}\n`;
     assertEquals(stdout, assertedOutput);
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -175,7 +180,6 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    console.log(stderr);
     assertEquals(
       stdout,
       colours.green("[INFO]") +
@@ -195,7 +199,9 @@ Deno.test({
         colours.green("[INFO]") +
         ` uuid was updated from 0.61.0 to ${latestStdRelease}\n` +
         colours.green("[INFO]") +
-        ` wocket was updated from v0.4.0 to ${latestWocketRelease}\n`,
+        ` wocket was updated from v0.4.0 to ${latestWocketRelease}\n` +
+        colours.green("[INFO]") +
+        ` discordeno was updated from 13.0.0-rc34 to ${latestDiscordDenoRelease}\n`,
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);

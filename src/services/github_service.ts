@@ -28,8 +28,8 @@ export default class GitHubService {
     const res = await fetch(githubUrl + "/releases/latest");
     await res.arrayBuffer();
     const url = res.url;
-    const splitUrl = url.split("/");
-    const latestVersion = splitUrl[splitUrl.length - 1];
+    const splitUrl = url.split("/v")[1];
+    const latestVersion = "v" + splitUrl;
     return latestVersion;
   }
 

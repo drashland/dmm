@@ -9,7 +9,14 @@ const supportedUrls = [
   "https://x.nest.land",
   "https://raw.githubusercontent.com",
 ];
-const importVersionRegex = /(v)?[0-9\.]+[0-9\.]+[0-9]/g;
+const getImportedVersion = (line: string): string => {
+  if (!line.match(/@v?/) && !line.includes("/v")) {
+    return "";
+  }
+  line = line.split("@")[1] ?? "v" + line.split("/v")[1];
+  const version = line.split("/")[0];
+  return version;
+};
 
 export default class ModuleService {
   /**
@@ -64,8 +71,8 @@ export default class ModuleService {
 
     // Only select lines we support eg versioning and an actual import line
     const listOfDeps: string[] = depsContent.split("\n").filter((line) => {
-      const regexMatch = line.match(importVersionRegex);
-      const usesVersioning = regexMatch && regexMatch.length > 0;
+      const version = getImportedVersion(line);
+      const usesVersioning = version !== "";
       let hasSupportedUrl = false;
       supportedUrls.forEach((supportedUrl) => {
         if (line.indexOf(supportedUrl) > -1) {
@@ -98,15 +105,6 @@ export default class ModuleService {
     return allModules;
   }
 
-  private static getImportedVersionFromImportLine(importLine: string): string {
-    const importVersionRegexResult = importLine.match(importVersionRegex);
-    const importedVersion: string = importVersionRegexResult !== null &&
-        importVersionRegexResult.length > 0
-      ? importVersionRegexResult[0]
-      : "";
-    return importedVersion;
-  }
-
   private static async constructDataForGithubImport(
     importLine: string,
   ): Promise<IModule> {
@@ -115,9 +113,7 @@ export default class ModuleService {
       importLine.indexOf("https://"),
       importLine.indexOf(".ts") + 3, // to include the `.ts`
     );
-    const importedVersion = ModuleService.getImportedVersionFromImportLine(
-      importLine,
-    );
+    const importedVersion = getImportedVersion(importLine);
     const repoNameVersionAndFile =
       importLine.split("https://raw.githubusercontent.com/")[1];
     const name = repoNameVersionAndFile.split("/")[1];
@@ -151,9 +147,7 @@ export default class ModuleService {
       importLine.indexOf("https://"),
       importLine.indexOf(".ts") + 3, // to include the `.ts`
     );
-    const importedVersion = ModuleService.getImportedVersionFromImportLine(
-      importLine,
-    );
+    const importedVersion = getImportedVersion(importLine);
     let name = "";
     if (isStd) {
       const nameAndFile = importLine.split("@" + importedVersion + "/")[1];
@@ -187,9 +181,7 @@ export default class ModuleService {
       importLine.indexOf("https://"),
       importLine.indexOf(".ts") + 3, // to include the `.ts`
     );
-    const importedVersion = ModuleService.getImportedVersionFromImportLine(
-      importLine,
-    );
+    const importedVersion = getImportedVersion(importLine);
     let name = "";
     if (isStd) {
       const nameAndFile = importLine.split("@" + importedVersion + "/")[1];
