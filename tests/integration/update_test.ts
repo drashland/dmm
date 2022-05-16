@@ -37,7 +37,7 @@ function defaultDepsBackToOriginal(dir: string): void {
 }
 
 Deno.test({
-  name: "Update | All | Modules to Update Exist",
+  name: "Should update modules",
   async fn(): Promise<void> {
     defaultDepsBackToOriginal("out-of-date-deps");
     const p = await Deno.run({
@@ -110,7 +110,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "Update | All | Modules to Update Don't Exist",
+  name: "Should be OK if no modules need to be updated",
   async fn(): Promise<void> {
     const p = await Deno.run({
       cmd: [
@@ -155,7 +155,7 @@ Deno.test({
 
 Deno.test({
   name:
-    "Update | all | Will update all dependencies when a file option is given",
+    "Should update when a custom dependency file path is given",
   async fn(): Promise<void> {
     defaultDepsBackToOriginal("out-of-date-deps");
     const p = await Deno.run({
