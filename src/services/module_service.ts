@@ -1,5 +1,5 @@
 import IModule from "../interfaces/module.ts";
-import { colours, ConsoleLogger } from "../../deps.ts";
+import { ConsoleLogger } from "../../deps.ts";
 import DenoService from "../services/deno_service.ts";
 import NestService from "../services/nest_service.ts";
 import GitHubService from "../services/github_service.ts";
@@ -123,13 +123,7 @@ export default class ModuleService {
       importedVersion,
       await GitHubService.getLatestModuleRelease(repositoryUrl),
     );
-    const repository = repoNameVersionAndFile.split("/")[0];
-    const description = await GitHubService.getThirdPartyDescription(
-      repository,
-      name,
-    );
     return {
-      description,
       latestRelease,
       repositoryUrl,
       name,
@@ -161,9 +155,7 @@ export default class ModuleService {
       importedVersion,
       await NestService.getLatestModuleRelease(name),
     );
-    const description = await NestService.getThirdPartyDescription(name);
     return {
-      description,
       latestRelease,
       repositoryUrl,
       name,
@@ -198,14 +190,7 @@ export default class ModuleService {
       importedVersion,
       await DenoService.getLatestModuleRelease(isStd ? "std" : name),
     );
-    // Get the description
-    const description: string = !isStd
-      ? await DenoService.getThirdPartyDescription(name)
-      : colours.red(
-        "Descriptions for std modules are not currently supported",
-      );
     return {
-      description,
       latestRelease,
       repositoryUrl,
       name,
