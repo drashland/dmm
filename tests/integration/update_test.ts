@@ -61,7 +61,7 @@ Deno.test({
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
     const assertedOutput = colours.green("[INFO]") +
-      " Reading deps.ts to gather your dependencies...\n" +
+      " Gathering information on your dependencies...\n" +
       colours.green("[INFO]") +
       " Checking if your modules can be updated...\n" +
       colours.green("[INFO]") +
@@ -135,7 +135,7 @@ Deno.test({
     assertEquals(
       stdout,
       colours.green("[INFO]") +
-        " Reading deps.ts to gather your dependencies...\n" +
+        " Gathering information on your dependencies...\n" +
         colours.green("[INFO]") +
         " Checking if your modules can be updated...\n" +
         colours.green("[INFO]") + " Everything is already up to date\n",
@@ -183,7 +183,7 @@ Deno.test({
     assertEquals(
       stdout,
       colours.green("[INFO]") +
-        " Reading deps.ts to gather your dependencies...\n" +
+        " Gathering information on your dependencies...\n" +
         colours.green("[INFO]") +
         " Checking if your modules can be updated...\n" +
         colours.green("[INFO]") +
