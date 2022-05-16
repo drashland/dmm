@@ -3,7 +3,7 @@ import { upToDateDepsDir } from "./test_constants.ts";
 import { version } from "../../src/commands/version.ts";
 
 Deno.test({
-  name: "Version",
+  name: "Should output the version correctly",
   async fn(): Promise<void> {
     const p = await Deno.run({
       cmd: ["deno", "run", "--allow-net", "../../../mod.ts", "--version"],
@@ -20,7 +20,6 @@ Deno.test({
     ); // regex to strip line break
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    console.log(stdout);
     assertEquals(stdout, `Deno Module Manager v${version}`);
     assertEquals(stderr, "");
     assertEquals(status.code, 0);

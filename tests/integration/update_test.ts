@@ -18,6 +18,9 @@ const latestDrashRelease = await DenoService.getLatestModuleRelease(
 const latestCliffyRelease = await NestService.getLatestModuleRelease(
   "cliffy",
 );
+const latestDiscordDenoRelease = await DenoService.getLatestModuleRelease(
+  "discordeno",
+);
 const latestStdRelease = await DenoService.getLatestModuleRelease("std");
 
 const latestWocketRelease = await GitHubService.getLatestModuleRelease(
@@ -34,7 +37,7 @@ function defaultDepsBackToOriginal(dir: string): void {
 }
 
 Deno.test({
-  name: "Update | All | Modules to Update Exist",
+  name: "Should update modules",
   async fn(): Promise<void> {
     defaultDepsBackToOriginal("out-of-date-deps");
     const p = await Deno.run({
@@ -58,7 +61,7 @@ Deno.test({
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
     const assertedOutput = colours.green("[INFO]") +
-      " Reading deps.ts to gather your dependencies...\n" +
+      " Gathering information on your dependencies...\n" +
       colours.green("[INFO]") +
       " Checking if your modules can be updated...\n" +
       colours.green("[INFO]") +
@@ -74,7 +77,9 @@ Deno.test({
       colours.green("[INFO]") +
       ` uuid was updated from 0.61.0 to ${latestStdRelease}\n` +
       colours.green("[INFO]") +
-      ` wocket was updated from v0.4.0 to ${latestWocketRelease}\n`;
+      ` wocket was updated from v0.4.0 to ${latestWocketRelease}\n` +
+      colours.green("[INFO]") +
+      ` discordeno was updated from 13.0.0-rc34 to ${latestDiscordDenoRelease}\n`;
     assertEquals(stdout, assertedOutput);
     assertEquals(stderr, "");
     assertEquals(status.code, 0);
@@ -105,7 +110,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "Update | All | Modules to Update Don't Exist",
+  name: "Should be OK if no modules need to be updated",
   async fn(): Promise<void> {
     const p = await Deno.run({
       cmd: [
@@ -130,7 +135,7 @@ Deno.test({
     assertEquals(
       stdout,
       colours.green("[INFO]") +
-        " Reading deps.ts to gather your dependencies...\n" +
+        " Gathering information on your dependencies...\n" +
         colours.green("[INFO]") +
         " Checking if your modules can be updated...\n" +
         colours.green("[INFO]") + " Everything is already up to date\n",
@@ -149,8 +154,7 @@ Deno.test({
 });
 
 Deno.test({
-  name:
-    "Update | all | Will update all dependencies when a file option is given",
+  name: "Should update when a custom dependency file path is given",
   async fn(): Promise<void> {
     defaultDepsBackToOriginal("out-of-date-deps");
     const p = await Deno.run({
@@ -175,11 +179,10 @@ Deno.test({
     const stdout = new TextDecoder("utf-8").decode(output);
     const error = await p.stderrOutput();
     const stderr = new TextDecoder("utf-8").decode(error);
-    console.log(stderr);
     assertEquals(
       stdout,
       colours.green("[INFO]") +
-        " Reading deps.ts to gather your dependencies...\n" +
+        " Gathering information on your dependencies...\n" +
         colours.green("[INFO]") +
         " Checking if your modules can be updated...\n" +
         colours.green("[INFO]") +
@@ -195,7 +198,9 @@ Deno.test({
         colours.green("[INFO]") +
         ` uuid was updated from 0.61.0 to ${latestStdRelease}\n` +
         colours.green("[INFO]") +
-        ` wocket was updated from v0.4.0 to ${latestWocketRelease}\n`,
+        ` wocket was updated from v0.4.0 to ${latestWocketRelease}\n` +
+        colours.green("[INFO]") +
+        ` discordeno was updated from 13.0.0-rc34 to ${latestDiscordDenoRelease}\n`,
     );
     assertEquals(stderr, "");
     assertEquals(status.code, 0);

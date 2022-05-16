@@ -1,19 +1,3 @@
-interface nestModule {
-  name: string;
-  normalizedName: string;
-  owner: string;
-  description: string;
-  repository: string;
-  latestVersion: string;
-  latestStableVersion: string;
-  packageUploadNames: string[];
-  locked: boolean | null;
-  malicious: boolean | null;
-  unlisted: boolean;
-  updatedAt: string;
-  createdAt: string;
-}
-
 export default class NestService {
   /**
    * Url for Nest.Land's API link
@@ -31,32 +15,14 @@ export default class NestService {
     name: string,
   ): Promise<string> {
     const res = await fetch(NestService.NEST_API_URL + "package/" + name);
-    const json: nestModule = await res.json();
+    const json = await res.json() as {
+      latestVersion: string;
+    };
     const latestReleaseWithName = json.latestVersion;
     const latestRelease = latestReleaseWithName.substr(
       latestReleaseWithName.indexOf("@") + 1,
     );
     return latestRelease;
-  }
-
-  /**
-   * Fetches the description for a module
-   *
-   *     await getThirdPartyDescription("drash"); // "A REST microframework ..."
-   *
-   * @param importedModuleName - The imported module in which we want to get the description for
-   *
-   * @returns The description
-   */
-  public static async getThirdPartyDescription(
-    importedModuleName: string,
-  ): Promise<string> {
-    const res = await fetch(
-      NestService.NEST_API_URL + "package/" + importedModuleName,
-    );
-    const json: nestModule = await res.json();
-    const description = json.description;
-    return description;
   }
 
   /**
@@ -74,7 +40,9 @@ export default class NestService {
     const res = await fetch(
       NestService.NEST_API_URL + "package/" + importedModuleName,
     );
-    const json: nestModule = await res.json();
+    const json = await res.json() as {
+      repository: string;
+    };
     const repositoryUrl = json.repository;
     return repositoryUrl;
   }

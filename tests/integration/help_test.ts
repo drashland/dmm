@@ -3,7 +3,7 @@ import { upToDateDepsDir } from "./test_constants.ts";
 import { expectedHelpMessage } from "../data/expected_help_message.ts";
 
 Deno.test({
-  name: "Help",
+  name: "Should display the help text",
   async fn(): Promise<void> {
     const p = await Deno.run({
       cmd: ["deno", "run", "--allow-net", "../../../mod.ts", "--help"],

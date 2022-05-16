@@ -1,5 +1,5 @@
 import IModule from "../interfaces/module.ts";
-import { colours, ConsoleLogger } from "../../deps.ts";
+import { ConsoleLogger } from "../../deps.ts";
 import DenoService from "../services/deno_service.ts";
 import NestService from "../services/nest_service.ts";
 import GitHubService from "../services/github_service.ts";
@@ -9,7 +9,14 @@ const supportedUrls = [
   "https://x.nest.land",
   "https://raw.githubusercontent.com",
 ];
-const importVersionRegex = /(v)?[0-9\.]+[0-9\.]+[0-9]/g;
+const getImportedVersion = (line: string): string => {
+  if (!line.match(/@v?/) && !line.includes("/v")) {
+    return "";
+  }
+  line = line.split("@")[1] ?? "v" + line.split("/v")[1];
+  const version = line.split("/")[0];
+  return version;
+};
 
 export default class ModuleService {
   /**
@@ -49,23 +56,20 @@ export default class ModuleService {
    *     2. Adds a the github url to each object using Deno's database.json and the modules name
    *     3. Adds the latest version to each object using the github url
    *
-   * @param depsLocation - The location to the dependency file to read. Eg: "deps.ts" or "src/my_deps.ts"
+   * @param depsContent - The raw text content of the dependency file.
    *
    * @returns An array of objects, with each object containing information about each module
    */
   public static async constructModulesDataFromDeps(
-    depsLocation: string,
+    depsContent: string,
   ): Promise<IModule[]> {
     // Solely read the users `deps.ts` file
-    ConsoleLogger.info("Reading deps.ts to gather your dependencies...");
-    const depsContent: string = new TextDecoder().decode(
-      Deno.readFileSync("./" + depsLocation),
-    ); // no need for a try/catch. The user needs a deps.ts file
+    ConsoleLogger.info("Gathering information on your dependencies...");
 
     // Only select lines we support eg versioning and an actual import line
     const listOfDeps: string[] = depsContent.split("\n").filter((line) => {
-      const regexMatch = line.match(importVersionRegex);
-      const usesVersioning = regexMatch && regexMatch.length > 0;
+      const version = getImportedVersion(line);
+      const usesVersioning = version !== "";
       let hasSupportedUrl = false;
       supportedUrls.forEach((supportedUrl) => {
         if (line.indexOf(supportedUrl) > -1) {
@@ -98,15 +102,6 @@ export default class ModuleService {
     return allModules;
   }
 
-  private static getImportedVersionFromImportLine(importLine: string): string {
-    const importVersionRegexResult = importLine.match(importVersionRegex);
-    const importedVersion: string = importVersionRegexResult !== null &&
-        importVersionRegexResult.length > 0
-      ? importVersionRegexResult[0]
-      : "";
-    return importedVersion;
-  }
-
   private static async constructDataForGithubImport(
     importLine: string,
   ): Promise<IModule> {
@@ -115,9 +110,7 @@ export default class ModuleService {
       importLine.indexOf("https://"),
       importLine.indexOf(".ts") + 3, // to include the `.ts`
     );
-    const importedVersion = ModuleService.getImportedVersionFromImportLine(
-      importLine,
-    );
+    const importedVersion = getImportedVersion(importLine);
     const repoNameVersionAndFile =
       importLine.split("https://raw.githubusercontent.com/")[1];
     const name = repoNameVersionAndFile.split("/")[1];
@@ -127,13 +120,7 @@ export default class ModuleService {
       importedVersion,
       await GitHubService.getLatestModuleRelease(repositoryUrl),
     );
-    const repository = repoNameVersionAndFile.split("/")[0];
-    const description = await GitHubService.getThirdPartyDescription(
-      repository,
-      name,
-    );
     return {
-      description,
       latestRelease,
       repositoryUrl,
       name,
@@ -151,9 +138,7 @@ export default class ModuleService {
       importLine.indexOf("https://"),
       importLine.indexOf(".ts") + 3, // to include the `.ts`
     );
-    const importedVersion = ModuleService.getImportedVersionFromImportLine(
-      importLine,
-    );
+    const importedVersion = getImportedVersion(importLine);
     let name = "";
     if (isStd) {
       const nameAndFile = importLine.split("@" + importedVersion + "/")[1];
@@ -167,9 +152,7 @@ export default class ModuleService {
       importedVersion,
       await NestService.getLatestModuleRelease(name),
     );
-    const description = await NestService.getThirdPartyDescription(name);
     return {
-      description,
       latestRelease,
       repositoryUrl,
       name,
@@ -187,9 +170,7 @@ export default class ModuleService {
       importLine.indexOf("https://"),
       importLine.indexOf(".ts") + 3, // to include the `.ts`
     );
-    const importedVersion = ModuleService.getImportedVersionFromImportLine(
-      importLine,
-    );
+    const importedVersion = getImportedVersion(importLine);
     let name = "";
     if (isStd) {
       const nameAndFile = importLine.split("@" + importedVersion + "/")[1];
@@ -206,14 +187,7 @@ export default class ModuleService {
       importedVersion,
       await DenoService.getLatestModuleRelease(isStd ? "std" : name),
     );
-    // Get the description
-    const description: string = !isStd
-      ? await DenoService.getThirdPartyDescription(name)
-      : colours.red(
-        "Descriptions for std modules are not currently supported",
-      );
     return {
-      description,
       latestRelease,
       repositoryUrl,
       name,

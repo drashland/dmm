@@ -17,9 +17,6 @@
  *
  * latestRelease
  *     The latest release tag for the module
- *
- * description
- *     Description for the module.
  */
 export default interface IModule {
   std: boolean;
@@ -28,5 +25,4 @@ export default interface IModule {
   importUrl: string;
   repositoryUrl: string;
   latestRelease: string;
-  description: string;
 }
