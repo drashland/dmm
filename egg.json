@@ -2,7 +2,7 @@
   "name": "dmm",
   "description": "Lightweight Deno Module Manager",
   "homepage": "https://github.com/drashland/dmm",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "stable": true,
   "files": [
     "./mod.ts",
