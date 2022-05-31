@@ -26,7 +26,7 @@ jobs:
       - name: Ensure Permissions Work
         run: |
           cd tests/integration/out-of-date-deps
-          deno run --allow-read='deps.ts' --allow-write='deps.ts' --allow-net='x.nest.land,cdn.deno.land,api.deno.land,raw.githubusercontent.com,github.com,api.github.com' ../../../mod.ts update
+          deno run --allow-read='deps.ts' --allow-write='deps.ts' --allow-net='unpkg.com,x.nest.land,cdn.deno.land,api.deno.land,raw.githubusercontent.com,github.com,api.github.com' ../../../mod.ts update
   linting:
     # Doesn't need to be checked in all OS
     runs-on: ubuntu-latest
