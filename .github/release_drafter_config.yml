@@ -35,7 +35,7 @@ template: |
 
   * Install dmm as a command:
     ```
-    $ deno install --allow-net='x.nest.land,cdn.deno.land,api.deno.land,raw.githubusercontent.com,github.com,api.github.com' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v$RESOLVED_VERSION/mod.ts
+    $ deno install --allow-net='unpkg.com,x.nest.land,cdn.deno.land,api.deno.land,raw.githubusercontent.com,github.com,api.github.com' --allow-read='.' --allow-write='deps.ts' https://deno.land/x/dmm@v$RESOLVED_VERSION/mod.ts
     ```
   * Run the `dmm` command:
     ```

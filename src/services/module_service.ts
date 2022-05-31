@@ -3,11 +3,13 @@ import { ConsoleLogger } from "../../deps.ts";
 import DenoService from "../services/deno_service.ts";
 import NestService from "../services/nest_service.ts";
 import GitHubService from "../services/github_service.ts";
+import UnpkgService from "./unpkg_service.ts";
 
 const supportedUrls = [
   "https://deno.land",
   "https://x.nest.land",
   "https://raw.githubusercontent.com",
+  "https://unpkg.com",
 ];
 const getImportedVersion = (line: string): string => {
   if (!line.match(/@v?/) && !line.includes("/v")) {
@@ -97,9 +99,36 @@ export default class ModuleService {
         const data = await ModuleService.constructDataForGithubImport(dep);
         allModules.push(data);
       }
+
+      if (dep.includes("https://unpkg.com")) {
+        const data = await ModuleService.constructDataForUnpkgImport(dep);
+        allModules.push(data);
+      }
     }
 
     return allModules;
+  }
+
+  private static async constructDataForUnpkgImport(
+    importLine: string,
+  ): Promise<IModule> {
+    const importUrl: string = importLine.substring(
+      importLine.indexOf("https://"),
+      importLine.lastIndexOf('"'),
+    );
+    const importedVersion = getImportedVersion(importLine);
+    const name = importLine.match(/unpkg.com\/(.+?)@/)![1];
+    const latestRelease = ModuleService.standardiseVersion(
+      importedVersion,
+      await UnpkgService.getLatestModuleRelease(importUrl),
+    );
+    return {
+      latestRelease,
+      name,
+      std: false,
+      importedVersion,
+      importUrl,
+    };
   }
 
   private static async constructDataForGithubImport(
@@ -122,7 +151,6 @@ export default class ModuleService {
     );
     return {
       latestRelease,
-      repositoryUrl,
       name,
       std: isStd,
       importedVersion,
@@ -147,14 +175,12 @@ export default class ModuleService {
       const nameAndVersionAndFile = importLine.split("https://x.nest.land/")[1];
       name = nameAndVersionAndFile.split("@")[0];
     }
-    const repositoryUrl = await NestService.getThirdPartyRepoURL(name);
     const latestRelease = ModuleService.standardiseVersion(
       importedVersion,
       await NestService.getLatestModuleRelease(name),
     );
     return {
       latestRelease,
-      repositoryUrl,
       name,
       std: isStd,
       importedVersion,
@@ -179,9 +205,6 @@ export default class ModuleService {
       const nameAndVersionAndFile = importLine.split("https://deno.land/x/")[1];
       name = nameAndVersionAndFile.split("@")[0];
     }
-    const repositoryUrl: string = isStd
-      ? "https://github.com/denoland/deno/tree/master/std/" + name
-      : await DenoService.getThirdPartyRepoURL(name);
     // Get the latest release - make sure the string is the same format as imported version eg using a "v"
     const latestRelease = ModuleService.standardiseVersion(
       importedVersion,
@@ -189,7 +212,6 @@ export default class ModuleService {
     );
     return {
       latestRelease,
-      repositoryUrl,
       name,
       std: isStd,
       importedVersion,
