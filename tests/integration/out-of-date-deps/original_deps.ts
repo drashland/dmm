@@ -15,3 +15,5 @@ export { Cliffy, colors, Drash, fs, log };
 export { Something } from "https://raw.githubusercontent.com/drashland/wocket/v0.4.0/mod.ts";
 
 export { createBot } from "https://deno.land/x/discordeno@13.0.0-rc34/mod.ts";
+
+import _Table from "https://unpkg.com/table-layout@2.0.0/dist/index.mjs";
