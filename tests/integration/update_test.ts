@@ -46,26 +46,17 @@ Deno.test({
   async fn(): Promise<void> {
     defaultDepsBackToOriginal("out-of-date-deps");
     try {
-      const p = await Deno.run({
-        cmd: [
-          "deno",
-          "run",
-          "--allow-net",
-          "--allow-read",
-          "--allow-write",
-          "../../../mod.ts",
-          "update",
-        ],
-        cwd: outOfDateDepsDir,
-        stdout: "piped",
-        stderr: "piped",
-      });
-      const status = await p.status();
-      const output = await p.output();
-      await p.close();
-      const stdout = new TextDecoder("utf-8").decode(output);
-      const error = await p.stderrOutput();
-      const stderr = new TextDecoder("utf-8").decode(error);
+      const command = new Deno.Command(
+        "deno run --allow-net --allow-read --allow-write ../../../mod.ts update",
+        {
+          cwd: outOfDateDepsDir,
+          stdout: "piped",
+          stderr: "piped",
+        },
+      );
+      const { code, stdout, stderr } = await command.output();
+      const out = new TextDecoder("utf-8").decode(stdout);
+      const err = new TextDecoder("utf-8").decode(stderr);
       const assertedOutput = colours.green("[INFO]") +
         " Gathering information on your dependencies...\n" +
         colours.green("[INFO]") +
@@ -88,10 +79,9 @@ Deno.test({
         ` discordeno was updated from 13.0.0-rc34 to ${latestDiscordDenoRelease}\n` +
         colours.green("[INFO]") +
         ` table-layout was updated from 2.0.0 to ${latestTableLayoutRelease}\n`;
-      assertEquals(stdout, assertedOutput);
-      assertEquals(stderr, "");
-      assertEquals(status.code, 0);
-      assertEquals(status.success, true);
+      assertEquals(out, assertedOutput);
+      assertEquals(err, "");
+      assertEquals(code, 0);
       const originalDepContent = new TextDecoder("utf-8").decode(
         Deno.readFileSync(outOfDateOriginalDepsFile),
       );
@@ -122,37 +112,27 @@ Deno.test({
 Deno.test({
   name: "Should be OK if no modules need to be updated",
   async fn(): Promise<void> {
-    const p = await Deno.run({
-      cmd: [
-        "deno",
-        "run",
-        "--allow-net",
-        "--allow-read",
-        "--allow-write",
-        "../../../mod.ts",
-        "update",
-      ],
-      cwd: upToDateDepsDir,
-      stdout: "piped",
-      stderr: "piped",
-    });
-    const status = await p.status();
-    const output = await p.output();
-    await p.close();
-    const stdout = new TextDecoder("utf-8").decode(output);
-    const error = await p.stderrOutput();
-    const stderr = new TextDecoder("utf-8").decode(error);
+    const command = new Deno.Command(
+      "deno run --allow-net --allow-read --allow-write ../../../mod.ts update",
+      {
+        cwd: upToDateDepsDir,
+        stdout: "piped",
+        stderr: "piped",
+      },
+    );
+    const { code, stdout, stderr } = await command.output();
+    const out = new TextDecoder("utf-8").decode(stdout);
+    const err = new TextDecoder("utf-8").decode(stderr);
     assertEquals(
-      stdout,
+      out,
       colours.green("[INFO]") +
         " Gathering information on your dependencies...\n" +
         colours.green("[INFO]") +
         " Checking if your modules can be updated...\n" +
         colours.green("[INFO]") + " Everything is already up to date\n",
     );
-    assertEquals(stderr, "");
-    assertEquals(status.code, 0);
-    assertEquals(status.success, true);
+    assertEquals(err, "");
+    assertEquals(code, 0);
     const originalDepContent = new TextDecoder("utf-8").decode(
       Deno.readFileSync(upToDateOriginalDepsFile),
     );
@@ -167,30 +147,19 @@ Deno.test({
   name: "Should update when a custom dependency file path is given",
   async fn(): Promise<void> {
     try {
-      const p = await Deno.run({
-        cmd: [
-          "deno",
-          "run",
-          "--allow-net",
-          "--allow-read",
-          "--allow-write",
-          "../../../mod.ts",
-          "update",
-          "--deps-file",
-          "../out-of-date-deps/deps.ts",
-        ],
-        cwd: upToDateDepsDir,
-        stdout: "piped",
-        stderr: "piped",
-      });
-      const status = await p.status();
-      const output = await p.output();
-      await p.close();
-      const stdout = new TextDecoder("utf-8").decode(output);
-      const error = await p.stderrOutput();
-      const stderr = new TextDecoder("utf-8").decode(error);
+      const command = new Deno.Command(
+        "deno run --allow-net --allow-read --allow-write ../../../mod.ts update --deps-file ../out-of-date-deps/deps.ts",
+        {
+          cwd: upToDateDepsDir,
+          stdout: "piped",
+          stderr: "piped",
+        },
+      );
+      const { code, stdout, stderr } = await command.output();
+      const out = new TextDecoder("utf-8").decode(stdout);
+      const err = new TextDecoder("utf-8").decode(stderr);
       assertEquals(
-        stdout,
+        out,
         colours.green("[INFO]") +
           " Gathering information on your dependencies...\n" +
           colours.green("[INFO]") +
@@ -214,9 +183,8 @@ Deno.test({
           colours.green("[INFO]") +
           ` table-layout was updated from 2.0.0 to ${latestTableLayoutRelease}\n`,
       );
-      assertEquals(stderr, "");
-      assertEquals(status.code, 0);
-      assertEquals(status.success, true);
+      assertEquals(err, "");
+      assertEquals(code, 0);
       const originalDepContent = new TextDecoder("utf-8").decode(
         Deno.readFileSync(outOfDateOriginalDepsFile),
       );

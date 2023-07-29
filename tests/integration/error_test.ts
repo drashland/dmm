@@ -5,57 +5,46 @@ import { expectedHelpMessage } from "../data/expected_help_message.ts";
 Deno.test({
   name: "No Purpose",
   async fn(): Promise<void> {
-    const p = await Deno.run({
-      cmd: ["deno", "run", "--allow-net", "--allow-read", "../../../mod.ts"],
-      cwd: upToDateDepsDir,
-      stdout: "piped",
-      stderr: "piped",
-    });
-    const status = await p.status();
-    const output = await p.output();
-    await p.close();
-    const stdout = new TextDecoder("utf-8").decode(output);
-    const error = await p.stderrOutput();
-    const stderr = new TextDecoder("utf-8").decode(error);
+    const command = new Deno.Command(
+      "deno run --allow-net --allow-read ../../../mod.ts",
+      {
+        cwd: upToDateDepsDir,
+        stdout: "piped",
+        stderr: "piped",
+      },
+    );
+    const { code, stdout, stderr } = await command.output();
+    const out = new TextDecoder("utf-8").decode(stdout);
+    const err = new TextDecoder("utf-8").decode(stderr);
     assertEquals(
-      stdout,
+      out,
       expectedHelpMessage,
     );
-    assertEquals(stderr, "");
-    assertEquals(status.code, 0);
-    assertEquals(status.success, true);
+    assertEquals(err, "");
+    assertEquals(code, 0);
   },
 });
 
 Deno.test({
   name: "Purpose is Not Supported",
   async fn(): Promise<void> {
-    const p = await Deno.run({
-      cmd: [
-        "deno",
-        "run",
-        "--allow-net",
-        "--allow-read",
-        "../../../mod.ts",
-        "something",
-      ],
-      cwd: upToDateDepsDir,
-      stdout: "piped",
-      stderr: "piped",
-    });
-    const status = await p.status();
-    const output = await p.output();
-    await p.close();
-    const stdout = new TextDecoder("utf-8").decode(output);
-    const error = await p.stderrOutput();
-    const stderr = new TextDecoder("utf-8").decode(error);
+    const command = new Deno.Command(
+      "deno run --allow-net --allow-read ../../../mod.ts something",
+      {
+        cwd: upToDateDepsDir,
+        stdout: "piped",
+        stderr: "piped",
+      },
+    );
+    const { code, stdout, stderr } = await command.output();
+    const out = new TextDecoder("utf-8").decode(stdout);
+    const err = new TextDecoder("utf-8").decode(stderr);
     assertEquals(
-      stdout,
+      out,
       colours.red("[ERROR] ") +
         "Command 'dmm' used incorrectly. Error(s) found:\n\n  * Unknown argument(s) provided: something.\n\nUSAGE\n\n    dmm [option]\n    dmm [subcommand]\n\n    Run `dmm --help` for more information.\n",
     );
-    assertEquals(stderr, "");
-    assertEquals(status.code, 1);
-    assertEquals(status.success, false);
+    assertEquals(err, "");
+    assertEquals(code, 1);
   },
 });
