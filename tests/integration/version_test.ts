@@ -5,24 +5,25 @@ import { version } from "../../src/commands/version.ts";
 Deno.test({
   name: "Should output the version correctly",
   async fn(): Promise<void> {
-    const p = await Deno.run({
-      cmd: ["deno", "run", "--allow-net", "../../../mod.ts", "--version"],
+    const command = new Deno.Command(Deno.execPath(), {
+      args: [
+        "run",
+        "--allow-net",
+        "../../../mod.ts",
+        "--version",
+      ],
       cwd: upToDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
-    const status = await p.status();
-    const output = await p.output();
-    await p.close();
-    const stdout = new TextDecoder("utf-8").decode(output).replace(
+    const { code, stdout, stderr } = await command.output();
+    const out = new TextDecoder("utf-8").decode(stdout).replace(
       /(\r\n|\n|\r)/gm,
       "",
-    ); // regex to strip line break
-    const error = await p.stderrOutput();
-    const stderr = new TextDecoder("utf-8").decode(error);
-    assertEquals(stdout, `Deno Module Manager v${version}`);
-    assertEquals(stderr, "");
-    assertEquals(status.code, 0);
-    assertEquals(status.success, true);
+    );
+    const err = new TextDecoder("utf-8").decode(stderr);
+    assertEquals(out, `Deno Module Manager v${version}`);
+    assertEquals(err, "");
+    assertEquals(code, 0);
   },
 });

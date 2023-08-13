@@ -5,24 +5,25 @@ import { expectedHelpMessage } from "../data/expected_help_message.ts";
 Deno.test({
   name: "Should display the help text",
   async fn(): Promise<void> {
-    const p = await Deno.run({
-      cmd: ["deno", "run", "--allow-net", "../../../mod.ts", "--help"],
+    const command = new Deno.Command(Deno.execPath(), {
+      args: [
+        "run",
+        "--allow-net",
+        "../../../mod.ts",
+        "--help",
+      ],
       cwd: upToDateDepsDir,
       stdout: "piped",
       stderr: "piped",
     });
-    const status = await p.status();
-    const output = await p.output();
-    await p.close();
-    const stdout = new TextDecoder("utf-8").decode(output);
-    const error = await p.stderrOutput();
-    const stderr = new TextDecoder("utf-8").decode(error);
-    assertEquals(stderr, "");
+    const { code, stdout, stderr } = await command.output();
+    const out = new TextDecoder("utf-8").decode(stdout);
+    const err = new TextDecoder("utf-8").decode(stderr);
+    assertEquals(err, "");
     assertEquals(
-      stdout,
+      out,
       expectedHelpMessage,
     );
-    assertEquals(status.code, 0);
-    assertEquals(status.success, true);
+    assertEquals(code, 0);
   },
 });
