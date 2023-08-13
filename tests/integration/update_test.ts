@@ -46,14 +46,20 @@ Deno.test({
   async fn(): Promise<void> {
     defaultDepsBackToOriginal("out-of-date-deps");
     try {
-      const command = new Deno.Command(
-        "deno run --allow-net --allow-read --allow-write ../../../mod.ts update",
-        {
-          cwd: outOfDateDepsDir,
-          stdout: "piped",
-          stderr: "piped",
-        },
-      );
+      const command = new Deno.Command(Deno.execPath(), {
+        args: [
+          "run",
+          "--allow-net",
+          "--allow-read",
+          "--allow-write",
+          "../../../mod.ts",
+          "update",
+        ],
+
+        cwd: outOfDateDepsDir,
+        stdout: "piped",
+        stderr: "piped",
+      });
       const { code, stdout, stderr } = await command.output();
       const out = new TextDecoder("utf-8").decode(stdout);
       const err = new TextDecoder("utf-8").decode(stderr);
@@ -112,14 +118,19 @@ Deno.test({
 Deno.test({
   name: "Should be OK if no modules need to be updated",
   async fn(): Promise<void> {
-    const command = new Deno.Command(
-      "deno run --allow-net --allow-read --allow-write ../../../mod.ts update",
-      {
-        cwd: upToDateDepsDir,
-        stdout: "piped",
-        stderr: "piped",
-      },
-    );
+    const command = new Deno.Command(Deno.execPath(), {
+      args: [
+        "run",
+        "--allow-net",
+        "--allow-read",
+        "--allow-write",
+        "../../../mod.ts",
+        "update",
+      ],
+      cwd: upToDateDepsDir,
+      stdout: "piped",
+      stderr: "piped",
+    });
     const { code, stdout, stderr } = await command.output();
     const out = new TextDecoder("utf-8").decode(stdout);
     const err = new TextDecoder("utf-8").decode(stderr);
@@ -139,7 +150,7 @@ Deno.test({
     const newDepContent = new TextDecoder("utf-8").decode(
       Deno.readFileSync(upToDateDepsFile),
     );
-    assertEquals(newDepContent === originalDepContent, true);
+    assertEquals(newDepContent, originalDepContent);
   },
 });
 
@@ -147,14 +158,21 @@ Deno.test({
   name: "Should update when a custom dependency file path is given",
   async fn(): Promise<void> {
     try {
-      const command = new Deno.Command(
-        "deno run --allow-net --allow-read --allow-write ../../../mod.ts update --deps-file ../out-of-date-deps/deps.ts",
-        {
-          cwd: upToDateDepsDir,
-          stdout: "piped",
-          stderr: "piped",
-        },
-      );
+      const command = new Deno.Command(Deno.execPath(), {
+        args: [
+          "run",
+          "--allow-net",
+          "--allow-read",
+          "--allow-write",
+          "../../../mod.ts",
+          "update",
+          "--deps-file",
+          "../out-of-date-deps/deps.ts",
+        ],
+        cwd: upToDateDepsDir,
+        stdout: "piped",
+        stderr: "piped",
+      });
       const { code, stdout, stderr } = await command.output();
       const out = new TextDecoder("utf-8").decode(stdout);
       const err = new TextDecoder("utf-8").decode(stderr);

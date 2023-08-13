@@ -5,14 +5,17 @@ import { expectedHelpMessage } from "../data/expected_help_message.ts";
 Deno.test({
   name: "No Purpose",
   async fn(): Promise<void> {
-    const command = new Deno.Command(
-      "deno run --allow-net --allow-read ../../../mod.ts",
-      {
-        cwd: upToDateDepsDir,
-        stdout: "piped",
-        stderr: "piped",
-      },
-    );
+    const command = new Deno.Command(Deno.execPath(), {
+      args: [
+        "run",
+        "--allow-net",
+        "--allow-read",
+        "../../../mod.ts",
+      ],
+      cwd: upToDateDepsDir,
+      stdout: "piped",
+      stderr: "piped",
+    });
     const { code, stdout, stderr } = await command.output();
     const out = new TextDecoder("utf-8").decode(stdout);
     const err = new TextDecoder("utf-8").decode(stderr);
@@ -28,14 +31,18 @@ Deno.test({
 Deno.test({
   name: "Purpose is Not Supported",
   async fn(): Promise<void> {
-    const command = new Deno.Command(
-      "deno run --allow-net --allow-read ../../../mod.ts something",
-      {
-        cwd: upToDateDepsDir,
-        stdout: "piped",
-        stderr: "piped",
-      },
-    );
+    const command = new Deno.Command(Deno.execPath(), {
+      args: [
+        "run",
+        "--allow-net",
+        "--allow-read",
+        "../../../mod.ts",
+        "something",
+      ],
+      cwd: upToDateDepsDir,
+      stdout: "piped",
+      stderr: "piped",
+    });
     const { code, stdout, stderr } = await command.output();
     const out = new TextDecoder("utf-8").decode(stdout);
     const err = new TextDecoder("utf-8").decode(stderr);
